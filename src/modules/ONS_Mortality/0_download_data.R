@@ -1,12 +1,13 @@
 library(curl)
 library(rvest)  
 library(polite)
+library(stringr)
 
-# Download daily deaths data to recreate ONS chart
+                                        # Download daily deaths data to recreate ONS chart
 download.file(
-  "https://www.ons.gov.uk/generator?uri=/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/bulletins/deathsregisteredweeklyinenglandandwalesprovisional/weekending24april2020/5db9eecb&format=csv",
-  destfile = here::here('data','original data', "Figure_7_The_number_of_COVID_19_deaths_in_care_homes_continues_to_increase.csv"),
-  mode = "wb")
+    "https://www.ons.gov.uk/generator?uri=/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/bulletins/deathsregisteredweeklyinenglandandwalesprovisional/weekending24april2020/5db9eecb&format=csv",
+    destfile = here::here('data','original data', "Figure_7_The_number_of_COVID_19_deaths_in_care_homes_continues_to_increase.csv"),
+    mode = "wb")
 
 
 
