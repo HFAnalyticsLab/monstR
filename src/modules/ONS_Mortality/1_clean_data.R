@@ -2,13 +2,13 @@ library(tidyverse) # CRAN v1.3.0
 library(readxl)
 library(janitor)
 
-# Daily place of death
-daily_place_of_death <- read_csv(here::here('data','original data', 
-                                      "Figure_7__The_number_of_COVID-19_deaths_in_care_homes_continues_to_increase.csv"),
-                           skip=6)
+## Daily place of death
+daily_place_of_death <- read_csv(here::here('data','original data',
+                                            "Figure_7_The_number_of_COVID_19_deaths_in_care_homes_continues_to_increase.csv"),
+                                 skip=6)
 
 write_csv(daily_place_of_death, here::here('data', 'daily_place_of_death.csv'))
-# reshape data so it is long
+                                        # reshape data so it is long
 df_long <- pivot_longer(daily_place_of_death, -Date, names_to = 'location', 
                         values_to='deaths') %>% 
   mutate(date=paste0(Date, '-2020'), date=lubridate::dmy(date),
