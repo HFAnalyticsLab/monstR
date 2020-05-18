@@ -1,0 +1,57 @@
+---
+title: "THFOpenDataPipeline"
+author: "The Health Foundation Analytics Lab"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Examples
+
+```{r setup, include = FALSE} 
+
+library(THFOpenDataPipeline)
+library(magrittr)
+
+# get the latest weekly-deaths-local-authority data as a csv.
+ons_datasets_setup() %>%
+    ons_dataset_by_id("weekly-deaths-local-authority") %>%
+	ons_download(filebase="weekly-deaths-local-authority",
+                 format="csv")
+
+# file will be in `data/original data/weekly-deaths-local-authority.vN.csv`
+# metadata about the file will be in `data/original data/weekly-deaths-local-authority.vN.csv.meta.json`
+
+
+
+# Similarly it can be found as an xls
+ons_datasets_setup() %>%
+    ons_dataset_by_id("weekly-deaths-local-authority") %>%
+	ons_download(filebase="weekly-deaths-local-authority",
+                 format="xls")
+
+
+
+datasets <- ons_datasets_setup()
+## get the metadata about v4 of the time-series edition of weekly-deaths-local-authority dataset.
+wdla4_meta <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series", version=4)
+
+# download it
+wdla4_data  %>% ons_download(filebase="weekly-deaths-local-authority",
+                       format="csvw")
+
+# Or get the latest
+wdla_latest <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series")
+
+
+# csv for the web meta data about the schema of the data.
+wdla_csvw %>% ons_download(filebase="weekly-deaths-local-authority",
+                             format="csvw")
+
+```
+
+
+## More Examples
