@@ -30,9 +30,10 @@ ons_dataset_by_id <- function (df, id, edition, version) {
             ons_edition_by_name(edition)
 
         if (missing(version)) {
-            log_info("Version of %s edition not specified, defaulting to  atest version", edition)
+            log_info("Version of ", edition, " edition not specified, defaulting to latest version")
             link <- metadata$links$latest_version$href
         } else {
+            log_info("Version ", version, " of ", edition, " edition selected")
             link <- sprintf("%s/versions/%d", metadata$links$self$href, version)
         }
     }
@@ -65,6 +66,20 @@ ons_download <- function (df, filebase, format="csv") {
                 to=to)
     log_info(sprintf("File created at %s ", to))
 }
+
+
+
+fromJSON("https://api.beta.ons.gov.uk/v1/datasets") %>%
+    ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series") %>%
+    ons_download(filebase="weekly-deaths-local-authority",
+                 format="csv")
+
+
+
+
+
+
+
 
 
 ## # Download daily deaths data to recreate ONS chart
