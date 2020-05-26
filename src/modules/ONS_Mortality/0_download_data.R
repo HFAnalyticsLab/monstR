@@ -42,29 +42,57 @@ ons_dataset_by_id <- function (df, id, edition, version) {
     fromJSON(link)
 }
 
+
+safe_download <- function (url, destfile, fvalidate) {
+    success = TRUE
+
+    tryCatch({
+        tmp <- tempfile()
+        curl_download(url=url,
+                      destfile=tmp)
+
+        file.rename(from=tmp,
+                    to=destfile)
+        if(!missing(fvalidate)) {
+            if(!fvalidate(destfile)) {
+                success = FALSE
+                log_error("file ", destfile, " failed validation. Deleting it")
+                file.remove(destfile)
+            }
+        }
+    },
+    finally = if (file.exists(tmp)) {file.remove(tmp)})
+
+    success
+}
+
 ons_download <- function (df, filebase, format="csv") {
     metadata <-
         df %>%
         ons_download_by_format(format)  ## TODO - error if format not found?
 
-    expected_size = as.numeric(metadata$size)
-    tmp <- tempfile()
+    validate_file <- function(f) {
+        expected_size = as.numeric(metadata$size)
 
-    log_info(sprintf("Downloading data from %s", metadata$href))
-    curl_download(url=c(metadata$href),
-                  destfile= tmp)
-
-    if (file.size(tmp) != metadata$size) {
-        log_error(sprintf("Inconsistent file size expected %d, got %d",
-                          expected_size,
-                          file.size(tmp)))
+        if (file.size(f) != expected_size) {
+            log_error(sprintf("Inconsistent file size expected %d, got %d",
+                              expected_size,
+                              file.size(f)))
+            FALSE
+        } else {
+            TRUE
+        }
     }
 
-    to <-here::here('data','original data',
-                    sprintf("%s.%s", filebase, format));
-    file.rename(from=tmp,
-                to=to)
-    log_info(sprintf("File created at %s ", to))
+    log_info(sprintf("Downloading data from %s", metadata$href))
+
+    destfile <- here::here('data','original data',
+                           sprintf("%s.%s", filebase, format))
+    if (safe_download(url=c(metadata$href),
+                      destfile=destfile,
+                      fvalidate=validate_file)) {
+        log_info(sprintf("File created at %s ", destfile))
+    }
 }
 
 
@@ -73,9 +101,6 @@ fromJSON("https://api.beta.ons.gov.uk/v1/datasets") %>%
     ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series") %>%
     ons_download(filebase="weekly-deaths-local-authority",
                  format="csv")
-
-
-
 
 
 
