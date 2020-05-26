@@ -5,7 +5,9 @@ install.packages(c("devtools",
                    "tidyverse",
                    "here",
                    "polite",
-                   "janitor"))
+                   "janitor",
+                   "jsonlite",
+                   "logger"))
 
 ## TODO - probably not needed in the pipeline code, but we have it for
 ## now until refactoring complete.
