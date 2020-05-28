@@ -95,9 +95,11 @@ ons_download <- function (df, filebase, format="csv") {
     }
 }
 
+ons_datasets_setup <- function() {
+    fromJSON("https://api.beta.ons.gov.uk/v1/datasets")
+}
 
-
-fromJSON("https://api.beta.ons.gov.uk/v1/datasets") %>%
+ons_datasets_setup() %>%
     ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series") %>%
     ons_download(filebase="weekly-deaths-local-authority",
                  format="csv")
