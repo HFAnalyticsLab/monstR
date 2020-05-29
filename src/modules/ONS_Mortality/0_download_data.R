@@ -51,14 +51,18 @@ safe_download <- function (url, destfile, fvalidate) {
         curl_download(url=url,
                       destfile=tmp)
 
-        file.rename(from=tmp,
-                    to=destfile)
-        if(!missing(fvalidate)) {
-            if(!fvalidate(destfile)) {
-                success = FALSE
-                log_error("file ", destfile, " failed validation. Deleting it")
-                file.remove(destfile)
-            }
+        if(!missing(fvalidate) && !fvalidate(tmp)) {
+            success = FALSE
+            ## report the destfile name to not confuse user, although not strictly true
+            log_error("file ", destfile, " failed validation. Deleting it")
+        }
+
+        ## rename to final destination. This is generally an atomic operation, so
+        ## we can assume the final file only appears if this succeeds.
+        if (success && !file.rename(from=tmp,
+                                    to=destfile)) {
+            success = FALSE
+            log_error("file ", destfile, " Not created!")
         }
     },
     finally = if (file.exists(tmp)) {file.remove(tmp)})
@@ -106,6 +110,8 @@ ons_download <- function (df, filebase, format="csv") {
     }
 }
 
+#' ONS Datasets Setup
+#'
 ons_datasets_setup <- function() {
     fromJSON("https://api.beta.ons.gov.uk/v1/datasets")
 }
