@@ -66,6 +66,16 @@ safe_download <- function (url, destfile, fvalidate) {
     success
 }
 
+write_metadata <- function (metadata, destfile) {
+    json <-toJSON(metadata, pretty=TRUE, flatten=TRUE)
+    tryCatch ({
+        f <- file(destfile)
+        writeLines(c(json), con=f, sep='')
+    },
+    finally = close(f)
+    )
+}
+
 ons_download <- function (df, filebase, format="csv") {
     metadata <-
         df %>%
@@ -91,6 +101,7 @@ ons_download <- function (df, filebase, format="csv") {
     if (safe_download(url=c(metadata$href),
                       destfile=destfile,
                       fvalidate=validate_file)) {
+        write_metadata(metadata, sprintf("%s.meta.json", destfile))
         log_info(sprintf("File created at %s ", destfile))
     }
 }
