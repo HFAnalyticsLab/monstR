@@ -43,6 +43,13 @@ ons_dataset_by_id <- function (df, id, edition, version) {
 }
 
 
+#' Safe Download
+#'
+#' \code{(safe_download)} downloads a file and tries hard to tidy up in
+#' the event of errors. Since these files are typically large we don't
+#' want to leave them in temp directories.
+#'
+#' The destfile should only appear if the download was successful.
 safe_download <- function (url, destfile, fvalidate) {
     success = TRUE
 
