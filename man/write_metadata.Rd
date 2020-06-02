@@ -2,7 +2,10 @@
 % Please edit documentation in R/ons.R
 \name{write_metadata}
 \alias{write_metadata}
-\title{Write Metadata}
+\title{Write Metadata
+
+\code{(write_metadata)} writes some metadata about where the file came from.
+TODO - could do this with fs xattr, but maybe that's not well known by users?}
 \usage{
 write_metadata(metadata, destfile)
 }
@@ -12,6 +15,8 @@ write_metadata(metadata, destfile)
 \item{destfile}{filename into which the metadata should be written as JSON}
 }
 \description{
+Write Metadata
+
 \code{(write_metadata)} writes some metadata about where the file came from.
 TODO - could do this with fs xattr, but maybe that's not well known by users?
 }

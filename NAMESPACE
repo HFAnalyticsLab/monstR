@@ -3,3 +3,7 @@
 export(ons_dataset_by_id)
 export(ons_datasets_setup)
 export(ons_download)
+import(curl)
+import(jsonlite)
+import(logger)
+importFrom(magrittr,"%>%")

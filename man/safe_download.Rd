@@ -2,7 +2,13 @@
 % Please edit documentation in R/ons.R
 \name{safe_download}
 \alias{safe_download}
-\title{Safe Download}
+\title{Safe Download
+
+Downloads a file and tries hard to tidy up in
+the event of errors. Since these files are typically large we don't
+want to leave them in temp directories.
+
+The destfile should only appear if the download was successful.}
 \usage{
 safe_download(url, destfile, fvalidate)
 }
@@ -16,10 +22,11 @@ validate it in some way. The fn should return TRUE if the file
 is valid.}
 }
 \description{
-\code{(safe_download)} downloads a file and tries hard to tidy up in
+Safe Download
+
+Downloads a file and tries hard to tidy up in
 the event of errors. Since these files are typically large we don't
 want to leave them in temp directories.
-}
-\details{
+
 The destfile should only appear if the download was successful.
 }

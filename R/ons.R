@@ -1,33 +1,25 @@
-library(curl)
-library(rvest)
-library(polite)
-library(stringr)
-library(jsonlite)
-library(purrr)
-library(logger)
 
-
-
-#' Safe Download
-#'
-#' \code{(safe_download)} downloads a file and tries hard to tidy up in
-#' the event of errors. Since these files are typically large we don't
-#' want to leave them in temp directories.
-#'
-#' The destfile should only appear if the download was successful.
-#'
-#' @param url src for the download
-#' @param destfile destination filename
-#' @param fvalidate a fn that is passed the filename after download to
-#'     validate it in some way. The fn should return TRUE if the file
-#'     is valid.
+##' @title Safe Download
+##'
+##' Downloads a file and tries hard to tidy up in
+##' the event of errors. Since these files are typically large we don't
+##' want to leave them in temp directories.
+##'
+##' The destfile should only appear if the download was successful.
+##'
+##' @param url src for the download
+##' @param destfile destination filename
+##' @param fvalidate a fn that is passed the filename after download to
+##'     validate it in some way. The fn should return TRUE if the file
+##'     is valid.
+##' @import curl
 safe_download <- function(url, destfile, fvalidate) {
     success <- TRUE
 
     tryCatch({
         tmp <- tempfile()
-        curl_download(url = url,
-                      destfile = tmp)
+        curl::curl_download(url = url,
+                            destfile = tmp)
 
         if (!missing(fvalidate) && !fvalidate(tmp)) {
             success <- FALSE
@@ -48,7 +40,7 @@ safe_download <- function(url, destfile, fvalidate) {
     success
 }
 
-#' Write Metadata
+#' @title Write Metadata
 #'
 #' \code{(write_metadata)} writes some metadata about where the file came from.
 #' TODO - could do this with fs xattr, but maybe that's not well known by users?
@@ -56,7 +48,7 @@ safe_download <- function(url, destfile, fvalidate) {
 #' @param metadata a dataframe containing metadata
 #' @param destfile filename into which the metadata should be written as JSON
 write_metadata <- function(metadata, destfile) {
-    json <- toJSON(metadata, pretty = TRUE, flatten = TRUE)
+    json <- jsonlite::toJSON(metadata, pretty = TRUE, flatten = TRUE)
     tryCatch({
         f <- file(destfile)
         writeLines(c(json), con = f, sep = "")
@@ -73,16 +65,20 @@ write_metadata <- function(metadata, destfile) {
 
 ## TODO - fix weirdness here - should be able to df$items %>%
 ## filter(...) rather than this detect_index but some type confusion
+
+##' @importFrom magrittr %>%
 ons_item_by_id <- function(df, id) {
-    df$items[df$items$id %>% detect_index(~ . == id), ]
+    df$items[df$items$id %>% purrr::detect_index(~ . == id), ]
 }
 
+##' @importFrom magrittr %>%
 ons_edition_by_name <- function(df, edition) {
-    df$items[df$items$edition %>% detect_index(~ . == edition), ]
+    df$items[df$items$edition %>% purrr::detect_index(~ . == edition), ]
 }
 
+##' @importFrom magrittr %>%
 ons_version_by_version <- function(df, version) {
-    df$items[df$items$version %>% detect_index(~ . == version), ]
+    df$items[df$items$version %>%  purrr::detect_index(~ . == version), ]
 }
 
 ## END TODO - make these fns more general?
@@ -92,8 +88,9 @@ ons_download_by_format <- function(df, format) {
 }
 
 ## TODO - is there a std fn for this?
+##' @import logger
 log_panic <- function(...) {
-    log_error(...)
+    logger::log_error(...)
     quit(status = 1)
 }
 ##' Retrieves a dataframe describing the datasets available from ONS via the API.
@@ -103,8 +100,9 @@ log_panic <- function(...) {
 ##' @return a dataframe describing available datasets
 ##' @author neale
 ##' @export
+##' @import jsonlite
 ons_datasets_setup <- function() {
-    fromJSON("https://api.beta.ons.gov.uk/v1/datasets")
+    jsonlite::fromJSON("https://api.beta.ons.gov.uk/v1/datasets")
 }
 
 #' Retrieve the metadata for the given dataset.
@@ -121,33 +119,35 @@ ons_datasets_setup <- function() {
 #' @return
 #' @author neale
 #' @export
+##' @importFrom magrittr %>%
+##' @import logger
 ons_dataset_by_id <- function(df, id, edition, version) {
     links <- ons_item_by_id(df, id)$links
     if (missing(edition)) {
-        log_info("Edition not specified, defaulting to  latest version")
+        logger::log_info("Edition not specified, defaulting to  latest version")
         link <- links$latest_version$href
     } else {
         metadata <-
-            fromJSON(links$editions$href) %>%
+            jsonlite::fromJSON(links$editions$href) %>%
             ons_edition_by_name(edition)
 
         is_latest <- FALSE
         if (missing(version)) {
-            log_info("Version of ", edition,
-                     " edition not specified, defaulting to latest version")
+            logger::log_info("Version of ", edition,
+                             " edition not specified, defaulting to latest version")
             link <- metadata$links$latest_version$href
             is_latest <- TRUE
         } else {
             version_metadata <-
-                fromJSON(metadata$links$versions$href) %>%
+                jsonlite::fromJSON(metadata$links$versions$href) %>%
                 ons_version_by_version(version)
 
             if (nrow(version_metadata) == 0) {
                 log_panic("Version ", version, " of ", edition,
                           " is not available")
             } else {
-                log_info("Version ", version, " of ", edition,
-                         " edition selected")
+                logger::log_info("Version ", version, " of ", edition,
+                                 " edition selected")
             }
 
             link <- version_metadata$links$self$href
@@ -157,20 +157,23 @@ ons_dataset_by_id <- function(df, id, edition, version) {
         }
     }
 
-    log_info(sprintf("Retrieving dataset metadata from %s", link))
-    dataset <- fromJSON(link)
+    logger::log_info(sprintf("Retrieving dataset metadata from %s", link))
+    dataset <- jsonlite::fromJSON(link)
     dataset$is_latest <- is_latest
 
     dataset
 }
 
-#' Download
-#'
-#' \code{ons_download} retrieves the data described by the given df
-#' @param df dataframe
-#' @param filebase base of the filename to which the data should be downloaded
-#' @param format a valid format for the download
-#' @export
+##' Download
+##'
+##' \code{ons_download} retrieves the data described by the given df
+##' @param df dataframe
+##' @param filebase base of the filename to which the data should be downloaded
+##' @param format a valid format for the download
+##' @export
+##' @importFrom magrittr %>%
+##' @import logger
+
 ons_download <- function(df, filebase, format="csv") {
     download <-
         df %>%
@@ -189,7 +192,7 @@ ons_download <- function(df, filebase, format="csv") {
         }
     }
 
-    log_info(sprintf("Downloading data from %s", download$href))
+    logger::log_info(sprintf("Downloading data from %s", download$href))
 
     destfile <- here::here("data",
                            "original data",
@@ -200,7 +203,7 @@ ons_download <- function(df, filebase, format="csv") {
                       destfile = destfile,
                       fvalidate = validate_file)) {
         write_metadata(df, sprintf("%s.meta.json", destfile))
-        log_info(sprintf("File created at %s ", destfile))
+        logger::log_info(sprintf("File created at %s ", destfile))
     }
 
     if (df$is_latest) {
