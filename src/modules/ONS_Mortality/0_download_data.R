@@ -7,6 +7,13 @@ library(purrr)
 library(logger)
 
 ## START TODO - make these fns more general?
+## Something like this (but this example doesn't work):
+## ons_get_item_by <- function(df, name, value) {
+##     df$items[df$items[name] %>% detect_index(~ . == value)]
+## }
+
+## TODO - fix weirdness here - should be able to df$items %>%
+## filter(...) rather than this detect_index but some type confusion
 ons_item_by_id <- function(df, id) {
     df$items[df$items$id %>% detect_index(~ . == id),]
 }
@@ -25,11 +32,10 @@ ons_download_by_format <- function(df, format) {
     df$downloads[[format]]
 }
 
-
 ## TODO - is there a std fn for this?
 log_panic <- function(...) {
     log_error(...)
-    quit(status=1)
+    quit(status = 1)
 }
 
 ##' .. content for \description{} (no empty lines) ..
@@ -58,8 +64,10 @@ ons_dataset_by_id <- function (df, id, edition, version) {
             link <- metadata$links$latest_version$href
             is_latest <- TRUE
         } else {
-            version_metadata = fromJSON(metadata$links$versions$href) %>% ons_version_by_version(version)
-            print(version_metadata)
+            version_metadata =
+                fromJSON(metadata$links$versions$href) %>%
+                ons_version_by_version(version)
+
             if (nrow(version_metadata) == 0) {
                 log_panic("Version ", version, " of ", edition, " is not available")
             } else {
@@ -171,9 +179,14 @@ ons_download <- function (df, filebase, format="csv") {
     }
 
     if (df$is_latest) {
+        linkfile <-here::here('data','original data',
+                              sprintf("%s.LATEST.%s", filebase, format))
+        if (file.exists(linkfile)) {
+            file.remove(linkfile)
+        }
+
         file.symlink(destfile,
-                     here::here('data','original data',
-                                sprintf("%s.LATEST.%s", filebase, format)))
+                     linkfile)
     }
 
     df
@@ -185,7 +198,16 @@ ons_datasets_setup <- function() {
     fromJSON("https://api.beta.ons.gov.uk/v1/datasets")
 }
 
-ons_datasets_setup() %>%
-    ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series") %>%
-    ons_download(filebase="weekly-deaths-local-authority",
-                 format="csv")
+
+datasets <- ons_datasets_setup()
+
+wdla4 <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series", version=4)
+
+wdla_latest <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series")
+
+
+wdla4 %>% ons_download(filebase="weekly-deaths-local-authority",
+                       format="csvw")
+
+wdla_latest %>% ons_download(filebase="weekly-deaths-local-authority",
+                             format="csvw")
