@@ -8,8 +8,7 @@ Authors@R:
            email = "neale@mastodonc.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+License: MIT + file LICENSE.md
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -20,4 +19,6 @@ Imports:
    polite,
    janitor,
    jsonlite,
-   logger
+   logger,
+   magrittr,
+   curl
