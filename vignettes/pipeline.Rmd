@@ -1,0 +1,32 @@
+---
+title: "THFOpenDataPipeline"
+author: "The Health Foundation Analytics Lab"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Examples
+
+```{r setup, include = FALSE}
+datasets <- ons_datasets_setup()
+
+## get the metadata about v4 of the time-series edition of weekly-deaths-local-authority dataset.
+wdla4 <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series", version=4)
+
+wdla_latest <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series")
+
+
+wdla4 %>% ons_download(filebase="weekly-deaths-local-authority",
+                       format="csvw")
+
+wdla_latest %>% ons_download(filebase="weekly-deaths-local-authority",
+                             format="csvw")
+
+```
+
+
+## More Examples
