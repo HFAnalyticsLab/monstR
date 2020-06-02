@@ -138,7 +138,7 @@ ons_download <- function(df, filebase, format="csv") {
     logger::log_info(sprintf("Downloading data from %s", download$href))
 
     destfile <- here::here("data",
-                           "original data",
+                           "original_data",
                            sprintf("%s.v%02d.%s",
                                    filebase, as.numeric(df$version), format))
 
@@ -151,7 +151,7 @@ ons_download <- function(df, filebase, format="csv") {
 
     if (df$is_latest) {
         linkfile <- here::here("data",
-                               "original data",
+                               "original_data",
                                sprintf("%s.LATEST.%s", filebase, format))
         if (file.exists(linkfile)) {
             file.remove(linkfile)
