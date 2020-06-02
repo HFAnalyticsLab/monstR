@@ -7,7 +7,8 @@ install.packages(c("devtools",
                    "polite",
                    "janitor",
                    "jsonlite",
-                   "logger"))
+                   "logger",
+                   "roxygen2"))
 
 ## TODO - probably not needed in the pipeline code, but we have it for
 ## now until refactoring complete.
