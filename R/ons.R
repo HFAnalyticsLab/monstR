@@ -41,7 +41,7 @@ log_panic <- function(...) {
 ##' This returns a dataframe containing details that can be passed to other fns in this package for further processing
 ##' @title Datasets Setup
 ##' @return a dataframe describing available datasets
-##' @author neale
+##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import jsonlite
 ons_datasets_setup <- function() {
@@ -60,7 +60,7 @@ ons_datasets_setup <- function() {
 #' @param edition the edition of the dataset (if empty, select latest)
 #' @param version the version of the dataset (if empty, select latest)
 #' @return
-#' @author neale
+#' @author Neale Swinnerton <neale@mastodonc.com>
 #' @export
 ##' @importFrom magrittr %>%
 ##' @import logger

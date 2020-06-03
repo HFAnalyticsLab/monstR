@@ -27,5 +27,5 @@ datasets. The dataset selection can be refined via the edition and
 version parameters
 }
 \author{
-neale
+Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}
 }

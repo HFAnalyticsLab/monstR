@@ -16,5 +16,5 @@ Retrieves a dataframe describing the datasets available from ONS via the API.
 This returns a dataframe containing details that can be passed to other fns in this package for further processing
 }
 \author{
-neale
+Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}
 }
