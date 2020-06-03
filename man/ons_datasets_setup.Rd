@@ -13,7 +13,8 @@ a dataframe describing available datasets
 Retrieves a dataframe describing the datasets available from ONS via the API.
 }
 \details{
-This returns a dataframe containing details that can be passed to other fns in this package for further processing
+This returns a dataframe containing details that can be passed to
+other fns in this package for further processing
 }
 \author{
 Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}

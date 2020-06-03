@@ -9,11 +9,11 @@ ons_dataset_by_id(df, id, edition, version)
 \arguments{
 \item{df}{dataframe describing the dataset}
 
-\item{id}{the identifier of the dataset}
+\item{id}{the identifier of the dataset. Valid values from \code{ons_available_datasets()}}
 
-\item{edition}{the edition of the dataset (if empty, select latest)}
+\item{edition}{the edition of the dataset (if empty, select latest). Valid values from \code{ons_available_editions(...)}}
 
-\item{version}{the version of the dataset (if empty, select latest)}
+\item{version}{the version of the dataset (if empty, select latest). Valid values from \code{ons_available_available(...)}}
 }
 \value{
 

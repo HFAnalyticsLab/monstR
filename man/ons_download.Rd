@@ -7,7 +7,7 @@
 ons_download(df, filebase, format = "csv")
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{dataframe describing the download}
 
 \item{filebase}{base of the filename to which the data should be downloaded}
 

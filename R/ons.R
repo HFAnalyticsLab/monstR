@@ -9,6 +9,9 @@
 ## TODO - fix weirdness here - should be able to df$items %>%
 ## filter(...) rather than this detect_index but some type confusion
 
+api_base_url <- "https://api.beta.ons.gov.uk/v1/datasets"
+
+
 ##' @importFrom magrittr %>%
 ons_item_by_id <- function(df, id) {
     df$items[df$items$id %>% purrr::detect_index(~ . == id), ]
@@ -38,14 +41,23 @@ log_panic <- function(...) {
 }
 ##' Retrieves a dataframe describing the datasets available from ONS via the API.
 ##'
-##' This returns a dataframe containing details that can be passed to other fns in this package for further processing
+##' This returns a dataframe containing details that can be passed to
+##' other fns in this package for further processing
 ##' @title Datasets Setup
 ##' @return a dataframe describing available datasets
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import jsonlite
 ons_datasets_setup <- function() {
-    jsonlite::fromJSON("https://api.beta.ons.gov.uk/v1/datasets")
+    jsonlite::fromJSON(api_base_url)
+}
+
+##' @title Available Datasets
+##' @param df dataframe describing the datasets from \code{ons_datasets_setup()}
+##' @return
+##' @author Neale Swinnerton <neale@mastodonc.com>
+ons_available_datasets <- function(df) {
+    df$items %>% select(id)
 }
 
 #' Retrieve the metadata for the given dataset.
@@ -56,9 +68,9 @@ ons_datasets_setup <- function() {
 #'
 #' @title Dataset By Id
 #' @param df dataframe describing the dataset
-#' @param id the identifier of the dataset
-#' @param edition the edition of the dataset (if empty, select latest)
-#' @param version the version of the dataset (if empty, select latest)
+#' @param id the identifier of the dataset. Valid values from \code{ons_available_datasets()}
+#' @param edition the edition of the dataset (if empty, select latest). Valid values from \code{ons_available_editions(...)}
+#' @param version the version of the dataset (if empty, select latest). Valid values from \code{ons_available_available(...)}
 #' @return
 #' @author Neale Swinnerton <neale@mastodonc.com>
 #' @export
@@ -69,6 +81,7 @@ ons_dataset_by_id <- function(df, id, edition, version) {
     if (missing(edition)) {
         logger::log_info("Edition not specified, defaulting to  latest version")
         link <- links$latest_version$href
+        is_latest <- TRUE
     } else {
         metadata <-
             jsonlite::fromJSON(links$editions$href) %>%
@@ -106,11 +119,33 @@ ons_dataset_by_id <- function(df, id, edition, version) {
 
     dataset
 }
+##' @title Available Editions
+##' @param id dataset identifier. Valid values from \code{ons_available_datasets(...)}
+##' @return a list of edition identifiers
+##' @author Neale Swinnerton <neale@mastodonc.com>
+ons_available_editions <- function(id) {
+    metadata <- jsonlite::fromJSON(sprintf("%s/%s/editions", api_base_url, id))
+
+    metadata$items %>%
+        select(edition)
+}
+
+##' @title Available Versions
+##' @param id dataset identifier. Valid values from \code{ons_available_datasets(...)}
+##' @param edition edition identifier. Valid values from \code{ons_available_editions(...)}
+##' @return a list of version identifiers
+##' @author Neale Swinnerton <neale@mastodonc.com>
+ons_available_versions <- function(id, edition) {
+    metadata <- jsonlite::fromJSON(sprintf("%s/%s/editions/%s/versions", api_base_url, id, edition))
+
+    metadata$items %>%
+        select(version)
+}
 
 ##' Download
 ##'
 ##' \code{ons_download} retrieves the data described by the given df
-##' @param df dataframe
+##' @param df dataframe describing the download
 ##' @param filebase base of the filename to which the data should be downloaded
 ##' @param format a valid format for the download
 ##' @export
