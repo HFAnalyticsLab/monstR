@@ -1,1 +1,5 @@
+^Meta$
+^doc$
 ^LICENSE\.md$
+^\.dir-locals\.el$
+^\.github/.*$

@@ -9,20 +9,19 @@
 ## TODO - fix weirdness here - should be able to df$items %>%
 ## filter(...) rather than this detect_index but some type confusion
 
+usethis::use_pipe()
+
 api_base_url <- "https://api.beta.ons.gov.uk/v1/datasets"
 
 
-##' @importFrom magrittr %>%
 ons_item_by_id <- function(df, id) {
     df$items[df$items$id %>% purrr::detect_index(~ . == id), ]
 }
 
-##' @importFrom magrittr %>%
 ons_edition_by_name <- function(df, edition) {
     df$items[df$items$edition %>% purrr::detect_index(~ . == edition), ]
 }
 
-##' @importFrom magrittr %>%
 ons_version_by_version <- function(df, version) {
     df$items[df$items$version %>%  purrr::detect_index(~ . == version), ]
 }
@@ -54,10 +53,11 @@ ons_datasets_setup <- function() {
 
 ##' @title Available Datasets
 ##' @param df dataframe describing the datasets from \code{ons_datasets_setup()}
-##' @return
+##' @return list of available datasets
 ##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @import dplyr
 ons_available_datasets <- function(df) {
-    df$items %>% select(id)
+    df$items %>% dplyr::select(id)
 }
 
 #' Retrieve the metadata for the given dataset.
@@ -71,10 +71,9 @@ ons_available_datasets <- function(df) {
 #' @param id the identifier of the dataset. Valid values from \code{ons_available_datasets()}
 #' @param edition the edition of the dataset (if empty, select latest). Valid values from \code{ons_available_editions(...)}
 #' @param version the version of the dataset (if empty, select latest). Valid values from \code{ons_available_available(...)}
-#' @return
+#' @return a dataframe describing the dataset.
 #' @author Neale Swinnerton <neale@mastodonc.com>
 #' @export
-##' @importFrom magrittr %>%
 ##' @import logger
 ons_dataset_by_id <- function(df, id, edition, version) {
     links <- ons_item_by_id(df, id)$links
@@ -123,11 +122,12 @@ ons_dataset_by_id <- function(df, id, edition, version) {
 ##' @param id dataset identifier. Valid values from \code{ons_available_datasets(...)}
 ##' @return a list of edition identifiers
 ##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @import dplyr
 ons_available_editions <- function(id) {
     metadata <- jsonlite::fromJSON(sprintf("%s/%s/editions", api_base_url, id))
 
     metadata$items %>%
-        select(edition)
+        dplyr::select(matches("edition"))
 }
 
 ##' @title Available Versions
@@ -135,11 +135,12 @@ ons_available_editions <- function(id) {
 ##' @param edition edition identifier. Valid values from \code{ons_available_editions(...)}
 ##' @return a list of version identifiers
 ##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @import dplyr
 ons_available_versions <- function(id, edition) {
     metadata <- jsonlite::fromJSON(sprintf("%s/%s/editions/%s/versions", api_base_url, id, edition))
 
     metadata$items %>%
-        select(version)
+        dplyr::select(version)
 }
 
 ##' Download
@@ -149,8 +150,8 @@ ons_available_versions <- function(id, edition) {
 ##' @param filebase base of the filename to which the data should be downloaded
 ##' @param format a valid format for the download
 ##' @export
-##' @importFrom magrittr %>%
 ##' @import logger
+##' @import here
 
 ons_download <- function(df, filebase, format="csv") {
     download <-

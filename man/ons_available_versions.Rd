@@ -18,5 +18,5 @@ a list of version identifiers
 Available Versions
 }
 \author{
-neale
+Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}
 }

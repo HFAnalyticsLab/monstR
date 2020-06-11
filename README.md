@@ -3,6 +3,8 @@
 
 #### Project Status: in progress
 
+![R-CMD-check](https://github.com/HFAnalyticsLab/Open_data_pipelines/workflows/R-CMD-check/badge.svg)
+
 ## Project Description
 
 Open-source R pipeline to download and clean public data related to health and social care. The aim is to provide analysts, primarily at the Health Foundation, with clean and ready for analysis data/ 
@@ -25,6 +27,23 @@ The HES pipeline was built under R version 3.6.2 (2019-12-12) -- "Dark and Storm
 The following R packages, which are available on CRAN, are required to run the open data pipeline:
 
 *  [tidyverse](https://www.tidyverse.org/)(1.2.1)
+
+## Installation
+
+library(devtools)
+
+If you have cloned a local copy of the repo, you should be able to load it using devtools
+
+<pre>
+<!-- use a pre to allow italics, urrgh -->
+setwd("<i>{location of Open_data_pipelines repo}</i>")
+devtools::load_all()
+</pre>
+
+or to install direct from Github
+```
+devtools::install_github("HFAnalyticsLab", "Open_data_pipelines")
+```
 
 ## Authors
 * **Neale Swinnerton** -  [Github](https://github.com/sw1nn)

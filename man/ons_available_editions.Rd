@@ -16,5 +16,5 @@ a list of edition identifiers
 Available Editions
 }
 \author{
-neale
+Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}
 }

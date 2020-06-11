@@ -10,11 +10,11 @@ ons_available_datasets(df)
 \item{df}{dataframe describing the datasets from \code{ons_datasets_setup()}}
 }
 \value{
-
+list of available datasets
 }
 \description{
 Available Datasets
 }
 \author{
-neale
+Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}
 }

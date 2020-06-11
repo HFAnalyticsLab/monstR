@@ -11,7 +11,7 @@ vignette: >
 
 ## Examples
 
-```{r setup, include = FALSE} 
+```{r , eval = FALSE, include = FALSE} 
 
 library(THFOpenDataPipeline)
 library(magrittr)

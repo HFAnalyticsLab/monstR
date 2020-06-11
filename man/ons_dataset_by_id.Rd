@@ -16,7 +16,7 @@ ons_dataset_by_id(df, id, edition, version)
 \item{version}{the version of the dataset (if empty, select latest). Valid values from \code{ons_available_available(...)}}
 }
 \value{
-
+a dataframe describing the dataset.
 }
 \description{
 Retrieve the metadata for the given dataset.
