@@ -8,17 +8,21 @@ Authors@R:
            email = "neale@mastodonc.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
-License: MIT + file LICENSE.md
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 6.1.1
 Imports:
-   tidyverse,
-   here,
-   polite,
-   janitor,
-   jsonlite,
-   logger,
-   magrittr,
-   curl
+    magrittr,
+    logger,
+    jsonlite,
+    usethis,
+    curl,
+    purrr,
+    here,
+    dplyr
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
