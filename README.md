@@ -3,6 +3,8 @@
 
 #### Project Status: in progress
 
+![R-CMD-check](https://github.com/HFAnalyticsLab/Open_data_pipelines/workflows/R-CMD-check/badge.svg)
+
 ## Project Description
 
 Open-source R pipeline to download and clean public data related to health and social care. The aim is to provide analysts, primarily at the Health Foundation, with clean and ready for analysis data/ 
