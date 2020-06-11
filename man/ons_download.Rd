@@ -4,14 +4,22 @@
 \alias{ons_download}
 \title{Download}
 \usage{
-ons_download(df, filebase, format = "csv")
+ons_download(df,
+  filename_template = "{{root}}/data/{{datasource}}/{{dataset}}/{{edition}}/v-{{version}}.{{format}}",
+  format = "csv", download_root = "")
 }
 \arguments{
 \item{df}{dataframe describing the download}
 
-\item{filebase}{base of the filename to which the data should be downloaded}
+\item{filename_template}{A mustache template. See
+\code{\link{whisker}} for details}
 
 \item{format}{a valid format for the download}
+
+\item{download_root}{The file path of the root of the directory
+structure. If not supplied will discover the root by walking
+up the directory hierarchy similarly to
+\code{\link{here}}}
 }
 \description{
 \code{ons_download} retrieves the data described by the given df

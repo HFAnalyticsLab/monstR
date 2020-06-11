@@ -56,3 +56,28 @@ write_metadata <- function(metadata, destfile) {
     finally = close(f)
     )
 }
+
+
+##' @title generate a filename for a download
+##'
+##' @import whisker
+##' @param template \link{whisker} template
+##' @param root the root of the directory hierarchy
+##' @param data data used to populate the template
+##' @param create_directory boolean indicating whether to
+##'     (recursively) create the directory hierarchy.
+##' @return a filename
+generate_download_filename <- function(template, root, data, create_directory=TRUE) {
+    path <- whisker.render(template,
+                           data)
+
+    dir <- dirname(path)
+
+    if (create_directory && !dir.exists(dir)) {
+        logger::log_info("Creating directory ", dir)
+        dir.create(dir, recursive=TRUE)
+    }
+
+    path
+
+}

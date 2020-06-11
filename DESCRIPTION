@@ -20,8 +20,9 @@ Imports:
     usethis,
     curl,
     purrr,
-    here,
-    dplyr
+    dplyr,
+    whisker,
+    here
 Suggests: 
     knitr,
     rmarkdown
