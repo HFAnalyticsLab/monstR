@@ -20,8 +20,13 @@ Imports:
     usethis,
     curl,
     purrr,
+    dplyr,
+    whisker,
     here,
-    dplyr
+    readr,
+    janitor,
+    readxl,
+    writexl
 Suggests: 
     knitr,
     rmarkdown

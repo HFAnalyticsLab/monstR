@@ -4,12 +4,10 @@
 \alias{ons_download}
 \title{Download}
 \usage{
-ons_download(df, filebase, format = "csv")
+ons_download(df, format = "csv")
 }
 \arguments{
 \item{df}{dataframe describing the download}
-
-\item{filebase}{base of the filename to which the data should be downloaded}
 
 \item{format}{a valid format for the download}
 }

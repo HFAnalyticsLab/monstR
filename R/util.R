@@ -12,7 +12,7 @@
 ##' @param fvalidate a fn that is passed the filename after download to
 ##'     validate it in some way. The fn should return TRUE if the file
 ##'     is valid.
-##' @import curl
+##' @importFrom curl curl_download
 safe_download <- function(url, destfile, fvalidate) {
     success <- TRUE
 
@@ -55,4 +55,75 @@ write_metadata <- function(metadata, destfile) {
     },
     finally = close(f)
     )
+}
+
+
+##' @title generate a filename for a download
+##'
+##' @import whisker
+##' @param template \link{whisker} template
+##' @param root the root of the directory hierarchy
+##' @param data data used to populate the template
+##' @param create_directory boolean indicating whether to
+##'     (recursively) create the directory hierarchy.
+##' @return a filename
+generate_download_filename <- function(template, root, data, create_directory=TRUE) {
+    path <- whisker.render(template,
+                           data)
+
+    dir <- dirname(path)
+
+    if (create_directory && !dir.exists(dir)) {
+        logger::log_info("Creating directory ", dir)
+        dir.create(dir, recursive=TRUE)
+    }
+
+    path
+
+}
+
+##' @title write the data as a csv.
+##' @param thf dataframe created by the pipeline
+##' @param create_directory boolean indicating whether to
+##'     (recursively) create the directory hierarchy.
+##' @return boolean indicating success
+##' @author Neale Swinnerton <neale@mastodonc.com
+write_csv <- function(thf,create_directory) {
+    thf$format <- "csv"
+    destfile <- generate_download_filename(thf$clean_data_filename_template,
+                                           thf$root,
+                                           thf,
+                                           create_directory)
+    write.csv(thf$data, file=destfile)
+}
+
+##' @title write the data as a xlsx.
+##' @param thf dataframe created by the pipeline
+##' @param create_directory boolean indicating whether to
+##'     (recursively) create the directory hierarchy.
+##' @return boolean indicating success
+##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @import writexl
+write_xlsx <- function(thf, create_directory) {
+    thf$format <- "xlsx"
+    destfile <- generate_download_filename(thf$clean_data_filename_template,
+                                           thf$root,
+                                           thf,
+                                           create_directory)
+    writexl::write_xlsx(thf$data, path=destfile)
+}
+
+##' @title write the data as a RDS.
+##' @param thf dataframe created by the pipeline
+##' @param create_directory boolean indicating whether to
+##'     (recursively) create the directory hierarchy.
+##' @return boolean indicating success
+##' @author Neale Swinnerton <neale@mastodonc.com>
+write_rds <- function(thf,create_directory) {
+    thf$format <- "rds"
+    destfile <- generate_download_filename(thf$clean_data_filename_template,
+                                           thf$root,
+                                           thf,
+                                           create_directory)
+    saveRDS(thf$data, file=destfile)
 }
