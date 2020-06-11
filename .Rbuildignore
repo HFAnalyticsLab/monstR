@@ -1,1 +1,3 @@
 ^LICENSE\.md$
+^\.dir-locals\.el$
+^\.github/workflows/main\.yaml$
