@@ -22,7 +22,11 @@ Imports:
     purrr,
     dplyr,
     whisker,
-    here
+    here,
+    readr,
+    janitor,
+    readxl,
+    writexl
 Suggests: 
     knitr,
     rmarkdown

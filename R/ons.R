@@ -48,7 +48,9 @@ log_panic <- function(...) {
 ##' @export
 ##' @import jsonlite
 ons_datasets_setup <- function() {
-    jsonlite::fromJSON(api_base_url)
+    df <- jsonlite::fromJSON(api_base_url)
+    df$thf <- tibble()
+
 }
 
 ##' @title Available Datasets
@@ -114,9 +116,9 @@ ons_dataset_by_id <- function(df, id, edition, version) {
 
     logger::log_info(sprintf("Retrieving dataset metadata from %s", link))
     dataset <- jsonlite::fromJSON(link)
-    dataset$is_latest <- is_latest
-    dataset$datasource <- "ons"
-    dataset$dataset <- id
+    dataset$thf$is_latest <- is_latest
+    dataset$thf$datasource <- "ons"
+    dataset$thf$dataset <- id
     dataset
 }
 ##' @title Available Editions
@@ -148,26 +150,12 @@ ons_available_versions <- function(id, edition) {
 ##'
 ##' \code{ons_download} retrieves the data described by the given df
 ##' @param df dataframe describing the download
-##' @param filename_template A mustache template. See
-##'     \code{\link{whisker}} for details
 ##' @param format a valid format for the download
-##' @param download_root The file path of the root of the directory
-##'     structure. If not supplied will discover the root by walking
-##'     up the directory hierarchy similarly to
-##'     \code{\link{here}}
 ##' @export
 ##' @import logger
-##' @import here
 ons_download <- function(df,
-                         filename_template="{{root}}/data/{{datasource}}/{{dataset}}/{{edition}}/v-{{version}}.{{format}}",
-                         format="csv",
-                         download_root="" ) {
-    if (missing(download_root)) {
-        download_root <- here::here() # TODO here supposedly for interactive use?
-    }
-
-    df$root <- download_root
-    df$format <- format
+                         format="csv" ) {
+    df$thf$format <- format
 
     download <-
         df %>%
@@ -188,8 +176,8 @@ ons_download <- function(df,
 
     logger::log_info(sprintf("Downloading data from %s", download$href))
 
-    destfile <-  generate_download_filename(filename_template,
-                                            download_root,
+    destfile <-  generate_download_filename(df$thf$filename_template,
+                                            df$thf$download_root,
                                             df)
 
     if (safe_download(url = c(download$href),
@@ -199,13 +187,13 @@ ons_download <- function(df,
         logger::log_info(sprintf("File created at %s ", destfile))
     }
 
-    if (df$is_latest) {
+    if (df$thfis_latest) {
 
         version <- df$version
         df$version <- "LATEST"
 
-        linkfile <- generate_download_filename(filename_template,
-                                               download_root,
+        linkfile <- generate_download_filename(df$thf$filename_template,
+                                               df$thf$download_root,
                                                df)
 
         df$version <- version
@@ -218,5 +206,6 @@ ons_download <- function(df,
         log_info("Create symlink to LATEST file")
     }
 
+    df$thf$destfile <- destfile
     df
 }

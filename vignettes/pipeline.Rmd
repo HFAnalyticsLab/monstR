@@ -11,10 +11,24 @@ vignette: >
 
 ## Examples
 
+<!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
 ```{r , eval = FALSE, include = FALSE} 
 
 library(THFOpenDataPipeline)
 library(magrittr)
+
+# Quickstart
+ons_datasets_setup() %>%
+    thf_pipeline_defaults() %>% # Uses the thf 'standards' for location and format
+    ons_dataset_by_id("weekly-deaths-local-authority") %>%
+	ons_download(filebase="weekly-deaths-local-authority",
+                 format="csv")
+	thf_read_file() %>%
+	thf_clean() %>%
+	thf_write_clean(format="all")
+
+
+
 
 # get the latest weekly-deaths-local-authority data as a csv.
 ons_datasets_setup() %>%
@@ -22,7 +36,7 @@ ons_datasets_setup() %>%
 	ons_download(filebase="weekly-deaths-local-authority",
                  format="csv")
 
-# file will be in `data/original data/weekly-deaths-local-authority.vN.csv`
+# file will be in `data/raw/weekly-deaths-local-authority.vN.csv`
 # metadata about the file will be in `data/original data/weekly-deaths-local-authority.vN.csv.meta.json`
 
 
