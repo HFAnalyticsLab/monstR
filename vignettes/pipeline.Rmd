@@ -21,8 +21,7 @@ library(magrittr)
 ons_datasets_setup() %>%
     thf_pipeline_defaults() %>% # Uses the thf 'standards' for location and format
     ons_dataset_by_id("weekly-deaths-local-authority") %>%
-	ons_download(filebase="weekly-deaths-local-authority",
-                 format="csv")
+	ons_download(format="csv") %>%
 	thf_read_file() %>%
 	thf_clean() %>%
 	thf_write_clean(format="all")
