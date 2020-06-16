@@ -1,4 +1,6 @@
+usethis::use_pipe()
 
+api_base_url <- "https://api.beta.ons.gov.uk/v1/datasets"
 
 ## START TODO - make these fns more general?
 ## Something like this (but this example doesn't work):
@@ -8,10 +10,6 @@
 
 ## TODO - fix weirdness here - should be able to df$items %>%
 ## filter(...) rather than this detect_index but some type confusion
-
-usethis::use_pipe()
-
-api_base_url <- "https://api.beta.ons.gov.uk/v1/datasets"
 
 
 ons_item_by_id <- function(df, id) {
@@ -38,6 +36,15 @@ log_panic <- function(...) {
     logger::log_error(...)
     quit(status = 1)
 }
+
+ons_api_call <- function(url) {
+    df <- jsonlite::fromJSON(url)
+    if ("items" %in% colnames(df)) {
+        df$items <- tibble::as_tibble(df$items)
+    }
+    df
+}
+
 ##' Retrieves a dataframe describing the datasets available from ONS via the API.
 ##'
 ##' This returns a dataframe containing details that can be passed to
@@ -47,10 +54,12 @@ log_panic <- function(...) {
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import jsonlite
+##' @import tibble
 ons_datasets_setup <- function() {
-    df <- jsonlite::fromJSON(api_base_url)
-    df$thf <- tibble()
+    df <- ons_api_call(api_base_url)
+    df$thf <- tibble(src_url = api_base_url)
 
+    df
 }
 
 ##' @title Available Datasets
@@ -85,7 +94,7 @@ ons_dataset_by_id <- function(df, id, edition, version) {
         is_latest <- TRUE
     } else {
         metadata <-
-            jsonlite::fromJSON(links$editions$href) %>%
+            ons_api_call(links$editions$href) %>%
             ons_edition_by_name(edition)
 
         is_latest <- FALSE
@@ -96,7 +105,7 @@ ons_dataset_by_id <- function(df, id, edition, version) {
             is_latest <- TRUE
         } else {
             version_metadata <-
-                jsonlite::fromJSON(metadata$links$versions$href) %>%
+                ons_api_call(metadata$links$versions$href) %>%
                 ons_version_by_version(version)
 
             if (nrow(version_metadata) == 0) {
@@ -115,19 +124,24 @@ ons_dataset_by_id <- function(df, id, edition, version) {
     }
 
     logger::log_info(sprintf("Retrieving dataset metadata from %s", link))
-    dataset <- jsonlite::fromJSON(link)
+    dataset <- ons_api_call(link)
+
+    dataset$thf <- df$thf
     dataset$thf$is_latest <- is_latest
     dataset$thf$datasource <- "ons"
     dataset$thf$dataset <- id
+    dataset$thf$edition <- dataset$edition
+    dataset$thf$version <- dataset$version
     dataset
 }
+
 ##' @title Available Editions
 ##' @param id dataset identifier. Valid values from \code{ons_available_datasets(...)}
 ##' @return a list of edition identifiers
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @import dplyr
 ons_available_editions <- function(id) {
-    metadata <- jsonlite::fromJSON(sprintf("%s/%s/editions", api_base_url, id))
+    metadata <- ons_api_call(sprintf("%s/%s/editions", api_base_url, id))
 
     metadata$items %>%
         dplyr::select(matches("edition"))
@@ -140,7 +154,7 @@ ons_available_editions <- function(id) {
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @import dplyr
 ons_available_versions <- function(id, edition) {
-    metadata <- jsonlite::fromJSON(sprintf("%s/%s/editions/%s/versions", api_base_url, id, edition))
+    metadata <- ons_api_call(sprintf("%s/%s/editions/%s/versions", api_base_url, id, edition))
 
     metadata$items %>%
         dplyr::select(version)
@@ -155,12 +169,6 @@ ons_available_versions <- function(id, edition) {
 ##' @import logger
 ons_download <- function(df,
                          format="csv" ) {
-    df$thf$format <- format
-
-    download <-
-        df %>%
-        ons_download_by_format(format)  ## TODO - error if format not found?
-
     validate_file <- function(f) {
         expected_size <- as.numeric(download$size)
 
@@ -174,11 +182,17 @@ ons_download <- function(df,
         }
     }
 
+    download <-
+        df %>%
+        ons_download_by_format(format)  ## TODO - error if format not found?
+
+    df$thf$format <- format
+
     logger::log_info(sprintf("Downloading data from %s", download$href))
 
-    destfile <-  generate_download_filename(df$thf$filename_template,
-                                            df$thf$download_root,
-                                            df)
+    destfile <-  generate_download_filename(template=df$thf$download_filename_template,
+                                            root=df$thf$download_root,
+                                            data=df$thf)
 
     if (safe_download(url = c(download$href),
                       destfile = destfile,
@@ -187,16 +201,16 @@ ons_download <- function(df,
         logger::log_info(sprintf("File created at %s ", destfile))
     }
 
-    if (df$thfis_latest) {
+    if (df$thf$is_latest) {
 
-        version <- df$version
-        df$version <- "LATEST"
+        version <- df$thf$version
+        df$thf$version <- "LATEST"
 
-        linkfile <- generate_download_filename(df$thf$filename_template,
-                                               df$thf$download_root,
-                                               df)
+        linkfile <- generate_download_filename(template=df$thf$download_filename_template,
+                                               root=df$thf$download_root,
+                                               data=df$thf)
 
-        df$version <- version
+        df$thf$version <- version
         if (file.exists(linkfile)) {
             file.remove(linkfile)
         }
