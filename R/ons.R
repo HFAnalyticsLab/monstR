@@ -48,7 +48,9 @@ log_panic <- function(...) {
 ##' @export
 ##' @import jsonlite
 ons_datasets_setup <- function() {
-    jsonlite::fromJSON(api_base_url)
+    df <- jsonlite::fromJSON(api_base_url)
+    df$thf <- tibble()
+
 }
 
 ##' @title Available Datasets
@@ -114,8 +116,9 @@ ons_dataset_by_id <- function(df, id, edition, version) {
 
     logger::log_info(sprintf("Retrieving dataset metadata from %s", link))
     dataset <- jsonlite::fromJSON(link)
-    dataset$is_latest <- is_latest
-
+    dataset$thf$is_latest <- is_latest
+    dataset$thf$datasource <- "ons"
+    dataset$thf$dataset <- id
     dataset
 }
 ##' @title Available Editions
@@ -147,13 +150,13 @@ ons_available_versions <- function(id, edition) {
 ##'
 ##' \code{ons_download} retrieves the data described by the given df
 ##' @param df dataframe describing the download
-##' @param filebase base of the filename to which the data should be downloaded
 ##' @param format a valid format for the download
 ##' @export
 ##' @import logger
-##' @import here
+ons_download <- function(df,
+                         format="csv" ) {
+    df$thf$format <- format
 
-ons_download <- function(df, filebase, format="csv") {
     download <-
         df %>%
         ons_download_by_format(format)  ## TODO - error if format not found?
@@ -173,10 +176,9 @@ ons_download <- function(df, filebase, format="csv") {
 
     logger::log_info(sprintf("Downloading data from %s", download$href))
 
-    destfile <- here::here("data",
-                           "original_data",
-                           sprintf("%s.v%02d.%s",
-                                   filebase, as.numeric(df$version), format))
+    destfile <-  generate_download_filename(df$thf$filename_template,
+                                            df$thf$download_root,
+                                            df)
 
     if (safe_download(url = c(download$href),
                       destfile = destfile,
@@ -185,17 +187,25 @@ ons_download <- function(df, filebase, format="csv") {
         logger::log_info(sprintf("File created at %s ", destfile))
     }
 
-    if (df$is_latest) {
-        linkfile <- here::here("data",
-                               "original_data",
-                               sprintf("%s.LATEST.%s", filebase, format))
+    if (df$thfis_latest) {
+
+        version <- df$version
+        df$version <- "LATEST"
+
+        linkfile <- generate_download_filename(df$thf$filename_template,
+                                               df$thf$download_root,
+                                               df)
+
+        df$version <- version
         if (file.exists(linkfile)) {
             file.remove(linkfile)
         }
 
         file.symlink(destfile,
                      linkfile)
+        log_info("Create symlink to LATEST file")
     }
 
+    df$thf$destfile <- destfile
     df
 }
