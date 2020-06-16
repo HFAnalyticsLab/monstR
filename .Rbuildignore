@@ -3,3 +3,4 @@
 ^LICENSE\.md$
 ^\.dir-locals\.el$
 ^\.github/.*$
+^.projectile$
