@@ -42,7 +42,7 @@ devtools::load_all()
 
 or to install direct from Github
 ```
-devtools::install_github("HFAnalyticsLab", "Open_data_pipelines")
+devtools::install_github("HFAnalyticsLab/Open_data_pipelines")
 ```
 
 ## Authors
