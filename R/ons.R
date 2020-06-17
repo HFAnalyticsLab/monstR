@@ -37,10 +37,19 @@ log_panic <- function(...) {
     quit(status = 1)
 }
 
+##' Make request to given url, which is assumed to be the ONS api.
+##'
+##' data retrieved is converted to tidyverse tibble if possible.
+##'
+##' @title Call the ONS API
+##' @param url url to call @seeAlso \code{\link{[api_base_url]}}
+##' @return a dataframe contained the API call results
+##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @import dplyr
 ons_api_call <- function(url) {
     df <- jsonlite::fromJSON(url)
     if ("items" %in% colnames(df)) {
-        df$items <- tibble::as_tibble(df$items)
+        df$items <- dplyr::as_tibble(df$items)
     }
     df
 }
@@ -54,10 +63,10 @@ ons_api_call <- function(url) {
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import jsonlite
-##' @import tibble
+##' @import dplyr
 ons_datasets_setup <- function() {
     df <- ons_api_call(api_base_url)
-    df$thf <- tibble(src_url = api_base_url)
+    df$thf <- dplyr::as_tibble(src_url = api_base_url)
 
     df
 }
