@@ -4,7 +4,7 @@
 \alias{write_rds}
 \title{write the data as a RDS.}
 \usage{
-write_rds(thf, create_directory)
+write_rds(data, thf, create_directory)
 }
 \arguments{
 \item{thf}{dataframe created by the pipeline}

@@ -9,9 +9,11 @@ thf_write_clean(df, format = "csv", create_directory = TRUE)
 \arguments{
 \item{df}{dataframe describing the data.}
 
-\item{format}{any known format or "all" to save a copy as all known formats}
+\item{format}{any known format or "all" to save a copy as all
+known formats}
 
-\item{create_directory}{boolean indicating whether directories should be created.}
+\item{create_directory}{boolean indicating whether directories
+should be created.}
 }
 \value{
 a boolean indicating success

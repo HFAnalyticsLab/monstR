@@ -4,9 +4,9 @@
 \alias{safe_download}
 \title{Safe Download
 
-Downloads a file and tries hard to tidy up in
-the event of errors. Since these files are typically large we don't
-want to leave them in temp directories.
+Downloads a file and tries hard to tidy up in the event of
+errors. Since these files are typically large we don't want to
+leave them in temp directories.
 
 The destfile should only appear if the download was successful.}
 \usage{
@@ -17,16 +17,16 @@ safe_download(url, destfile, fvalidate)
 
 \item{destfile}{destination filename}
 
-\item{fvalidate}{a fn that is passed the filename after download to
-validate it in some way. The fn should return TRUE if the file
-is valid.}
+\item{fvalidate}{a fn that is passed the filename after download
+to validate it in some way. The fn should return TRUE if the
+file is valid.}
 }
 \description{
 Safe Download
 
-Downloads a file and tries hard to tidy up in
-the event of errors. Since these files are typically large we don't
-want to leave them in temp directories.
+Downloads a file and tries hard to tidy up in the event of
+errors. Since these files are typically large we don't want to
+leave them in temp directories.
 
 The destfile should only appear if the download was successful.
 }

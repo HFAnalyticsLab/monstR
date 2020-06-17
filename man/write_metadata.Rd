@@ -4,19 +4,22 @@
 \alias{write_metadata}
 \title{Write Metadata
 
-\code{(write_metadata)} writes some metadata about where the file came from.
-TODO - could do this with fs xattr, but maybe that's not well known by users?}
+\code{(write_metadata)} writes some metadata about where the file
+came from.  TODO - could do this with fs xattr, but maybe that's
+not well known by users?}
 \usage{
 write_metadata(metadata, destfile)
 }
 \arguments{
 \item{metadata}{a dataframe containing metadata}
 
-\item{destfile}{filename into which the metadata should be written as JSON}
+\item{destfile}{filename into which the metadata should be written
+as JSON}
 }
 \description{
 Write Metadata
 
-\code{(write_metadata)} writes some metadata about where the file came from.
-TODO - could do this with fs xattr, but maybe that's not well known by users?
+\code{(write_metadata)} writes some metadata about where the file
+came from.  TODO - could do this with fs xattr, but maybe that's
+not well known by users?
 }

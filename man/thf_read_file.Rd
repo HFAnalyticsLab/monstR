@@ -10,7 +10,8 @@ thf_read_file(df)
 \item{df}{dataframe describing the downloaded file.}
 }
 \value{
-a df incorporating the data. The actually data can then be extracted with \code{\link{thf_data}}
+a df incorporating the data. The actually data can then be
+extracted with \code{\link{thf_data}}
 }
 \description{
 Read the file described by the df

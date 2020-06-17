@@ -32,19 +32,16 @@ ons_datasets_setup() %>%
 # get the latest weekly-deaths-local-authority data as a csv.
 ons_datasets_setup() %>%
     ons_dataset_by_id("weekly-deaths-local-authority") %>%
-	ons_download(filebase="weekly-deaths-local-authority",
-                 format="csv")
+	ons_download(format="csv")
 
-# file will be in `data/raw/weekly-deaths-local-authority.vN.csv`
-# metadata about the file will be in `data/original data/weekly-deaths-local-authority.vN.csv.meta.json`
-
+# file will be in `{{root}}/data/raw/ons/weekly-deaths-local-authority/time-series/vN.csv`
+# metadata about the file will be in `{{root}}/data/raw/ons/weekly-deaths-local-authority/time-series/vN.csv.meta.json`
 
 
 # Similarly it can be found as an xls
 ons_datasets_setup() %>%
     ons_dataset_by_id("weekly-deaths-local-authority") %>%
-	ons_download(filebase="weekly-deaths-local-authority",
-                 format="xls")
+	ons_download(format="xls")
 
 
 
@@ -53,16 +50,14 @@ datasets <- ons_datasets_setup()
 wdla4_meta <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series", version=4)
 
 # download it
-wdla4_data  %>% ons_download(filebase="weekly-deaths-local-authority",
-                       format="csvw")
+wdla4_data  %>% ons_download(format="csvw")
 
 # Or get the latest
 wdla_latest <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series")
 
 
 # csv for the web meta data about the schema of the data.
-wdla_csvw %>% ons_download(filebase="weekly-deaths-local-authority",
-                             format="csvw")
+wdla_csvw %>% ons_download(format="csvw")
 
 ```
 
