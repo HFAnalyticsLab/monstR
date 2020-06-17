@@ -10,7 +10,8 @@ thf_data(df)
 \item{df}{describing the downloaded data}
 }
 \value{
-a \code{\link[tibble]{dplyr::tibble}} of the data from the described download
+a \code{\link[tibble]{dplyr::tibble}} of the data from the
+described download
 }
 \description{
 Extract the tibble of the actual data

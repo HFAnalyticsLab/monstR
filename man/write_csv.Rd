@@ -4,7 +4,7 @@
 \alias{write_csv}
 \title{write the data as a csv.}
 \usage{
-write_csv(thf, create_directory)
+write_csv(data, thf, create_directory)
 }
 \arguments{
 \item{thf}{dataframe created by the pipeline}

@@ -8,6 +8,8 @@ thf_pipeline_defaults(df, download_root = "")
 }
 \arguments{
 \item{df}{A 'base' setup, e.g. from \code{\link{ons_datasets_setup}}}
+
+\item{download_root}{Root of directory hierarchy.}
 }
 \value{
 an augmented dataframe

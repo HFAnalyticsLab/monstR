@@ -4,7 +4,7 @@
 \alias{write_xlsx}
 \title{write the data as a xlsx.}
 \usage{
-write_xlsx(thf, create_directory)
+write_xlsx(data, thf, create_directory)
 }
 \arguments{
 \item{thf}{dataframe created by the pipeline}
