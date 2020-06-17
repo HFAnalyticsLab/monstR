@@ -7,7 +7,9 @@
 write_rds(data, thf, create_directory)
 }
 \arguments{
-\item{thf}{dataframe created by the pipeline}
+\item{data}{The actual data}
+
+\item{thf}{metadata dataframe created by the pipeline}
 
 \item{create_directory}{boolean indicating whether to
 (recursively) create the directory hierarchy.}

@@ -28,14 +28,13 @@ thf_pipeline_defaults <- function(df, download_root="") {
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @import readr
 ##' @import readxl
-##' @import tibble
 thf_read_file <- function(df) {
     thf <- df$thf
 
     if (thf$format == "csv") {
         df$thf_data <- readr::read_csv(df$thf$destfile)
     } else if (thf$format %in% c("xls", "xlsx")) {
-        tibble::bind_cols(thf, data=readxl::read_excel(df$thf$destfile))
+        df$thf_data <- readxl::read_excel(df$thf$destfile)
     }
     df$thf <- thf
     df
@@ -49,8 +48,6 @@ thf_read_file <- function(df) {
 thf_clean <- function(df) {
     df$thf_data <- janitor::clean_names(df$thf_data)
     df$thf$is_clean <- TRUE
-    #TODO - remove original data ? Concerns about holding 2 copies of
-#the data in memory simultaneously?
     df
 }
 

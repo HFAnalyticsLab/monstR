@@ -88,7 +88,8 @@ generate_download_filename <- function(template, root, data, create_directory=TR
 }
 
 ##' @title write the data as a csv.
-##' @param thf dataframe created by the pipeline
+##' @param data The actual data
+##' @param thf metadata dataframe created by the pipeline
 ##' @param create_directory boolean indicating whether to
 ##'     (recursively) create the directory hierarchy.
 ##' @return boolean indicating success
@@ -116,7 +117,8 @@ write_csv <- function(data, thf, create_directory) {
 
 
 ##' @title write the data as a xlsx.
-##' @param thf dataframe created by the pipeline
+##' @param data The actual data
+##' @param thf metadata dataframe created by the pipeline
 ##' @param create_directory boolean indicating whether to
 ##'     (recursively) create the directory hierarchy.
 ##' @return boolean indicating success
@@ -142,7 +144,8 @@ write_xlsx <- function(data, thf, create_directory) {
 }
 
 ##' @title write the data as a RDS.
-##' @param thf dataframe created by the pipeline
+##' @param data The actual data
+##' @param thf metadata dataframe created by the pipeline
 ##' @param create_directory boolean indicating whether to
 ##'     (recursively) create the directory hierarchy.
 ##' @return boolean indicating success
