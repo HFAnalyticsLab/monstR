@@ -12,15 +12,15 @@ vignette: >
 ## Examples
 
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
-```{r , eval = FALSE, include = FALSE} 
+```{r , eval = FALSE, include = FALSE}
 
 library(THFOpenDataPipeline)
 library(magrittr)
 
 # Quickstart
 ons_datasets_setup() %>%
-    thf_pipeline_defaults() %>% # Uses the thf 'standards' for location and format
-    ons_dataset_by_id("weekly-deaths-local-authority") %>%
+	thf_pipeline_defaults() %>% # Uses the thf 'standards' for location and format
+	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="csv") %>%
 	thf_read_file() %>%
 	thf_clean() %>%
@@ -31,7 +31,7 @@ ons_datasets_setup() %>%
 
 # get the latest weekly-deaths-local-authority data as a csv.
 ons_datasets_setup() %>%
-    ons_dataset_by_id("weekly-deaths-local-authority") %>%
+	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="csv")
 
 # file will be in `{{root}}/data/raw/ons/weekly-deaths-local-authority/time-series/vN.csv`
@@ -40,7 +40,7 @@ ons_datasets_setup() %>%
 
 # Similarly it can be found as an xls
 ons_datasets_setup() %>%
-    ons_dataset_by_id("weekly-deaths-local-authority") %>%
+	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="xls")
 
 

@@ -6,7 +6,7 @@
 ##' @import here
 thf_pipeline_defaults <- function(df, download_root="") {
     basedir <- "{{download_root}}/data"
-    filepath <- "{{datasource}}/{{dataset}}/{{edition}}/v-{{version}}.{{format}}"
+    filepath <- "{{datasource}}/{{dataset}}/{{edition}}/{{dataset}}-v{{version}}.{{format}}"
 
     df$thf$download_filename_template = sprintf("%s/raw/%s",
                                                 basedir,
