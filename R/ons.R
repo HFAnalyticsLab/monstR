@@ -75,6 +75,7 @@ ons_datasets_setup <- function() {
 ##' @param df dataframe describing the datasets from \code{ons_datasets_setup()}
 ##' @return list of available datasets
 ##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @export
 ##' @import dplyr
 ons_available_datasets <- function(df) {
     ons_api_call(api_base_url)$items %>% dplyr::select(id)
@@ -148,6 +149,7 @@ ons_dataset_by_id <- function(df, id, edition, version) {
 ##' @param id dataset identifier. Valid values from \code{ons_available_datasets(...)}
 ##' @return a list of edition identifiers
 ##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @export
 ##' @import dplyr
 ons_available_editions <- function(id) {
     metadata <- ons_api_call(sprintf("%s/%s/editions", api_base_url, id))
@@ -161,6 +163,7 @@ ons_available_editions <- function(id) {
 ##' @param edition edition identifier. Valid values from \code{ons_available_editions(...)}
 ##' @return a list of version identifiers
 ##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @export
 ##' @import dplyr
 ons_available_versions <- function(id, edition) {
     metadata <- ons_api_call(sprintf("%s/%s/editions/%s/versions", api_base_url, id, edition))

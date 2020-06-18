@@ -3,6 +3,7 @@
 ##' @param download_root Root of directory hierarchy.
 ##' @return an augmented dataframe
 ##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @export
 ##' @import here
 thf_pipeline_defaults <- function(df, download_root="") {
     basedir <- "{{download_root}}/data"
@@ -26,6 +27,7 @@ thf_pipeline_defaults <- function(df, download_root="") {
 ##' @return a df incorporating the data. The actually data can then be
 ##'     extracted with \code{\link{thf_data}}
 ##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @export
 ##' @import readr
 ##' @import readxl
 thf_read_file <- function(df) {
@@ -44,6 +46,7 @@ thf_read_file <- function(df) {
 ##' @param df dataframe describing the downloaded file.
 ##' @return  a cleaned dataframe
 ##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @export
 ##' @import janitor
 thf_clean <- function(df) {
     df$thf_data <- janitor::clean_names(df$thf_data)
@@ -58,8 +61,9 @@ thf_clean <- function(df) {
 ##' @return a \code{\link[tibble]{dplyr::tibble}} of the data from the
 ##'     described download
 ##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @export
 thf_data <- function(df) {
-    df$thf$data
+    df$thf_data
 }
 
 ##' @title Writes the data to the 'clean' area
@@ -70,10 +74,9 @@ thf_data <- function(df) {
 ##'     should be created.
 ##' @return a boolean indicating success
 ##' @author Neale Swinnerton <neale@mastodonc.com>
+##' @export
 ##' @import logger
 ##' @importFrom utils write.csv
-##' @export
-
 thf_write_clean <- function(df,
                             format="csv",
                             create_directory=TRUE) {
