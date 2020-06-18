@@ -66,7 +66,7 @@ ons_api_call <- function(url) {
 ##' @import dplyr
 ons_datasets_setup <- function() {
     df <- ons_api_call(api_base_url)
-    df$thf <- dplyr::as_tibble(src_url = api_base_url)
+    df$thf <- dplyr::tibble(src_url = api_base_url)
 
     df
 }
