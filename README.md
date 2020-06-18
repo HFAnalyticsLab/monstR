@@ -45,6 +45,11 @@ or to install direct from Github
 devtools::install_github("HFAnalyticsLab/Open_data_pipelines")
 ```
 
+## Design Principles
+
+The THF Open Data Pipeline is designed to work well with tidyverse and in particular within pipelines created by the `%>%` pipe operator. With this in mind, most functions take a dataframe (or equivalent, such as a `dplyr::tibble`) in the first argument and return a dataframe which has been augmented in some way
+
+
 ## Authors
 * **Neale Swinnerton** -  [Github](https://github.com/sw1nn)
 
