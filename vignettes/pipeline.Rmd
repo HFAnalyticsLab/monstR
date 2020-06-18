@@ -9,42 +9,95 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## Examples
+## Quickstart
 
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
-```{r , eval = FALSE, include = FALSE}
+```{r , eval = FALSE, include = TRUE}
 
 library(THFOpenDataPipeline)
 library(magrittr)
 
-# Quickstart
-ons_datasets_setup() %>%
+  # ons_* fns relate only to ONS datasource
+  # thf_* fns are general purpose for all datasources
+> ons_datasets_setup() %>%
 	thf_pipeline_defaults() %>% # Uses the thf 'standards' for location and format
 	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="csv") %>%
-	thf_read_file() %>%
+	thf_read_file() %>%  
 	thf_clean() %>%
 	thf_write_clean(format="all")
 
+   # latest version of 'weekly-deaths-local-authority' will be available as a csv 
+   # below {{root}}/data/raw/...
+   
+   # Furthermore, a 'cleaned' version of the dataset will be available as a csv,xlsx, and rds
+   # below {{root}}/data/clean/...
+```
 
 
+## Discover what is available:
 
-# get the latest weekly-deaths-local-authority data as a csv.
+<!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
+```{r , eval = FALSE, include = TRUE}
+> ons_available_datasets()
+                                    id
+1                               cpih01
+2                     mid-year-pop-est
+3                   ashe-table-7-hours
+4                ashe-table-7-earnings
+5                   ashe-table-8-hours
+6                ashe-table-8-earnings
+7                           opss-rates
+8                      opss-membership
+9                wellbeing-year-ending
+10           wellbeing-local-authority
+...
+
+
+# Discover the available editions for a particular dataset
+> ons_available_editions("regional-gdp-by-quarter")
+
+      edition
+1 time-series
+
+
+# Discover the available versions for a particular edition
+> ons_available_versions("regional-gdp-by-quarter", "time-series")
+
+  version
+1       1
+2       2
+3       3
+4       4
+5       5
+```
+
+## Further Examples
+
+### Download the latest weekly-deaths-local-authority data as a csv.
+
+<!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
+```{r , eval = FALSE, include = TRUE}
 ons_datasets_setup() %>%
 	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="csv")
 
 # file will be in `{{root}}/data/raw/ons/weekly-deaths-local-authority/time-series/vN.csv`
 # metadata about the file will be in `{{root}}/data/raw/ons/weekly-deaths-local-authority/time-series/vN.csv.meta.json`
+```
 
-
-# Similarly it can be found as an xls
+### Similarly it can be downloaded as an xls
+<!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
+```{r , eval = FALSE, include = TRUE}
 ons_datasets_setup() %>%
 	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="xls")
+```
 
 
-
+### Specific versions can be selected.
+<!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
+```{r , eval = FALSE, include = TRUE}
 datasets <- ons_datasets_setup()
 ## get the metadata about v4 of the time-series edition of weekly-deaths-local-authority dataset.
 wdla4_meta <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series", version=4)
@@ -60,6 +113,3 @@ wdla_latest <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", e
 wdla_csvw %>% ons_download(format="csvw")
 
 ```
-
-
-## More Examples
