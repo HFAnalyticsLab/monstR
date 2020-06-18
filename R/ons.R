@@ -77,7 +77,7 @@ ons_datasets_setup <- function() {
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @import dplyr
 ons_available_datasets <- function(df) {
-    df$items %>% dplyr::select(id)
+    ons_api_call(api_base_url)$items %>% dplyr::select(id)
 }
 
 #' Retrieve the metadata for the given dataset.
