@@ -22,11 +22,8 @@ As all data used is in the public domain and all code is open source everything 
 
 ### Software and R packages
 
-The HES pipeline was built under R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night".
+The Opend Data pipeline was built under R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night".
 
-The following R packages, which are available on CRAN, are required to run the open data pipeline:
-
-*  [tidyverse](https://www.tidyverse.org/)(1.2.1)
 
 ## Installation
 
