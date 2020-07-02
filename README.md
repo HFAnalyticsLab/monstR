@@ -7,7 +7,7 @@
 
 ## Project Description
 
-Open-source R pipeline to download and clean public data related to health and social care. The aim is to provide analysts, primarily at the Health Foundation, with clean and ready for analysis data/ 
+Open-source R pipeline to download and clean public data related to health and social care. The aim is to provide analysts, primarily at the Health Foundation, with clean and ready for analysis data. 
 
 ## Data Source
 
@@ -39,7 +39,7 @@ devtools::load_all()
 
 or to install direct from Github
 ```
-devtools::install_github("HFAnalyticsLab/Open_data_pipelines", build_vignettes = TRUE )
+remotes::install_github("HFAnalyticsLab/Open_data_pipelines", build_vignettes = TRUE )
 ```
 
 ## Design Principles
