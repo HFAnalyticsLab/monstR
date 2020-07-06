@@ -22,8 +22,7 @@ As all data used is in the public domain and all code is open source everything 
 
 ### Software and R packages
 
-The Opend Data pipeline was built under R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night".
-
+The Open Data pipeline was built under R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night".
 
 ## Installation
 
