@@ -3,15 +3,15 @@ Title: Download publically available data the ONS API
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Neale",
-           family = "Swinnerton",
-           role = c("aut", "cre"),
-           email = "neale@mastodonc.com",
-           comment = c(ORCID = "YOUR-ORCID-ID")),
-           person(given = 'Emma',
-           family = 'Vestesson',
-           email = 'emma.vestesson@gmail.com',
-           role = 'ctb',
-           comment = c(ORCID = "0000-0002-7284-9172")))
+             family = "Swinnerton",
+             role = c("aut", "cre"),
+             email = "neale@mastodonc.com",
+             comment = c(ORCID = "YOUR-ORCID-ID")),
+      person(given = "Emma",
+             family = "Vestesson",
+             role = "ctb",
+             email = "emma.vestesson@gmail.com",
+             comment = c(ORCID = "0000-0002-7284-9172")))
 Description: Queries ONS API to download data. It can be used to retrieve publically available data and meta data from the ONS.
 License: MIT + file LICENSE
 Encoding: UTF-8
