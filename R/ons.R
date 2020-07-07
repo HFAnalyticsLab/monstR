@@ -204,7 +204,7 @@ ons_download <- function(df,
             TRUE
         }
     }
-
+try (if(!(format %in% c('csv', 'xls'))) stop('Format not allowed'))
     download <-
         df %>%
         ons_download_by_format(format)  ## TODO - error if format not found?
