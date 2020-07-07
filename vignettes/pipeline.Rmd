@@ -112,6 +112,6 @@ wdla_latest <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", e
 
 
 # csv for the web meta data about the schema of the data.
-wdla_csvw %>% ons_download(format="csvw")
+wdla_latest %>% ons_download(format="csv")
 
 ```
