@@ -19,7 +19,7 @@ Available Versions
 }
 \examples{
 \dontrun{
- ons_available_versions("regional-gdp-by-quarter", "time-series") 
+ ons_available_versions(id = "regional-gdp-by-quarter", edition = "time-series") 
  }
 }
 \author{
