@@ -1,4 +1,3 @@
-usethis::use_pipe()
 
 api_base_url <- "https://api.beta.ons.gov.uk/v1/datasets"
 
