@@ -103,7 +103,9 @@ datasets <- ons_datasets_setup()
 wdla4_meta <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series", version=4)
 
 # download it
-wdla4_data  %>% ons_download(format="csvw")
+wdla4_meta  %>% 
+  thf_pipeline_defaults() %>% 
+  ons_download(format="csv")
 
 # Or get the latest
 wdla_latest <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series")
