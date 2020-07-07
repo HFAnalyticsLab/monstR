@@ -76,6 +76,10 @@ ons_datasets_setup <- function() {
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import dplyr
+##' @examples 
+#' \dontrun{
+#' ons_available_datasets()
+#' }
 ons_available_datasets <- function(df) {
     ons_api_call(api_base_url)$items %>% dplyr::select(id)
 }
@@ -150,6 +154,10 @@ ons_dataset_by_id <- function(df, id, edition, version) {
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import dplyr
+##' @examples 
+##' \dontrun{
+#' ons_available_editions(id = 'mid-year-pop-est')
+#' }
 ons_available_editions <- function(id) {
     metadata <- ons_api_call(sprintf("%s/%s/editions", api_base_url, id))
 
@@ -164,6 +172,10 @@ ons_available_editions <- function(id) {
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import dplyr
+##' @examples 
+#' \dontrun{
+#'  ons_available_versions(id = "regional-gdp-by-quarter", edition = "time-series") 
+#'  }
 ons_available_versions <- function(id, edition) {
     metadata <- ons_api_call(sprintf("%s/%s/editions/%s/versions", api_base_url, id, edition))
 

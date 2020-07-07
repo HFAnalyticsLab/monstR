@@ -17,6 +17,11 @@ a list of version identifiers
 \description{
 Available Versions
 }
+\examples{
+\dontrun{
+ ons_available_versions("regional-gdp-by-quarter", "time-series") 
+ }
+}
 \author{
 Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}
 }

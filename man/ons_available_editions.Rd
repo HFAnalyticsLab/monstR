@@ -15,6 +15,11 @@ a list of edition identifiers
 \description{
 Available Editions
 }
+\examples{
+\dontrun{
+ons_available_editions(id = 'mid-year-pop-est')
+}
+}
 \author{
 Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}
 }

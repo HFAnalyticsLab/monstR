@@ -15,6 +15,11 @@ list of available datasets
 \description{
 Available Datasets
 }
+\examples{
+\dontrun{
+ons_available_datasets()
+}
+}
 \author{
 Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}
 }
