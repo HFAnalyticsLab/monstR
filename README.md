@@ -33,7 +33,7 @@ devtools::load_all()
 
 or to install direct from Github
 ```
-remotes::install_github("HFAnalyticsLab/Open_data_pipelines", build_vignettes = TRUE )
+remotes::install_github("HFAnalyticsLab/monstR", build_vignettes = TRUE )
 ```
 
 ## Design Principles
