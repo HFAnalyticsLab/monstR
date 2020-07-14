@@ -42,7 +42,7 @@ log_panic <- function(...) {
 ##'
 ##' @title Call the ONS API
 ##' @param url url to call @seeAlso \code{\link{[api_base_url]}}
-##' @return a dataframe contained the API call results
+##' @return a list contained the API call results
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @import dplyr
 ons_api_call <- function(url) {
@@ -58,20 +58,20 @@ ons_api_call <- function(url) {
 ##' This returns a dataframe containing details that can be passed to
 ##' other fns in this package for further processing
 ##' @title Datasets Setup
-##' @return a dataframe describing available datasets
+##' @return a list describing available datasets
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import jsonlite
 ##' @import dplyr
 ons_datasets_setup <- function() {
-    df <- ons_api_call(api_base_url)
-    df$thf <- dplyr::tibble(src_url = api_base_url)
+    results <- ons_api_call(api_base_url)
+    results$thf <- dplyr::tibble(src_url = api_base_url)
 
-    df
+    results
 }
 
 ##' @title Available Datasets
-##' @param df dataframe describing the datasets from \code{ons_datasets_setup()}
+##' @param metadata data describing the datasets from \code{ons_datasets_setup()}
 ##' @return list of available datasets
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
@@ -80,7 +80,7 @@ ons_datasets_setup <- function() {
 #' \dontrun{
 #' ons_available_datasets()
 #' }
-ons_available_datasets <- function(df) {
+ons_available_datasets <- function(metadata) {
     ons_api_call(api_base_url)$items %>% dplyr::select(id)
 }
 
@@ -91,7 +91,7 @@ ons_available_datasets <- function(df) {
 #' version parameters
 #'
 #' @title Dataset By Id
-#' @param df dataframe describing the dataset
+#' @param metadata data describing the dataset
 #' @param id the identifier of the dataset. Valid values from \code{ons_available_datasets()}
 #' @param edition the edition of the dataset (if empty, select latest). Valid values from \code{ons_available_editions(...)}
 #' @param version the version of the dataset (if empty, select latest). Valid values from \code{ons_available_available(...)}
@@ -99,8 +99,8 @@ ons_available_datasets <- function(df) {
 #' @author Neale Swinnerton <neale@mastodonc.com>
 #' @export
 ##' @import logger
-ons_dataset_by_id <- function(df, id, edition, version) {
-    links <- ons_item_by_id(df, id)$links
+ons_dataset_by_id <- function(metadata, id, edition, version) {
+    links <- ons_item_by_id(metadata, id)$links
     if (missing(edition)) {
         logger::log_info("Edition not specified, defaulting to  latest version")
         link <- links$latest_version$href
@@ -139,7 +139,7 @@ ons_dataset_by_id <- function(df, id, edition, version) {
     logger::log_info(sprintf("Retrieving dataset metadata from %s", link))
     dataset <- ons_api_call(link)
 
-    dataset$thf <- df$thf
+    dataset$thf <- metadata$thf
     dataset$thf$is_latest <- is_latest
     dataset$thf$datasource <- "ons"
     dataset$thf$dataset <- id
@@ -186,11 +186,11 @@ ons_available_versions <- function(id, edition) {
 ##' Download
 ##'
 ##' \code{ons_download} retrieves the data described by the given df
-##' @param df dataframe describing the download
+##' @param metadata data describing the download
 ##' @param format a valid format for the download
 ##' @export
 ##' @import logger
-ons_download <- function(df,
+ons_download <- function(metadata,
                          format="csv" ) {
     validate_file <- function(f) {
         expected_size <- as.numeric(download$size)
@@ -206,34 +206,34 @@ ons_download <- function(df,
     }
 try (if(!(format %in% c('csv', 'xls'))) stop('Format not allowed'))
     download <-
-        df %>%
+        metadata %>%
         ons_download_by_format(format)  ## TODO - error if format not found?
 
-    df$thf$format <- format
+    metadata$thf$format <- format
 
     logger::log_info(sprintf("Downloading data from %s", download$href))
 
-    destfile <-  generate_download_filename(template=df$thf$download_filename_template,
-                                            root=df$thf$download_root,
-                                            data=df$thf)
+    destfile <-  generate_download_filename(template=metadata$thf$download_filename_template,
+                                            root=metadata$thf$download_root,
+                                            data=metadata$thf)
 
     if (safe_download(url = c(download$href),
                       destfile = destfile,
                       fvalidate = validate_file)) {
-        write_metadata(df, sprintf("%s.meta.json", destfile))
+        write_metadata(metadata, sprintf("%s.meta.json", destfile))
         logger::log_info(sprintf("File created at %s ", destfile))
     }
 
-    if (df$thf$is_latest) {
+    if (metadata$thf$is_latest) {
 
-        version <- df$thf$version
-        df$thf$version <- "LATEST"
+        version <- metadata$thf$version
+        metadata$thf$version <- "LATEST"
 
-        linkfile <- generate_download_filename(template=df$thf$download_filename_template,
-                                               root=df$thf$download_root,
-                                               data=df$thf)
+        linkfile <- generate_download_filename(template=metadata$thf$download_filename_template,
+                                               root=metadata$thf$download_root,
+                                               data=metadata$thf)
 
-        df$thf$version <- version
+        metadata$thf$version <- version
         if (file.exists(linkfile)) {
             file.remove(linkfile)
         }
@@ -243,6 +243,6 @@ try (if(!(format %in% c('csv', 'xls'))) stop('Format not allowed'))
         log_info("Create symlink to LATEST file")
     }
 
-    df$thf$destfile <- destfile
-    df
+    metadata$thf$destfile <- destfile
+    metadata
 }
