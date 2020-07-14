@@ -1,5 +1,5 @@
 ---
-title: "THFOpenDataPipeline"
+title: "MONSTROpenDataPipeline"
 author: "The Health Foundation Analytics Lab"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -14,17 +14,17 @@ vignette: >
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
 ```{r , eval = FALSE, include = TRUE}
 
-library(THFOpenDataPipeline)
+library(MONSTROpenDataPipeline)
 library(magrittr)
 
   # ons_* fns relate only to ONS datasource
-  # thf_* fns are general purpose for all datasources
-> ons_datasets_setup(thf_pipeline_defaults()) %>% # Uses the thf 'standards' for location and format
+  # monstr_* fns are general purpose for all datasources
+> ons_datasets_setup(monstr_pipeline_defaults()) %>% # Uses the monstr 'standards' for location and format
 	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="csv") %>%
-	thf_read_file() %>%  
-	thf_clean() %>%
-	thf_write_clean(format="all")
+	monstr_read_file() %>%  
+	monstr_clean() %>%
+	monstr_write_clean(format="all")
 
    # latest version of 'weekly-deaths-local-authority' will be available as a csv 
    # below {{root}}/data/raw/...
@@ -77,7 +77,7 @@ library(magrittr)
 
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
 ```{r , eval = FALSE, include = TRUE}
-ons_datasets_setup(thf_pipeline_defaults()) %>%
+ons_datasets_setup(monstr_pipeline_defaults()) %>%
 	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="csv")
 
@@ -88,7 +88,7 @@ ons_datasets_setup(thf_pipeline_defaults()) %>%
 ### Similarly it can be downloaded as an xls
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
 ```{r , eval = FALSE, include = TRUE}
-ons_datasets_setup(thf_pipeline_defaults()) %>%
+ons_datasets_setup(monstr_pipeline_defaults()) %>%
 	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="xls")
 ```
@@ -97,13 +97,13 @@ ons_datasets_setup(thf_pipeline_defaults()) %>%
 ### Specific versions can be selected.
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
 ```{r , eval = FALSE, include = TRUE}
-datasets <- ons_datasets_setup(thf_pipeline_defaults())
+datasets <- ons_datasets_setup(monstr_pipeline_defaults())
 ## get the metadata about v4 of the time-series edition of weekly-deaths-local-authority dataset.
 wdla4_meta <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series", version=4)
 
 # download it
 wdla4_meta  %>% 
-  thf_pipeline_defaults() %>% 
+  monstr_pipeline_defaults() %>% 
   ons_download(format="csv")
 
 # Or get the latest

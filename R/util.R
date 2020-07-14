@@ -89,21 +89,21 @@ generate_download_filename <- function(template, root, data, create_directory=TR
 
 ##' @title write the data as a csv.
 ##' @param data The actual data
-##' @param thf metadata dataframe created by the pipeline
+##' @param monstr metadata dataframe created by the pipeline
 ##' @param create_directory boolean indicating whether to
 ##'     (recursively) create the directory hierarchy.
 ##' @return boolean indicating success
 ##' @author Neale Swinnerton <neale@mastodonc.com
 ##' @import logger
-write_csv <- function(data, thf, create_directory) {
+write_csv <- function(data, monstr, create_directory) {
     success <- TRUE
-    thf$format <- "csv"
+    monstr$format <- "csv"
 
-    destfile <- generate_download_filename(thf$clean_filename_template,
-                                           thf$download_root,
-                                           thf,
+    destfile <- generate_download_filename(monstr$clean_filename_template,
+                                           monstr$download_root,
+                                           monstr,
                                            create_directory)
-    logger::log_info(sprintf("Writing %s data to %s", thf$format,  destfile))
+    logger::log_info(sprintf("Writing %s data to %s", monstr$format,  destfile))
 
     tryCatch (
         write.csv(data, file=destfile),
@@ -118,21 +118,21 @@ write_csv <- function(data, thf, create_directory) {
 
 ##' @title write the data as a xlsx.
 ##' @param data The actual data
-##' @param thf metadata dataframe created by the pipeline
+##' @param monstr metadata dataframe created by the pipeline
 ##' @param create_directory boolean indicating whether to
 ##'     (recursively) create the directory hierarchy.
 ##' @return boolean indicating success
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @import writexl
 ##' @import logger
-write_xlsx <- function(data, thf, create_directory) {
+write_xlsx <- function(data, monstr, create_directory) {
     success <- TRUE
-    thf$format <- "xlsx"
-    destfile <- generate_download_filename(thf$clean_filename_template,
-                                           thf$download_root,
-                                           thf,
+    monstr$format <- "xlsx"
+    destfile <- generate_download_filename(monstr$clean_filename_template,
+                                           monstr$download_root,
+                                           monstr,
                                            create_directory)
-    logger::log_info(sprintf("Writing %s data to %s", thf$format,  destfile))
+    logger::log_info(sprintf("Writing %s data to %s", monstr$format,  destfile))
     tryCatch (
         writexl::write_xlsx(x=data, path=destfile),
         error = function(e) {
@@ -145,20 +145,20 @@ write_xlsx <- function(data, thf, create_directory) {
 
 ##' @title write the data as a RDS.
 ##' @param data The actual data
-##' @param thf metadata dataframe created by the pipeline
+##' @param monstr metadata dataframe created by the pipeline
 ##' @param create_directory boolean indicating whether to
 ##'     (recursively) create the directory hierarchy.
 ##' @return boolean indicating success
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @import logger
-write_rds <- function(data, thf,create_directory) {
+write_rds <- function(data, monstr,create_directory) {
     success <- TRUE
-    thf$format <- "rds"
-    destfile <- generate_download_filename(thf$clean_filename_template,
-                                           thf$download_root,
-                                           thf,
+    monstr$format <- "rds"
+    destfile <- generate_download_filename(monstr$clean_filename_template,
+                                           monstr$download_root,
+                                           monstr,
                                            create_directory)
-    logger::log_info(sprintf("Writing %s data to %s", thf$format,  destfile))
+    logger::log_info(sprintf("Writing %s data to %s", monstr$format,  destfile))
     tryCatch (
         saveRDS(object=data, file=destfile),
 

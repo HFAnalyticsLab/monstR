@@ -18,10 +18,10 @@ other fns in this package for further processing
 }
 \examples{
 \dontrun{
-ons_datasets_setup(thf_pipeline_defaults()) # rooted in current project
+ons_datasets_setup(monstr_pipeline_defaults()) # rooted in current project
 }
 \dontrun{
-ons_datasets_setup(thf_pipeline_defaults(download_root="/path/to/download/root/"))
+ons_datasets_setup(monstr_pipeline_defaults(download_root="/path/to/download/root/"))
 }
 }
 \author{

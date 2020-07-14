@@ -4,12 +4,12 @@
 \alias{write_xlsx}
 \title{write the data as a xlsx.}
 \usage{
-write_xlsx(data, thf, create_directory)
+write_xlsx(data, monstr, create_directory)
 }
 \arguments{
 \item{data}{The actual data}
 
-\item{thf}{metadata dataframe created by the pipeline}
+\item{monstr}{metadata dataframe created by the pipeline}
 
 \item{create_directory}{boolean indicating whether to
 (recursively) create the directory hierarchy.}
