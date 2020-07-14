@@ -65,15 +65,15 @@ ons_api_call <- function(url) {
 ##' @import dplyr
 ##' @examples
 ##' \dontrun{
-##' ons_datasets_setup(thf_pipeline_defaults()) # rooted in current project
+##' ons_datasets_setup(monstr_pipeline_defaults()) # rooted in current project
 ##' }
 ##' \dontrun{
-##' ons_datasets_setup(thf_pipeline_defaults(download_root="/path/to/download/root/"))
+##' ons_datasets_setup(monstr_pipeline_defaults(download_root="/path/to/download/root/"))
 ##' }
 ons_datasets_setup <- function(defaults) {
     results <- ons_api_call(api_base_url)
-    results$thf <- defaults
-    results$thf$src_url <-  api_base_url
+    results$monstr <- defaults
+    results$monstr$src_url <-  api_base_url
 
     results
 }
@@ -146,12 +146,12 @@ ons_dataset_by_id <- function(metadata, id, edition, version) {
     logger::log_info(sprintf("Retrieving dataset metadata from %s", link))
     dataset <- ons_api_call(link)
 
-    dataset$thf <- metadata$thf
-    dataset$thf$is_latest <- is_latest
-    dataset$thf$datasource <- "ons"
-    dataset$thf$dataset <- id
-    dataset$thf$edition <- dataset$edition
-    dataset$thf$version <- dataset$version
+    dataset$monstr <- metadata$monstr
+    dataset$monstr$is_latest <- is_latest
+    dataset$monstr$datasource <- "ons"
+    dataset$monstr$dataset <- id
+    dataset$monstr$edition <- dataset$edition
+    dataset$monstr$version <- dataset$version
     dataset
 }
 
@@ -216,13 +216,13 @@ try (if(!(format %in% c('csv', 'xls'))) stop('Format not allowed'))
         metadata %>%
         ons_download_by_format(format)  ## TODO - error if format not found?
 
-    metadata$thf$format <- format
+    metadata$monstr$format <- format
 
     logger::log_info(sprintf("Downloading data from %s", download$href))
 
-    destfile <-  generate_download_filename(template=metadata$thf$download_filename_template,
-                                            root=metadata$thf$download_root,
-                                            data=metadata$thf)
+    destfile <-  generate_download_filename(template=metadata$monstr$download_filename_template,
+                                            root=metadata$monstr$download_root,
+                                            data=metadata$monstr)
 
     if (safe_download(url = c(download$href),
                       destfile = destfile,
@@ -231,16 +231,16 @@ try (if(!(format %in% c('csv', 'xls'))) stop('Format not allowed'))
         logger::log_info(sprintf("File created at %s ", destfile))
     }
 
-    if (metadata$thf$is_latest) {
+    if (metadata$monstr$is_latest) {
 
-        version <- metadata$thf$version
-        metadata$thf$version <- "LATEST"
+        version <- metadata$monstr$version
+        metadata$monstr$version <- "LATEST"
 
-        linkfile <- generate_download_filename(template=metadata$thf$download_filename_template,
-                                               root=metadata$thf$download_root,
-                                               data=metadata$thf)
+        linkfile <- generate_download_filename(template=metadata$monstr$download_filename_template,
+                                               root=metadata$monstr$download_root,
+                                               data=metadata$monstr)
 
-        metadata$thf$version <- version
+        metadata$monstr$version <- version
         if (file.exists(linkfile)) {
             file.remove(linkfile)
         }
@@ -250,6 +250,6 @@ try (if(!(format %in% c('csv', 'xls'))) stop('Format not allowed'))
         log_info("Create symlink to LATEST file")
     }
 
-    metadata$thf$destfile <- destfile
+    metadata$monstr$destfile <- destfile
     metadata
 }

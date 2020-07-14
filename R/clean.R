@@ -1,10 +1,10 @@
-##' @title Create the THF defaults
+##' @title Create the MONSTR defaults
 ##' @param download_root Root of directory hierarchy.
 ##' @return an augmented metadata
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import here
-thf_pipeline_defaults <- function(download_root="") {
+monstr_pipeline_defaults <- function(download_root="") {
     basedir <- "{{download_root}}/data"
     filepath <- "{{datasource}}/{{dataset}}/{{edition}}/{{dataset}}-v{{version}}.{{format}}"
 
@@ -25,32 +25,32 @@ thf_pipeline_defaults <- function(download_root="") {
 ##' @title Read the file described by the metadata
 ##' @param metadata description of the downloaded file.
 ##' @return a metadata incorporating the data. The actually data can then be
-##'     extracted with \code{\link{thf_data}}
+##'     extracted with \code{\link{monstr_data}}
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import readr
 ##' @import readxl
-thf_read_file <- function(metadata) {
-    thf <- metadata$thf
+monstr_read_file <- function(metadata) {
+    monstr <- metadata$monstr
 
-    if (thf$format == "csv") {
-        metadata$thf_data <- readr::read_csv(metadata$thf$destfile)
-    } else if (thf$format %in% c("xls", "xlsx")) {
-        metadata$thf_data <- readxl::read_excel(metadata$thf$destfile)
+    if (monstr$format == "csv") {
+        metadata$monstr_data <- readr::read_csv(metadata$monstr$destfile)
+    } else if (monstr$format %in% c("xls", "xlsx")) {
+        metadata$monstr_data <- readxl::read_excel(metadata$monstr$destfile)
     }
-    metadata$thf <- thf
+    metadata$monstr <- monstr
     metadata
 }
 
-##' @title Clean the data according to THF rules.
+##' @title Clean the data according to MONSTR rules.
 ##' @param metadata description the downloaded file.
 ##' @return description of the cleaned data
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import janitor
-thf_clean <- function(metadata) {
-    metadata$thf_data <- janitor::clean_names(metadata$thf_data)
-    metadata$thf$is_clean <- TRUE
+monstr_clean <- function(metadata) {
+    metadata$monstr_data <- janitor::clean_names(metadata$monstr_data)
+    metadata$monstr$is_clean <- TRUE
     metadata
 }
 
@@ -62,8 +62,8 @@ thf_clean <- function(metadata) {
 ##'     described download
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
-thf_data <- function(metadata) {
-    metadata$thf_data
+monstr_data <- function(metadata) {
+    metadata$monstr_data
 }
 
 ##' @title Writes the data to the 'clean' area
@@ -77,15 +77,15 @@ thf_data <- function(metadata) {
 ##' @export
 ##' @import logger
 ##' @importFrom utils write.csv
-thf_write_clean <- function(metadata,
+monstr_write_clean <- function(metadata,
                             format="csv",
                             create_directory=TRUE) {
     success <- TRUE
-    thf <- metadata$thf
+    monstr <- metadata$monstr
 
-    if (thf$is_clean) {
+    if (monstr$is_clean) {
 
-        data <- metadata$thf_data
+        data <- metadata$monstr_data
         csv <- format == "csv"
         xls <- format %in% c("xls", "xlsx")
         rds <- format == "rds"
@@ -99,15 +99,15 @@ thf_write_clean <- function(metadata,
         # TODO - should success be a logical vector indicating which
         # have succeeded?
         if (csv) {
-            success <- success && write_csv(data, thf, create_directory)
+            success <- success && write_csv(data, monstr, create_directory)
         }
 
         if (xls) {
-            success <- success && write_xlsx(data, thf, create_directory)
+            success <- success && write_xlsx(data, monstr, create_directory)
         }
 
         if (rds) {
-            success <- success && write_rds(data, thf, create_directory)
+            success <- success && write_rds(data, monstr, create_directory)
         }
     } else {
         logger::log_warn("Data has not been cleaned. NOT writing")

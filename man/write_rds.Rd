@@ -4,12 +4,12 @@
 \alias{write_rds}
 \title{write the data as a RDS.}
 \usage{
-write_rds(data, thf, create_directory)
+write_rds(data, monstr, create_directory)
 }
 \arguments{
 \item{data}{The actual data}
 
-\item{thf}{metadata dataframe created by the pipeline}
+\item{monstr}{metadata dataframe created by the pipeline}
 
 \item{create_directory}{boolean indicating whether to
 (recursively) create the directory hierarchy.}
