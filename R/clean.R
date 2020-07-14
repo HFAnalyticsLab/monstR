@@ -1,73 +1,73 @@
 ##' @title Apply THF defaults
-##' @param df A 'base' setup, e.g. from \code{\link{ons_datasets_setup}}
+##' @param metadata A 'base' setup, e.g. from \code{\link{ons_datasets_setup}}
 ##' @param download_root Root of directory hierarchy.
-##' @return an augmented dataframe
+##' @return an augmented metadata
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import here
-thf_pipeline_defaults <- function(df, download_root="") {
+thf_pipeline_defaults <- function(metadata, download_root="") {
     basedir <- "{{download_root}}/data"
     filepath <- "{{datasource}}/{{dataset}}/{{edition}}/{{dataset}}-v{{version}}.{{format}}"
 
-    df$thf$download_filename_template = sprintf("%s/raw/%s",
+    metadata$thf$download_filename_template = sprintf("%s/raw/%s",
                                                 basedir,
                                                 filepath)
-    df$thf$clean_filename_template = sprintf("%s/clean/%s",
+    metadata$thf$clean_filename_template = sprintf("%s/clean/%s",
                                              basedir,
                                              filepath)
     if (missing(download_root)) {
-        df$thf$download_root = here::here() # TODO here supposedly for
+        metadata$thf$download_root = here::here() # TODO here supposedly for
                                             # interactive use?
     }
-    df
+    metadata
 }
 
-##' @title Read the file described by the df
-##' @param df dataframe describing the downloaded file.
-##' @return a df incorporating the data. The actually data can then be
+##' @title Read the file described by the metadata
+##' @param metadata description of the downloaded file.
+##' @return a metadata incorporating the data. The actually data can then be
 ##'     extracted with \code{\link{thf_data}}
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import readr
 ##' @import readxl
-thf_read_file <- function(df) {
-    thf <- df$thf
+thf_read_file <- function(metadata) {
+    thf <- metadata$thf
 
     if (thf$format == "csv") {
-        df$thf_data <- readr::read_csv(df$thf$destfile)
+        metadata$thf_data <- readr::read_csv(metadata$thf$destfile)
     } else if (thf$format %in% c("xls", "xlsx")) {
-        df$thf_data <- readxl::read_excel(df$thf$destfile)
+        metadata$thf_data <- readxl::read_excel(metadata$thf$destfile)
     }
-    df$thf <- thf
-    df
+    metadata$thf <- thf
+    metadata
 }
 
 ##' @title Clean the data according to THF rules.
-##' @param df dataframe describing the downloaded file.
-##' @return  a cleaned dataframe
+##' @param metadata description the downloaded file.
+##' @return description of the cleaned data
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import janitor
-thf_clean <- function(df) {
-    df$thf_data <- janitor::clean_names(df$thf_data)
-    df$thf$is_clean <- TRUE
-    df
+thf_clean <- function(metadata) {
+    metadata$thf_data <- janitor::clean_names(metadata$thf_data)
+    metadata$thf$is_clean <- TRUE
+    metadata
 }
 
 ##' Extract the tibble of the actual data
 ##'
 ##' @title Get the Data
-##' @param df describing the downloaded data
+##' @param metadata description of the downloaded data
 ##' @return a \code{\link[tibble]{dplyr::tibble}} of the data from the
 ##'     described download
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
-thf_data <- function(df) {
-    df$thf_data
+thf_data <- function(metadata) {
+    metadata$thf_data
 }
 
 ##' @title Writes the data to the 'clean' area
-##' @param df dataframe describing the data.
+##' @param metadata description of the data.
 ##' @param format any known format or "all" to save a copy as all
 ##'     known formats
 ##' @param create_directory boolean indicating whether directories
@@ -77,15 +77,15 @@ thf_data <- function(df) {
 ##' @export
 ##' @import logger
 ##' @importFrom utils write.csv
-thf_write_clean <- function(df,
+thf_write_clean <- function(metadata,
                             format="csv",
                             create_directory=TRUE) {
     success <- TRUE
-    thf <- df$thf
+    thf <- metadata$thf
 
     if (thf$is_clean) {
 
-        data <- df$thf_data
+        data <- metadata$thf_data
         csv <- format == "csv"
         xls <- format %in% c("xls", "xlsx")
         rds <- format == "rds"
