@@ -4,10 +4,10 @@
 \alias{ons_datasets_setup}
 \title{Datasets Setup}
 \usage{
-ons_datasets_setup()
+ons_datasets_setup(defaults)
 }
 \value{
-a dataframe describing available datasets
+a list describing available datasets
 }
 \description{
 Retrieves a dataframe describing the datasets available from ONS via the API.
@@ -15,6 +15,14 @@ Retrieves a dataframe describing the datasets available from ONS via the API.
 \details{
 This returns a dataframe containing details that can be passed to
 other fns in this package for further processing
+}
+\examples{
+\dontrun{
+ons_datasets_setup(thf_pipeline_defaults()) # rooted in current project
+}
+\dontrun{
+ons_datasets_setup(thf_pipeline_defaults(download_root="/path/to/download/root/"))
+}
 }
 \author{
 Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}

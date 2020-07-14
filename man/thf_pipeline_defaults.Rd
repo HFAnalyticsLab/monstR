@@ -2,20 +2,18 @@
 % Please edit documentation in R/clean.R
 \name{thf_pipeline_defaults}
 \alias{thf_pipeline_defaults}
-\title{Apply THF defaults}
+\title{Create the THF defaults}
 \usage{
-thf_pipeline_defaults(df, download_root = "")
+thf_pipeline_defaults(download_root = "")
 }
 \arguments{
-\item{df}{A 'base' setup, e.g. from \code{\link{ons_datasets_setup}}}
-
 \item{download_root}{Root of directory hierarchy.}
 }
 \value{
-an augmented dataframe
+an augmented metadata
 }
 \description{
-Apply THF defaults
+Create the THF defaults
 }
 \author{
 Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}

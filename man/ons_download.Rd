@@ -4,10 +4,10 @@
 \alias{ons_download}
 \title{Download}
 \usage{
-ons_download(df, format = "csv")
+ons_download(metadata, format = "csv")
 }
 \arguments{
-\item{df}{dataframe describing the download}
+\item{metadata}{data describing the download}
 
 \item{format}{a valid format for the download}
 }

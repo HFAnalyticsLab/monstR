@@ -4,10 +4,10 @@
 \alias{ons_dataset_by_id}
 \title{Dataset By Id}
 \usage{
-ons_dataset_by_id(df, id, edition, version)
+ons_dataset_by_id(metadata, id, edition, version)
 }
 \arguments{
-\item{df}{dataframe describing the dataset}
+\item{metadata}{data describing the dataset}
 
 \item{id}{the identifier of the dataset. Valid values from \code{ons_available_datasets()}}
 

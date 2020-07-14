@@ -19,8 +19,7 @@ library(magrittr)
 
   # ons_* fns relate only to ONS datasource
   # thf_* fns are general purpose for all datasources
-> ons_datasets_setup() %>%
-	thf_pipeline_defaults() %>% # Uses the thf 'standards' for location and format
+> ons_datasets_setup(thf_pipeline_defaults()) %>% # Uses the thf 'standards' for location and format
 	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="csv") %>%
 	thf_read_file() %>%  
@@ -78,7 +77,7 @@ library(magrittr)
 
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
 ```{r , eval = FALSE, include = TRUE}
-ons_datasets_setup() %>%
+ons_datasets_setup(thf_pipeline_defaults()) %>%
 	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="csv")
 
@@ -89,7 +88,7 @@ ons_datasets_setup() %>%
 ### Similarly it can be downloaded as an xls
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
 ```{r , eval = FALSE, include = TRUE}
-ons_datasets_setup() %>%
+ons_datasets_setup(thf_pipeline_defaults()) %>%
 	ons_dataset_by_id("weekly-deaths-local-authority") %>%
 	ons_download(format="xls")
 ```
@@ -98,7 +97,7 @@ ons_datasets_setup() %>%
 ### Specific versions can be selected.
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
 ```{r , eval = FALSE, include = TRUE}
-datasets <- ons_datasets_setup()
+datasets <- ons_datasets_setup(thf_pipeline_defaults())
 ## get the metadata about v4 of the time-series edition of weekly-deaths-local-authority dataset.
 wdla4_meta <- datasets %>% ons_dataset_by_id("weekly-deaths-local-authority", edition="time-series", version=4)
 

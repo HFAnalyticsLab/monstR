@@ -63,15 +63,22 @@ ons_api_call <- function(url) {
 ##' @export
 ##' @import jsonlite
 ##' @import dplyr
-ons_datasets_setup <- function() {
+##' @examples
+##' \dontrun{
+##' ons_datasets_setup(thf_pipeline_defaults()) # rooted in current project
+##' }
+##' \dontrun{
+##' ons_datasets_setup(thf_pipeline_defaults(download_root="/path/to/download/root/"))
+##' }
+ons_datasets_setup <- function(defaults) {
     results <- ons_api_call(api_base_url)
-    results$thf <- dplyr::tibble(src_url = api_base_url)
+    results$thf <- defaults
+    results$thf$src_url <-  api_base_url
 
     results
 }
 
 ##' @title Available Datasets
-##' @param metadata data describing the datasets from \code{ons_datasets_setup()}
 ##' @return list of available datasets
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
@@ -80,7 +87,7 @@ ons_datasets_setup <- function() {
 #' \dontrun{
 #' ons_available_datasets()
 #' }
-ons_available_datasets <- function(metadata) {
+ons_available_datasets <- function() {
     ons_api_call(api_base_url)$items %>% dplyr::select(id)
 }
 

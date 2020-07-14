@@ -1,22 +1,22 @@
-##' @title Apply THF defaults
-##' @param metadata A 'base' setup, e.g. from \code{\link{ons_datasets_setup}}
+##' @title Create the THF defaults
 ##' @param download_root Root of directory hierarchy.
 ##' @return an augmented metadata
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import here
-thf_pipeline_defaults <- function(metadata, download_root="") {
+thf_pipeline_defaults <- function(download_root="") {
     basedir <- "{{download_root}}/data"
     filepath <- "{{datasource}}/{{dataset}}/{{edition}}/{{dataset}}-v{{version}}.{{format}}"
 
-    metadata$thf$download_filename_template = sprintf("%s/raw/%s",
+    metadata <- list()
+    metadata$download_filename_template = sprintf("%s/raw/%s",
                                                 basedir,
                                                 filepath)
-    metadata$thf$clean_filename_template = sprintf("%s/clean/%s",
+    metadata$clean_filename_template = sprintf("%s/clean/%s",
                                              basedir,
                                              filepath)
     if (missing(download_root)) {
-        metadata$thf$download_root = here::here() # TODO here supposedly for
+        metadata$download_root = here::here() # TODO here supposedly for
                                             # interactive use?
     }
     metadata
