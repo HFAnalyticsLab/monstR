@@ -4,10 +4,10 @@
 \alias{thf_data}
 \title{Get the Data}
 \usage{
-thf_data(df)
+thf_data(metadata)
 }
 \arguments{
-\item{df}{describing the downloaded data}
+\item{metadata}{description of the downloaded data}
 }
 \value{
 a \code{\link[tibble]{dplyr::tibble}} of the data from the

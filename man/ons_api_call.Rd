@@ -10,7 +10,7 @@ ons_api_call(url)
 \item{url}{url to call @seeAlso \code{\link{[api_base_url]}}}
 }
 \value{
-a dataframe contained the API call results
+a list contained the API call results
 }
 \description{
 Make request to given url, which is assumed to be the ONS api.

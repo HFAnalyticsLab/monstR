@@ -4,13 +4,13 @@
 \alias{thf_clean}
 \title{Clean the data according to THF rules.}
 \usage{
-thf_clean(df)
+thf_clean(metadata)
 }
 \arguments{
-\item{df}{dataframe describing the downloaded file.}
+\item{metadata}{description the downloaded file.}
 }
 \value{
-a cleaned dataframe
+description of the cleaned data
 }
 \description{
 Clean the data according to THF rules.

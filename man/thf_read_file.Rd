@@ -2,19 +2,19 @@
 % Please edit documentation in R/clean.R
 \name{thf_read_file}
 \alias{thf_read_file}
-\title{Read the file described by the df}
+\title{Read the file described by the metadata}
 \usage{
-thf_read_file(df)
+thf_read_file(metadata)
 }
 \arguments{
-\item{df}{dataframe describing the downloaded file.}
+\item{metadata}{description of the downloaded file.}
 }
 \value{
-a df incorporating the data. The actually data can then be
+a metadata incorporating the data. The actually data can then be
 extracted with \code{\link{thf_data}}
 }
 \description{
-Read the file described by the df
+Read the file described by the metadata
 }
 \author{
 Neale Swinnerton \href{mailto:neale@mastodonc.com}{neale@mastodonc.com}

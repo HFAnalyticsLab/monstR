@@ -38,7 +38,7 @@ remotes::install_github("HFAnalyticsLab/monstR", build_vignettes = TRUE )
 
 ## Design Principles
 
-The THF Open Data Pipeline is designed to work well with tidyverse and in particular within pipelines created by the `%>%` pipe operator. With this in mind, most functions take a dataframe (or equivalent, such as a `dplyr::tibble`) in the first argument and return a dataframe which has been augmented in some way.
+The THF Open Data Pipeline is designed to work well with tidyverse and in particular within pipelines created by the `%>%` pipe operator. With this in mind, most functions take a data structure in the first argument and return a data structure which has been augmented in some way. Typically this is metadata about the actual data, although once the data has been cleaned it can be accessed using `thf_data(metadata)` to get at a tidyverse tibble of the data.
 
 
 ## Authors

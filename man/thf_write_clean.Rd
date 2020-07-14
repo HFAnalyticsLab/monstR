@@ -4,10 +4,10 @@
 \alias{thf_write_clean}
 \title{Writes the data to the 'clean' area}
 \usage{
-thf_write_clean(df, format = "csv", create_directory = TRUE)
+thf_write_clean(metadata, format = "csv", create_directory = TRUE)
 }
 \arguments{
-\item{df}{dataframe describing the data.}
+\item{metadata}{description of the data.}
 
 \item{format}{any known format or "all" to save a copy as all
 known formats}

@@ -4,10 +4,7 @@
 \alias{ons_available_datasets}
 \title{Available Datasets}
 \usage{
-ons_available_datasets(df)
-}
-\arguments{
-\item{df}{dataframe describing the datasets from \code{ons_datasets_setup()}}
+ons_available_datasets()
 }
 \value{
 list of available datasets
