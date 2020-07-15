@@ -106,7 +106,7 @@ write_csv <- function(data, monstr, create_directory) {
     logger::log_info(sprintf("Writing %s data to %s", monstr$format,  destfile))
 
     tryCatch (
-        write.csv(data, file=destfile),
+        write.csv(data, file=destfile, row.names=FALSE),
         error = function(e) {
             success <- FALSE
         }
