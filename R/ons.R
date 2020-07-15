@@ -86,16 +86,20 @@ ons_datasets_setup <- function(defaults) {
 }
 
 ##' @title Available Datasets
-##' @return list of available datasets
+##' @return list of available datasets and associated metadata
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import dplyr
 ##' @examples 
-#' \dontrun{
-#' ons_available_datasets()
-#' }
+##' \dontrun{
+##' ons_available_datasets()
+##' }
+##' \dontrun{
+##' # display just the ids
+##' ons_available_datasets() %>% select(id)
+##' }
 ons_available_datasets <- function() {
-    ons_api_call(api_base_url)$items %>% dplyr::select(id)
+    ons_api_call(api_base_url)$items
 }
 
 #' Retrieve the metadata for the given dataset.
