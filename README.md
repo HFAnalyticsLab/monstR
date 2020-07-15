@@ -1,6 +1,4 @@
-# monstR - making ONS tables readable
-
-
+# monstR - making ONS tables readable <a href='https://github.com/HFAnalyticsLab/monstR'><img src='man/figures/monstR_2.png' align="right" height="139" /></a>
 #### Project Status: in progress
 
 ![R-CMD-check](https://github.com/HFAnalyticsLab/Open_data_pipelines/workflows/R-CMD-check/badge.svg)
