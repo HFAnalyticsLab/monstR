@@ -25,8 +25,15 @@ ons_version_by_version <- function(df, version) {
 
 ## END TODO - make these fns more general?
 
-ons_download_by_format <- function(df, format) {
-    df$downloads[[format]]
+ons_download_by_format <- function(metadata, format) {
+    download <- metadata$downloads[[format]]
+    if (is.null(download)) {
+        valid_formats <- names(metadata$downloads)
+        logger::log_error(sprintf("Format '%s' not found, valid formats for this dataset are %s", format, toString(names(metadata$downloads))))
+        stop()
+    }
+
+    download
 }
 
 ## TODO - is there a std fn for this?
