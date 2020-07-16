@@ -106,7 +106,7 @@
 <pre>
 <!-- use a pre to allow italics, urrgh -->
 library(devtools)
-setwd("<i>{location of Open_data_pipelines repo}</i>")
+setwd("<i>{location of monstR repo}</i>")
 devtools::load_all()
 </pre>
 <p>or to install direct from Github</p>
@@ -115,7 +115,7 @@ devtools::load_all()
 <div id="design-principles" class="section level2">
 <h2 class="hasAnchor">
 <a href="#design-principles" class="anchor"></a>Design Principles</h2>
-<p>The MONSTR Open Data Pipeline is designed to work well with tidyverse and in particular within pipelines created by the <code><a href="reference/%&gt;%.html">%&gt;%</a></code> pipe operator. With this in mind, most functions take a data structure in the first argument and return a data structure which has been augmented in some way. Typically this is metadata about the actual data, although once the data has been cleaned it can be accessed using <code><a href="reference/monstr_data.html">monstr_data(metadata)</a></code> to get at a tidyverse tibble of the data.</p>
+<p>The monstrR Open Data Pipeline is designed to work well with tidyverse and in particular within pipelines created by the <code><a href="reference/%&gt;%.html">%&gt;%</a></code> pipe operator. With this in mind, most functions take a data structure in the first argument and return a data structure which has been augmented in some way. Typically this is metadata about the actual data, although once the data has been cleaned it can be accessed using <code><a href="reference/monstr_data.html">monstr_data(metadata)</a></code> to get at a tidyverse tibble of the data.</p>
 </div>
 <div id="authors" class="section level2">
 <h2 class="hasAnchor">
@@ -123,6 +123,9 @@ devtools::load_all()
 <ul>
 <li>
 <strong>Neale Swinnerton</strong> - <a href="https://github.com/sw1nn">Github</a>
+</li>
+<li>
+<strong>Emma Vestesson</strong> - <a href="https://github.com/emmavestesson">Github</a> <a href="https://twitter.com/Gummifot">Twitter</a>
 </li>
 </ul>
 </div>
