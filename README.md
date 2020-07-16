@@ -25,7 +25,7 @@ If you have cloned a local copy of the repo, you should be able to load it using
 <pre>
 <!-- use a pre to allow italics, urrgh -->
 library(devtools)
-setwd("<i>{location of Open_data_pipelines repo}</i>")
+setwd("<i>{location of monstR repo}</i>")
 devtools::load_all()
 </pre>
 
@@ -36,11 +36,12 @@ remotes::install_github("HFAnalyticsLab/monstR", build_vignettes = TRUE )
 
 ## Design Principles
 
-The MONSTR Open Data Pipeline is designed to work well with tidyverse and in particular within pipelines created by the `%>%` pipe operator. With this in mind, most functions take a data structure in the first argument and return a data structure which has been augmented in some way. Typically this is metadata about the actual data, although once the data has been cleaned it can be accessed using `monstr_data(metadata)` to get at a tidyverse tibble of the data.
+The monstrR Open Data Pipeline is designed to work well with tidyverse and in particular within pipelines created by the `%>%` pipe operator. With this in mind, most functions take a data structure in the first argument and return a data structure which has been augmented in some way. Typically this is metadata about the actual data, although once the data has been cleaned it can be accessed using `monstr_data(metadata)` to get at a tidyverse tibble of the data.
 
 
 ## Authors
 * **Neale Swinnerton** -  [Github](https://github.com/sw1nn)
+* **Emma Vestesson** -  [Github](https://github.com/emmavestesson) [Twitter](https://twitter.com/Gummifot)
 
 ## License
 
