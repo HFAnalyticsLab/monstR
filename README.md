@@ -45,4 +45,4 @@ The monstrR Open Data Pipeline is designed to work well with tidyverse and in pa
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/HFAnalyticsLab/Open_data_pipelines/blob/master/LICENSE).
+This project is licensed under the [MIT License](https://github.com/HFAnalyticsLab/monstR/blob/master/LICENSE).
