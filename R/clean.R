@@ -76,7 +76,8 @@ monstr_data <- function(metadata) {
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
 ##' @import logger
-##' @importFrom utils write.csv
+##' @importFrom readr write_csv write_rds
+##' @importFrom writexl write_xlsx
 monstr_write_clean <- function(metadata,
                             format="csv",
                             create_directory=TRUE) {
