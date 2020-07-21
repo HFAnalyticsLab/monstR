@@ -1,5 +1,5 @@
 ---
-title: "MONSTROpenDataPipeline"
+title: "Quick start"
 author: "The Health Foundation Analytics Lab"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -14,7 +14,7 @@ vignette: >
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
 ```{r , eval = FALSE, include = TRUE}
 
-library(MONSTROpenDataPipeline)
+library(monstR)
 library(magrittr)
 
   # ons_* fns relate only to ONS datasource
