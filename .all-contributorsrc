@@ -15,6 +15,15 @@
         "content",
         "doc"
       ]
+    },
+    {
+      "login": "tomjemmett",
+      "name": "Tom Jemmett",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/12023696?v=4",
+      "profile": "https://www.strategyunitwm.nhs.uk/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
