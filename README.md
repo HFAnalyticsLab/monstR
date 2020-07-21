@@ -1,6 +1,6 @@
 # monstR - making ONS tables readable 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 #### Project Status: in progress
 
@@ -60,6 +60,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://emmavestesson.netlify.com/"><img src="https://avatars2.githubusercontent.com/u/31949401?v=4" width="100px;" alt=""/><br /><sub><b>Emma Vestesson</b></sub></a><br /><a href="#ideas-emmavestesson" title="Ideas, Planning, & Feedback">🤔</a> <a href="#content-emmavestesson" title="Content">🖋</a> <a href="https://github.com/HFAnalyticsLab/monstR/commits?author=emmavestesson" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://www.strategyunitwm.nhs.uk/"><img src="https://avatars1.githubusercontent.com/u/12023696?v=4" width="100px;" alt=""/><br /><sub><b>Tom Jemmett</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3Atomjemmett" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
