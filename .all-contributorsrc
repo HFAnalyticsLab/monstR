@@ -15,6 +15,15 @@
         "content",
         "doc"
       ]
+    },
+    {
+      "login": "sw1nn",
+      "name": "Neale Swinnerton",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/373335?v=4",
+      "profile": "http://sw1nn.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
