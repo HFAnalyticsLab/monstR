@@ -1,11 +1,11 @@
-# monstR - making ONS tables readable 
+# monstR - making ONS tables readable  <a><img src='man/figures/monstR_2.png' align="right" height="139" /></a>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-#### Project Status: in progress
 
 ![R-CMD-check](https://github.com/HFAnalyticsLab/Open_data_pipelines/workflows/R-CMD-check/badge.svg)
 
+#### Project Status: in progress
 ## Project Description
 
 This package is a part of our open-source R pipeline to download and clean public data related to health and social care. The aim is to provide analysts, primarily at the Health Foundation, with clean and ready for analysis data. 
@@ -35,6 +35,21 @@ devtools::load_all()
 or to install direct from Github
 ```
 remotes::install_github("HFAnalyticsLab/monstR", build_vignettes = TRUE )
+```
+
+## Examples
+
+This is an example of how to download weekly mortality data by region. Note that this will create folders and download data. 
+
+```
+monstr_pipeline_defaults() %>%  # Uses the monstr 'standards' for location and format
+  ons_datasets_setup() %>% 
+	ons_dataset_by_id("weekly-deaths-region") %>%
+	ons_download(format="csv") %>%
+	monstr_read_file() %>%  
+	monstr_clean() %>%
+	monstr_write_clean(format="all")
+
 ```
 
 ## Design Principles
