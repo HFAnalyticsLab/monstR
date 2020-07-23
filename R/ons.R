@@ -107,7 +107,7 @@ ons_datasets_setup <- function(defaults) {
 ##' }
 ons_available_datasets <- function() {
             desc <- ons_api_call(api_base_url)$items %>% 
-                dplyr::select(id_var=id, title, description, unit_of_measure, next_release, release_frequency, publisher)
+                dplyr::select(id, title, description, unit_of_measure, next_release, release_frequency, publisher)
             return(desc)
 
 }
