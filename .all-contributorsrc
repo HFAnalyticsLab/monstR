@@ -1,0 +1,35 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "emmavestesson",
+      "name": "Emma Vestesson",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/31949401?v=4",
+      "profile": "https://emmavestesson.netlify.com/",
+      "contributions": [
+        "ideas",
+        "content",
+        "doc"
+      ]
+    },
+    {
+      "login": "sw1nn",
+      "name": "Neale Swinnerton",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/373335?v=4",
+      "profile": "http://sw1nn.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "monstR",
+  "projectOwner": "HFAnalyticsLab",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
