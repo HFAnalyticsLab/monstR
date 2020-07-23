@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Datasets Setup — ons_datasets_setup" />
-<meta property="og:description" content="Retrieves a dataframe describing the datasets available from ONS via the API." />
+<meta property="og:description" content="This returns a dataframe containing details that can be passed to
+other fns in this package for further processing" />
 
 
 
@@ -121,29 +122,36 @@
     </div>
 
     <div class="ref-description">
-    <p>Retrieves a dataframe describing the datasets available from ONS via the API.</p>
+    <p>This returns a dataframe containing details that can be passed to
+other fns in this package for further processing</p>
     </div>
 
     <pre class="usage"><span class='fu'>ons_datasets_setup</span>(<span class='kw'>defaults</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>defaults</th>
+      <td><p>a list with folder system.  Valid values from <code><a href='monstr_pipeline_defaults.html'>monstr_pipeline_defaults(...)</a></code></p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a list describing available datasets</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This returns a dataframe containing details that can be passed to
-other fns in this package for further processing</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Neale Swinnerton <a href='mailto:neale@mastodonc.com'>neale@mastodonc.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>ons_datasets_setup</span>(<span class='fu'><a href='monstr_pipeline_defaults.html'>monstr_pipeline_defaults</a></span>()) <span class='co'># rooted in current project</span>
+<span class='fu'><a href='monstr_pipeline_defaults.html'>monstr_pipeline_defaults</a></span>() <span class='op'>%&gt;%</span> 
+ <span class='fu'>ons_datasets_setup</span>() <span class='co'># rooted in current project</span>
 }
 <span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>ons_datasets_setup</span>(<span class='fu'><a href='monstr_pipeline_defaults.html'>monstr_pipeline_defaults</a></span>(download_root=<span class='st'>"/path/to/download/root/"</span>))
+<span class='fu'><a href='monstr_pipeline_defaults.html'>monstr_pipeline_defaults</a></span>(download_root=<span class='st'>"/path/to/download/root/"</span>) <span class='op'>%&gt;%</span> 
+     <span class='fu'>ons_datasets_setup</span>()
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
