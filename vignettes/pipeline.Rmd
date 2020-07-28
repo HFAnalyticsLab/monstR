@@ -9,6 +9,81 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+
+## Discover what is available:
+
+There are a few helper functions to help you find out what data sets are available as well as the corresponding editions and versions The `ons_available_datasets()` function will return a dataframe with information about all available datasets. The `id` column is what you need to download a dataset.  
+<!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
+```{r , eval = FALSE, include = TRUE}
+
+datasets <-  ons_available_datasets()
+
+ datasets() %>% 
+  select(id)
+                                    id
+1                               cpih01
+2                     mid-year-pop-est
+3                   ashe-table-7-hours
+4                ashe-table-7-earnings
+5                   ashe-table-8-hours
+6                ashe-table-8-earnings
+7                           opss-rates
+8                      opss-membership
+9                wellbeing-year-ending
+10           wellbeing-local-authority
+...
+
+
+```
+
+Once you have picked a dataset, you need pick the edition you want. This can be done using `ons_available_editions()`.
+```{r, eval = FALSE, include = TRUE}
+
+# Discover the available editions for a particular dataset
+ons_available_editions(id = "mid-year-pop-est")
+
+edition
+<chr>
+1	mid-2018-april-2019-geography			
+2	mid-2019-april-2020-geography			
+3	time-series
+
+
+
+```
+
+Finally, you need to find out what what versions are availble for a specific edition of a dataset. 
+```{r, eval = FALSE, include = TRUE}
+# Discover the available versions for a particular edition
+
+ons_available_versions("mid-year-pop-est", "time-series")
+
+  version
+1       1
+2       2
+3       3
+4       4
+
+```
+
+## Download the data
+
+You should now be ready to download the data. Start by specifying where you want the data to downloaded to. The `monstr_pipeline_defaults()` returns a default folder structure (without creating it). You can specify the a file path base using the `download_root` argument. If you do not specify `download_root`, the base file path will be your project root if you are using Rstudio projects and wherever you working directory is set to otherwise. The output from `monstr_pipeline_defaults()` is then fed to `ons_datasets_setup()` which queries the ONS API to get the relevant information to prepare for downloading the data. Finally, `ons_download()` downloads the data. The rest of the piped code reads in, cleans and saves a clean version of the data. 
+```{r, eval=FALSE, include=TRUE}
+monstr_pipeline_defaults(download_root="/path/to/download/root/") %>% 
+  ons_datasets_setup() %>% # Uses the monstr 'standards' for location and format
+	ons_dataset_by_id("weekly-deaths-local-authority") %>%
+  ons_download(format="csv") %>%
+	monstr_read_file() %>%  
+	monstr_clean() %>%
+	monstr_write_clean(format="all")
+  
+```
+
+
+
+
 ## Quickstart
 
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
