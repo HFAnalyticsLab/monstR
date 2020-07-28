@@ -54,7 +54,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/pipeline.html">MONSTROpenDataPipeline</a>
+      <a href="articles/pipeline.html">Quick start</a>
     </li>
   </ul>
 </li>
@@ -71,15 +71,16 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="monstr---making-ons-tables-readable" class="section level1">
+<div id="monstr---making-ons-tables-readable-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#monstr---making-ons-tables-readable" class="anchor"></a>monstR - making ONS tables readable</h1></div>
+<a href="#monstr---making-ons-tables-readable-" class="anchor"></a>monstR - making ONS tables readable <a><img src="reference/figures/monstR_2.png" align="right" height="139"></a>
+</h1></div>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
+<p><img src="https://github.com/HFAnalyticsLab/Open_data_pipelines/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></p>
 <div id="project-status-in-progress" class="section level4">
 <h4 class="hasAnchor">
 <a href="#project-status-in-progress" class="anchor"></a>Project Status: in progress</h4>
-<p><img src="https://github.com/HFAnalyticsLab/Open_data_pipelines/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></p>
 </div>
 <div id="project-description" class="section level2">
 <h2 class="hasAnchor">
@@ -114,6 +115,19 @@ devtools::load_all()
 <p>or to install direct from Github</p>
 <pre><code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("HFAnalyticsLab/monstR", build_vignettes = TRUE )</a></code></pre>
 </div>
+<div id="examples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#examples" class="anchor"></a>Examples</h2>
+<p>This is an example of how to download weekly mortality data by region. Note that this will create folders and download data.</p>
+<pre><code>monstr_pipeline_defaults() %&gt;%  # Uses the monstr 'standards' for location and format
+  ons_datasets_setup() %&gt;% 
+    ons_dataset_by_id("weekly-deaths-region") %&gt;%
+    ons_download(format="csv") %&gt;%
+    monstr_read_file() %&gt;%  
+    monstr_clean() %&gt;%
+    monstr_write_clean(format="all")
+</code></pre>
+</div>
 <div id="design-principles" class="section level2">
 <h2 class="hasAnchor">
 <a href="#design-principles" class="anchor"></a>Design Principles</h2>
@@ -146,6 +160,9 @@ devtools::load_all()
 <table class="table"><tr>
 <td align="center">
 <a href="https://emmavestesson.netlify.com/"><img src="https://avatars2.githubusercontent.com/u/31949401?v=4" width="100px;" alt=""><br><sub><b>Emma Vestesson</b></sub></a><br><a href="#ideas-emmavestesson" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#content-emmavestesson" title="Content">🖋</a> <a href="https://github.com/HFAnalyticsLab/monstR/commits?author=emmavestesson" title="Documentation">📖</a>
+</td>
+<td align="center">
+<a href="https://github.com/JohnHC86"><img src="https://avatars1.githubusercontent.com/u/12610020?v=4" width="100px;" alt=""><br><sub><b>JohnHC86</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3AJohnHC86" title="Bug reports">🐛</a>
 </td>
 <td align="center">
 <a href="http://sw1nn.com"><img src="https://avatars1.githubusercontent.com/u/373335?v=4" width="100px;" alt=""><br><sub><b>Neale Swinnerton</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/commits?author=sw1nn" title="Code">💻</a>
