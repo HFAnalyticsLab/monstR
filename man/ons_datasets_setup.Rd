@@ -6,22 +6,24 @@
 \usage{
 ons_datasets_setup(defaults)
 }
+\arguments{
+\item{defaults}{a list with folder system.  Valid values from \code{monstr_pipeline_defaults(...)}}
+}
 \value{
 a list describing available datasets
 }
 \description{
-Retrieves a dataframe describing the datasets available from ONS via the API.
-}
-\details{
 This returns a dataframe containing details that can be passed to
 other fns in this package for further processing
 }
 \examples{
 \dontrun{
-ons_datasets_setup(monstr_pipeline_defaults()) # rooted in current project
+monstr_pipeline_defaults() \%>\% 
+ ons_datasets_setup() # rooted in current project
 }
 \dontrun{
-ons_datasets_setup(monstr_pipeline_defaults(download_root="/path/to/download/root/"))
+monstr_pipeline_defaults(download_root="/path/to/download/root/") \%>\% 
+     ons_datasets_setup()
 }
 }
 \author{
