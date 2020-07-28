@@ -1,6 +1,6 @@
 # monstR - making ONS tables readable  <a><img src='man/figures/monstR_2.png' align="right" height="139" /></a>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![R-CMD-check](https://github.com/HFAnalyticsLab/Open_data_pipelines/workflows/R-CMD-check/badge.svg)
@@ -99,15 +99,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://emmavestesson.netlify.com/"><img src="https://avatars2.githubusercontent.com/u/31949401?v=4" width="100px;" alt=""/><br /><sub><b>Emma Vestesson</b></sub></a><br /><a href="#ideas-emmavestesson" title="Ideas, Planning, & Feedback">🤔</a> <a href="#content-emmavestesson" title="Content">🖋</a> <a href="https://github.com/HFAnalyticsLab/monstR/commits?author=emmavestesson" title="Documentation">📖</a></td>
-
-   <td align="center"><a href="https://www.strategyunitwm.nhs.uk/"><img src="https://avatars1.githubusercontent.com/u/12023696?v=4" width="100px;" alt=""/><br /><sub><b>Tom Jemmett</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3Atomjemmett" title="Bug reports">🐛</a></td>
-
-    
- <td align="center"><a href="https://github.com/JohnHC86"><img src="https://avatars1.githubusercontent.com/u/12610020?v=4" width="100px;" alt=""/><br /><sub><b>JohnHC86</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3AJohnHC86" title="Bug reports">🐛</a></td>
-
- <td align="center"><a href="http://sw1nn.com"><img src="https://avatars1.githubusercontent.com/u/373335?v=4" width="100px;" alt=""/><br /><sub><b>Neale Swinnerton</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/commits?author=sw1nn" title="Code">💻</a></td>
-
-
+    <td align="center"><a href="https://www.strategyunitwm.nhs.uk/"><img src="https://avatars1.githubusercontent.com/u/12023696?v=4" width="100px;" alt=""/><br /><sub><b>Tom Jemmett</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3Atomjemmett" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/JohnHC86"><img src="https://avatars1.githubusercontent.com/u/12610020?v=4" width="100px;" alt=""/><br /><sub><b>JohnHC86</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3AJohnHC86" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://sw1nn.com"><img src="https://avatars1.githubusercontent.com/u/373335?v=4" width="100px;" alt=""/><br /><sub><b>Neale Swinnerton</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/commits?author=sw1nn" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/fiona-grimm"><img src="https://avatars1.githubusercontent.com/u/31844347?v=4" width="100px;" alt=""/><br /><sub><b>fiona-grimm</b></sub></a><br /><a href="#ideas-fiona-grimm" title="Ideas, Planning, & Feedback">🤔</a> <a href="#design-fiona-grimm" title="Design">🎨</a></td>
   </tr>
 </table>
 
