@@ -75,7 +75,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://emmavestesson.netlify.com/"><img src="https://avatars2.githubusercontent.com/u/31949401?v=4" width="100px;" alt=""/><br /><sub><b>Emma Vestesson</b></sub></a><br /><a href="#ideas-emmavestesson" title="Ideas, Planning, & Feedback">🤔</a> <a href="#content-emmavestesson" title="Content">🖋</a> <a href="https://github.com/HFAnalyticsLab/monstR/commits?author=emmavestesson" title="Documentation">📖</a></td>
+
+    
+    <td align="center"><a href="https://github.com/JohnHC86"><img src="https://avatars1.githubusercontent.com/u/12610020?v=4" width="100px;" alt=""/><br /><sub><b>JohnHC86</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3AJohnHC86" title="Bug reports">🐛</a></td>
+
+    
     <td align="center"><a href="http://sw1nn.com"><img src="https://avatars1.githubusercontent.com/u/373335?v=4" width="100px;" alt=""/><br /><sub><b>Neale Swinnerton</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/commits?author=sw1nn" title="Code">💻</a></td>
+
   </tr>
 </table>
 
