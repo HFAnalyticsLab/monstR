@@ -60,11 +60,11 @@ ons_api_call <- function(url) {
     df
 }
 
-##' Retrieves a dataframe describing the datasets available from ONS via the API.
-##'
+
 ##' This returns a dataframe containing details that can be passed to
 ##' other fns in this package for further processing
 ##' @title Datasets Setup
+##' @param defaults a list with folder system.  Valid values from \code{monstr_pipeline_defaults(...)} 
 ##' @return a list describing available datasets
 ##' @author Neale Swinnerton <neale@mastodonc.com>
 ##' @export
@@ -72,10 +72,12 @@ ons_api_call <- function(url) {
 ##' @import dplyr
 ##' @examples
 ##' \dontrun{
-##' ons_datasets_setup(monstr_pipeline_defaults()) # rooted in current project
+##' monstr_pipeline_defaults() %>% 
+##'  ons_datasets_setup() # rooted in current project
 ##' }
 ##' \dontrun{
-##' ons_datasets_setup(monstr_pipeline_defaults(download_root="/path/to/download/root/"))
+##' monstr_pipeline_defaults(download_root="/path/to/download/root/") %>% 
+##'      ons_datasets_setup()
 ##' }
 ons_datasets_setup <- function(defaults) {
     results <- ons_api_call(api_base_url)
@@ -85,6 +87,7 @@ ons_datasets_setup <- function(defaults) {
     results
 }
 
+##' Retrieves a dataframe describing the datasets available from ONS via the API.
 ##' @title Available Datasets
 ##' @return list of available datasets and associated metadata
 ##' @author Neale Swinnerton <neale@mastodonc.com>
@@ -92,14 +95,21 @@ ons_datasets_setup <- function(defaults) {
 ##' @import dplyr
 ##' @examples 
 ##' \dontrun{
-##' ons_available_datasets()
+##' # return information on all available datasets and then filter on specific id
+##' datasets <- ons_available_datasets()
+##' 
+##' datasets %>% 
+##' filter(id='health-accounts')
 ##' }
 ##' \dontrun{
 ##' # display just the ids
 ##' ons_available_datasets() %>% select(id)
 ##' }
 ons_available_datasets <- function() {
-    ons_api_call(api_base_url)$items
+            desc <- ons_api_call(api_base_url)$items %>% 
+                dplyr::select(id, title, description, unit_of_measure, next_release, release_frequency, publisher)
+            return(desc)
+
 }
 
 #' Retrieve the metadata for the given dataset.

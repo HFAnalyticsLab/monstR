@@ -7,14 +7,22 @@
 ons_available_datasets()
 }
 \value{
-list of available datasets
+list of available datasets and associated metadata
 }
 \description{
-Available Datasets
+Retrieves a dataframe describing the datasets available from ONS via the API.
 }
 \examples{
 \dontrun{
-ons_available_datasets()
+# return information on all available datasets and then filter on specific id
+datasets <- ons_available_datasets()
+
+datasets \%>\% 
+filter(id='health-accounts')
+}
+\dontrun{
+# display just the ids
+ons_available_datasets() \%>\% select(id)
 }
 }
 \author{

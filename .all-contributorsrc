@@ -17,12 +17,21 @@
       ]
     },
     {
+
       "login": "JohnHC86",
       "name": "JohnHC86",
       "avatar_url": "https://avatars1.githubusercontent.com/u/12610020?v=4",
       "profile": "https://github.com/JohnHC86",
       "contributions": [
         "bug"
+
+      "login": "sw1nn",
+      "name": "Neale Swinnerton",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/373335?v=4",
+      "profile": "http://sw1nn.com",
+      "contributions": [
+        "code"
+
       ]
     }
   ],
