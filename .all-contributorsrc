@@ -17,33 +17,40 @@
       ]
     },
     {
-
       "login": "tomjemmett",
       "name": "Tom Jemmett",
       "avatar_url": "https://avatars1.githubusercontent.com/u/12023696?v=4",
       "profile": "https://www.strategyunitwm.nhs.uk/",
       "contributions": [
         "bug"
-        ]
-     },
-{
-
+      ]
+    },
+    {
       "login": "JohnHC86",
       "name": "JohnHC86",
       "avatar_url": "https://avatars1.githubusercontent.com/u/12610020?v=4",
       "profile": "https://github.com/JohnHC86",
       "contributions": [
         "bug"
-        ]
-        },
-{
+      ]
+    },
+    {
       "login": "sw1nn",
       "name": "Neale Swinnerton",
       "avatar_url": "https://avatars1.githubusercontent.com/u/373335?v=4",
       "profile": "http://sw1nn.com",
       "contributions": [
         "code"
-
+      ]
+    },
+    {
+      "login": "fiona-grimm",
+      "name": "fiona-grimm",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/31844347?v=4",
+      "profile": "https://github.com/fiona-grimm",
+      "contributions": [
+        "ideas",
+        "design"
       ]
     }
   ],
