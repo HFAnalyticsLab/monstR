@@ -52,6 +52,30 @@ monstr_pipeline_defaults() %>%  # Uses the monstr 'standards' for location and f
 
 ```
 
+## Resources
+
+### Online documentation
+
+You can find the help pages at <https://hfanalyticslab.github.io/monstR//>.
+
+## Questions and bug reports
+
+This is a package under active development and we would love for you to contribute or flag any issues you might find. 
+
+You can ask questions or flag a bug by [filing an issue](https://github.com/HFAnalyticsLab/monstR/issues). We are more likely to be able to help you if we can reproduce your issue. The `reprex` package is a good way of producing a minimal reproducible package and [So you've been asked to make a reprex](https://www.jessemaegan.com/post/so-you-ve-been-asked-to-make-a-reprex/) will help you get started. 
+
+### Contributing to the package development
+
+We aim to make the documentation as comprehensive as possible. Please contribute examples or suggest improvements to the
+documentation.
+
+If you have written a function that you think should be added to the package, or improved an existing function, please submit a pull request that includes:
+
+  - the new/amended function(s) with code and roxygen tags (with examples)
+  - a new section in the appropriate vignette that describes how to use
+    the new function
+  - corresponding tests in directory `tests/testthat`.
+
 ## Design Principles
 
 The monstrR Open Data Pipeline is designed to work well with tidyverse and in particular within pipelines created by the `%>%` pipe operator. With this in mind, most functions take a data structure in the first argument and return a data structure which has been augmented in some way. Typically this is metadata about the actual data, although once the data has been cleaned it can be accessed using `monstr_data(metadata)` to get at a tidyverse tibble of the data.
