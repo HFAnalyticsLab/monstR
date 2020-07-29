@@ -75,7 +75,7 @@
       <h1 data-toc-skip>Quick start</h1>
                         <h4 class="author">The Health Foundation Analytics Lab</h4>
             
-            <h4 class="date">2020-07-28</h4>
+            <h4 class="date">2020-07-29</h4>
       
       
       <div class="hidden name"><code>pipeline.Rmd</code></div>
@@ -160,42 +160,6 @@
 <span id="cb5-16"><a href="#cb5-16"></a>   <span class="co"># Furthermore, a 'cleaned' version of the dataset will be available as a csv,xlsx, and rds</span></span>
 <span id="cb5-17"><a href="#cb5-17"></a>   <span class="co"># below {{root}}/data/clean/...</span></span></code></pre></div>
 </div>
-<div id="discover-what-is-available-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#discover-what-is-available-1" class="anchor"></a>Discover what is available:</h2>
-<!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">ons_available_datasets</span>()</span>
-<span id="cb6-2"><a href="#cb6-2"></a>                                    id</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="dv">1</span>                               cpih01</span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="dv">2</span>                     mid<span class="op">-</span>year<span class="op">-</span>pop<span class="op">-</span>est</span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="dv">3</span>                   ashe<span class="op">-</span>table<span class="dv">-7</span><span class="op">-</span>hours</span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="dv">4</span>                ashe<span class="op">-</span>table<span class="dv">-7</span><span class="op">-</span>earnings</span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="dv">5</span>                   ashe<span class="op">-</span>table<span class="dv">-8</span><span class="op">-</span>hours</span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="dv">6</span>                ashe<span class="op">-</span>table<span class="dv">-8</span><span class="op">-</span>earnings</span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="dv">7</span>                           opss<span class="op">-</span>rates</span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="dv">8</span>                      opss<span class="op">-</span>membership</span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="dv">9</span>                wellbeing<span class="op">-</span>year<span class="op">-</span>ending</span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="dv">10</span>           wellbeing<span class="op">-</span>local<span class="op">-</span>authority</span>
-<span id="cb6-13"><a href="#cb6-13"></a>...</span>
-<span id="cb6-14"><a href="#cb6-14"></a></span>
-<span id="cb6-15"><a href="#cb6-15"></a></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co"># Discover the available editions for a particular dataset</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">ons_available_editions</span>(<span class="st">"regional-gdp-by-quarter"</span>)</span>
-<span id="cb6-18"><a href="#cb6-18"></a></span>
-<span id="cb6-19"><a href="#cb6-19"></a>      edition</span>
-<span id="cb6-20"><a href="#cb6-20"></a><span class="dv">1</span> time<span class="op">-</span>series</span>
-<span id="cb6-21"><a href="#cb6-21"></a></span>
-<span id="cb6-22"><a href="#cb6-22"></a></span>
-<span id="cb6-23"><a href="#cb6-23"></a><span class="co"># Discover the available versions for a particular edition</span></span>
-<span id="cb6-24"><a href="#cb6-24"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">ons_available_versions</span>(<span class="st">"regional-gdp-by-quarter"</span>, <span class="st">"time-series"</span>)</span>
-<span id="cb6-25"><a href="#cb6-25"></a></span>
-<span id="cb6-26"><a href="#cb6-26"></a>  version</span>
-<span id="cb6-27"><a href="#cb6-27"></a><span class="dv">1</span>       <span class="dv">1</span></span>
-<span id="cb6-28"><a href="#cb6-28"></a><span class="dv">2</span>       <span class="dv">2</span></span>
-<span id="cb6-29"><a href="#cb6-29"></a><span class="dv">3</span>       <span class="dv">3</span></span>
-<span id="cb6-30"><a href="#cb6-30"></a><span class="dv">4</span>       <span class="dv">4</span></span>
-<span id="cb6-31"><a href="#cb6-31"></a><span class="dv">5</span>       <span class="dv">5</span></span></code></pre></div>
-</div>
 <div id="further-examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#further-examples" class="anchor"></a>Further Examples</h2>
@@ -203,7 +167,7 @@
 <h3 class="hasAnchor">
 <a href="#download-the-latest-weekly-deaths-local-authority-data-as-a-csv-" class="anchor"></a>Download the latest weekly-deaths-local-authority data as a csv.</h3>
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="fu"><a href="../reference/ons_datasets_setup.html">ons_datasets_setup</a></span>(<span class="fu"><a href="../reference/monstr_pipeline_defaults.html">monstr_pipeline_defaults</a></span>()) <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/ons_dataset_by_id.html">ons_dataset_by_id</a></span>(<span class="st">"weekly-deaths-local-authority"</span>) <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/ons_download.html">ons_download</a></span>(format=<span class="st">"csv"</span>)
@@ -216,7 +180,7 @@
 <h3 class="hasAnchor">
 <a href="#similarly-it-can-be-downloaded-as-an-xls" class="anchor"></a>Similarly it can be downloaded as an xls</h3>
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
-<div class="sourceCode" id="cb8"><pre class="downlit">
+<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="fu"><a href="../reference/ons_datasets_setup.html">ons_datasets_setup</a></span>(<span class="fu"><a href="../reference/monstr_pipeline_defaults.html">monstr_pipeline_defaults</a></span>()) <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/ons_dataset_by_id.html">ons_dataset_by_id</a></span>(<span class="st">"weekly-deaths-local-authority"</span>) <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/ons_download.html">ons_download</a></span>(format=<span class="st">"xls"</span>)
@@ -226,7 +190,7 @@
 <h3 class="hasAnchor">
 <a href="#specific-versions-can-be-selected-" class="anchor"></a>Specific versions can be selected.</h3>
 <!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
-<div class="sourceCode" id="cb9"><pre class="downlit">
+<div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="kw">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ons_datasets_setup.html">ons_datasets_setup</a></span>(<span class="fu"><a href="../reference/monstr_pipeline_defaults.html">monstr_pipeline_defaults</a></span>())
 <span class="co">## get the metadata about v4 of the time-series edition of weekly-deaths-local-authority dataset.</span>
 <span class="kw">wdla4_meta</span> <span class="op">&lt;-</span> <span class="kw">datasets</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/ons_dataset_by_id.html">ons_dataset_by_id</a></span>(<span class="st">"weekly-deaths-local-authority"</span>, edition=<span class="st">"time-series"</span>, version=<span class="fl">4</span>)
