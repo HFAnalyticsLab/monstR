@@ -252,7 +252,8 @@ try (if(!(format %in% c('csv', 'xls'))) stop('Format not allowed'))
         logger::log_info(sprintf("File created at %s ", destfile))
     }
 
-    if (metadata$monstr$is_latest) {
+    if (metadata$monstr$create_latest_symlink &&
+        metadata$monstr$is_latest) {
 
         version <- metadata$monstr$version
         metadata$monstr$version <- "LATEST"
