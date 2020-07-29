@@ -109,43 +109,6 @@ library(magrittr)
 ```
 
 
-## Discover what is available:
-
-<!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
-```{r , eval = FALSE, include = TRUE}
-> ons_available_datasets()
-                                    id
-1                               cpih01
-2                     mid-year-pop-est
-3                   ashe-table-7-hours
-4                ashe-table-7-earnings
-5                   ashe-table-8-hours
-6                ashe-table-8-earnings
-7                           opss-rates
-8                      opss-membership
-9                wellbeing-year-ending
-10           wellbeing-local-authority
-...
-
-
-# Discover the available editions for a particular dataset
-> ons_available_editions("regional-gdp-by-quarter")
-
-      edition
-1 time-series
-
-
-# Discover the available versions for a particular edition
-> ons_available_versions("regional-gdp-by-quarter", "time-series")
-
-  version
-1       1
-2       2
-3       3
-4       4
-5       5
-```
-
 ## Further Examples
 
 ### Download the latest weekly-deaths-local-authority data as a csv.
