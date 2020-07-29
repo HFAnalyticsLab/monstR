@@ -15,6 +15,7 @@ monstr_pipeline_defaults <- function(download_root="") {
     metadata$clean_filename_template = sprintf("%s/clean/%s",
                                              basedir,
                                              filepath)
+    metadata$create_latest_symlink <- FALSE
     if (missing(download_root)) {
         metadata$download_root = here::here() # TODO here supposedly for
                                             # interactive use?
