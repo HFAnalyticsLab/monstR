@@ -129,6 +129,8 @@ ons_available_datasets <- function() {
 ##' @import logger
 ons_dataset_by_id <- function(metadata, id, edition, version) {
     links <- ons_item_by_id(metadata, id)$links
+    monstr <- metadata$monstr # save for later
+
     if (missing(edition)) {
         logger::log_info("Edition not specified, defaulting to  latest version")
         link <- links$latest_version$href
@@ -167,7 +169,7 @@ ons_dataset_by_id <- function(metadata, id, edition, version) {
     logger::log_info(sprintf("Retrieving dataset metadata from %s", link))
     dataset <- ons_api_call(link)
 
-    dataset$monstr <- metadata$monstr
+    dataset$monstr <- monstr
     dataset$monstr$is_latest <- is_latest
     dataset$monstr$datasource <- "ons"
     dataset$monstr$dataset <- id
