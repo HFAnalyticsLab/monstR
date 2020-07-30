@@ -1,6 +1,6 @@
 # monstR - making ONS tables readable  <a><img src='man/figures/monstR_2.png' align="right" height="139" /></a>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![R-CMD-check](https://github.com/HFAnalyticsLab/Open_data_pipelines/workflows/R-CMD-check/badge.svg)
@@ -104,6 +104,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://sw1nn.com"><img src="https://avatars1.githubusercontent.com/u/373335?v=4" width="100px;" alt=""/><br /><sub><b>Neale Swinnerton</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/commits?author=sw1nn" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/fiona-grimm"><img src="https://avatars1.githubusercontent.com/u/31844347?v=4" width="100px;" alt=""/><br /><sub><b>fiona-grimm</b></sub></a><br /><a href="#ideas-fiona-grimm" title="Ideas, Planning, & Feedback">🤔</a> <a href="#design-fiona-grimm" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/SimonCRUK"><img src="https://avatars2.githubusercontent.com/u/58686505?v=4" width="100px;" alt=""/><br /><sub><b>SimonCRUK</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3ASimonCRUK" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/Lextuga007"><img src="https://avatars0.githubusercontent.com/u/39963221?v=4" width="100px;" alt=""/><br /><sub><b>Zoe Turner</b></sub></a><br /><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3ALextuga007" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
