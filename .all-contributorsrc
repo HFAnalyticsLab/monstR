@@ -52,6 +52,15 @@
         "ideas",
         "design"
       ]
+    },
+    {
+      "login": "SimonCRUK",
+      "name": "SimonCRUK",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/58686505?v=4",
+      "profile": "https://github.com/SimonCRUK",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
