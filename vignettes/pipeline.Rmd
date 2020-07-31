@@ -84,31 +84,6 @@ monstr_pipeline_defaults(download_root="/path/to/download/root/") %>%
 
 
 
-## Quickstart
-
-<!-- Important that eval = FALSE here, otherwise building the vignette downloads data from the ONS API, which is not desirable. -->
-```{r , eval = FALSE, include = TRUE}
-
-library(monstR)
-library(magrittr)
-
-  # ons_* fns relate only to ONS datasource
-  # monstr_* fns are general purpose for all datasources
-> ons_datasets_setup(monstr_pipeline_defaults()) %>% # Uses the monstr 'standards' for location and format
-	ons_dataset_by_id("weekly-deaths-local-authority") %>%
-	ons_download(format="csv") %>%
-	monstr_read_file() %>%  
-	monstr_clean() %>%
-	monstr_write_clean(format="all")
-
-   # latest version of 'weekly-deaths-local-authority' will be available as a csv 
-   # below {{root}}/data/raw/...
-   
-   # Furthermore, a 'cleaned' version of the dataset will be available as a csv,xlsx, and rds
-   # below {{root}}/data/clean/...
-```
-
-
 ## Further Examples
 
 ### Download the latest weekly-deaths-local-authority data as a csv.
