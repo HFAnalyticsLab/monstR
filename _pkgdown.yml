@@ -1,11 +1,11 @@
 home:
-  title: An R package to download publically available data the ONS API
-  description: Download publically available data the ONS API
+  title: An R package to download publically available data from the ONS API
+  description: Download publically available data from the ONS API
   
 template:
   opengraph:
     image:
-      src: man/figures/monstR_sticker.png
+      src: https://github.com/HFAnalyticsLab/monstR/blob/master/man/figures/monstR_sticker.png
       alt: "A monster"
     twitter:
       creator: "@gummifot"

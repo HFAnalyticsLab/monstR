@@ -19,6 +19,7 @@ monstR - making ONS tables readable is a package that queries the [Office for Na
 - `ons_available_editions()` returns information about available dataset editions
 - `ons_download()` downloads the specified data
 
+Please note that the ONS API that this package relies on is in beta and it might change. 
 
 ## Installation
 
