@@ -5,8 +5,9 @@ home:
 template:
   opengraph:
     image:
-      src: https://github.com/HFAnalyticsLab/monstR/blob/master/man/figures/monstR_sticker.png
-      alt: "A monster"
+      src: man/figures/monstR_sticker.png
+      alt: "The logo for the monstR package - a grey monster"
     twitter:
       creator: "@gummifot"
+      site: "@HealthFdn"
       card: summary_large_image

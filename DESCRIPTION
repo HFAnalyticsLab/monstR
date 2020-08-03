@@ -4,12 +4,11 @@ Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Neale",
              family = "Swinnerton",
-             role = c("aut", "cre"),
+             role = c("aut"),
              email = "neale@mastodonc.com",
-             comment = c(ORCID = "YOUR-ORCID-ID")),
       person(given = "Emma",
              family = "Vestesson",
-             role = "ctb",
+             role = c("cre", "ctb")
              email = "emma.vestesson@gmail.com",
              comment = c(ORCID = "0000-0002-7284-9172")))
 Description: Queries ONS API to download data. It can be used to retrieve publically available data and meta data from the ONS.
