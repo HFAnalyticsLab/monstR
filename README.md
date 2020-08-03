@@ -12,7 +12,7 @@ This package is a part of our open-source R pipeline to download and clean publi
 
 ## Overview
 
-monstR - making ONS tables readable is a package that queries the [Office for National Statistics (ONS) API](https://developer.ons.gov.uk/office-for-national-statistics-api/reference) to download data. It can be used to retrieve publically available data and meta data from the ONS.
+monstR - making ONS tables readable is a package that queries the [Office for National Statistics (ONS) API](https://developer.beta.ons.gov.uk/) to download data. It can be used to retrieve publically available data and meta data from the ONS.
 
 - `ons_available_datasets()` returns information about available datasets
 - `ons_available_versions()` returns information about available dataset versions
