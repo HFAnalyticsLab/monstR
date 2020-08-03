@@ -64,7 +64,7 @@ write_metadata <- function(metadata, destfile) {
 
 ##' @title generate a filename for a download
 ##'
-##' @param template \link{whisker} template
+##' @param template same as whisker template
 ##' @param root the root of the directory hierarchy
 ##' @param data data used to populate the template
 ##' @param create_directory boolean indicating whether to
