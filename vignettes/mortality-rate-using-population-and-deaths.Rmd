@@ -36,14 +36,14 @@ We will then merge both of those datasets to compute a time-series of mortality 
 
 The function `ons_available_datasets()` is useful to find out what datasets are available through the ONS API.
 
-```{r}
+```{r,eval=FALSE}
 datasets <- ons_available_datasets()
 ```
 
 
 Each dataset is associated with an identifier, which we can retrieve by inspecting the output from `ons_available_datasets()`. First, we will extract the identifier for the desired population dataset ('Mid-year population estimates by region, age and gender').
 
-```{r}
+```{r,eval=FALSE}
 population_id <- datasets %>% 
   filter(str_detect(tolower(title),'population estimates for uk')) %>% 
   pull(id)
@@ -57,7 +57,7 @@ datasets %>%
 
 Then, we will do the same for our desired dataset recording deaths by region.
 
-```{r}
+```{r,eval=FALSE}
 mortality_id <- datasets %>% 
   filter(str_detect(tolower(title),'deaths')) %>%
   filter(str_detect(tolower(title),'by region')) %>%
@@ -78,7 +78,7 @@ The function `ons_available_editions` returns available editions, while `ons_ava
 
 We will check the editions and versions associated with the population dataset.
 
-```{r}
+```{r,eval=FALSE}
 ### Editions available for the population dataset
 ids_and_editions_pop <- map(population_id, ons_available_editions) %>% 
   set_names(population_id) %>% 
@@ -100,7 +100,7 @@ From the dataset with identifier `mid-year-pop` we would like to download editio
 
 We will also explore editins and vesions for the deaths dataset.
 
-```{r}
+```{r,eval=FALSE}
 ### Editions available for the deaths dataset
 ids_and_editions_deaths <- map(mortality_id, ons_available_editions) %>% 
   set_names(mortality_id) %>% 
@@ -126,7 +126,7 @@ After inspection in the previous step, we have decided which edition and version
 
 The following command sets up the pipeline using the `monstR` default settings.
 
-```{r}
+```{r,eval=FALSE}
 set_up_df <- monstr_pipeline_defaults() %>% 
   ons_datasets_setup()
 ```
@@ -136,7 +136,7 @@ We feed the edition and version to function `ons_dataset_by_id`, while
 
 We can now download our population dataset.
 
-```{r echo=TRUE, results='hide'}
+```{r echo=TRUE, eval=FALSE,results='hide'}
 set_up_df %>%
 ons_dataset_by_id(id=population_id,edition="mid-2019-april-2020-geography",version=1)  %>%
   ons_download(format="csv") %>%
@@ -147,7 +147,7 @@ ons_dataset_by_id(id=population_id,edition="mid-2019-april-2020-geography",versi
 
 And our deaths dataset.
 
-```{r echo=TRUE, results='hide'}
+```{r echo=TRUE, eval=FALSE,results='hide'}
 set_up_df %>%
   ons_dataset_by_id(id=mortality_id,edition="2010-19",version=1)  %>%
   ons_download(format="csv") %>%
@@ -160,14 +160,14 @@ set_up_df %>%
 
 The cleaned data can be found in your root project folder under `data/clean/ons/`.
 
-```{r}
+```{r,eval=FALSE}
 ons_midyear_pop <- fread(here("data","clean","ons","mid-year-pop-est","mid-2019-april-2020-geography","mid-year-pop-est-v1.csv"), header=TRUE, sep=",", check.names=TRUE) %>%
   rename(.,population=v4_0)
 ```
 
 For this analysis, we will keep the number of deaths for all ages and both genders in each year and region.
 
-```{r}
+```{r,eval=FALSE}
 ons_midyear_pop_total <- filter(ons_midyear_pop,age=="Total"&sex=="All") %>%
   select(.,population,calendar_years,admin_geography) %>%
   arrange(.,admin_geography,desc(calendar_years))
@@ -175,9 +175,13 @@ ons_midyear_pop_total <- filter(ons_midyear_pop,age=="Total"&sex=="All") %>%
 knitr::kable(head(ons_midyear_pop_total, 10))
 ```
 
+```{r,echo=FALSE}
+knitr::include_graphics(here('vignettes','mortality rate vignette images','pop_table.png'),dpi=250)
+```
+
 ## Import and clean deaths dataset
 
-```{r}
+```{r,eval=FALSE}
 ons_weekly_deaths_region <- fread(here("data","clean","ons","weekly-deaths-region","2010-19","weekly-deaths-region-v1.csv"), header=TRUE, sep=",", check.names=TRUE) %>%
   rename(.,nr_deaths=v4_1) %>%
   arrange(.,admin_geography,desc(calendar_years))
@@ -185,9 +189,13 @@ ons_weekly_deaths_region <- fread(here("data","clean","ons","weekly-deaths-regio
 knitr::kable(head(ons_weekly_deaths_region, 10))
 ```
 
+```{r,echo=FALSE}
+knitr::include_graphics(here('vignettes','mortality rate vignette images','pop_deaths.png'),dpi=250)
+```
+
 This data is currently presented as a weekly time series, with one row per week. We will aggregate it into a yearly time series, thus matching the ONS population dataset.
 
-```{r}
+```{r,eval=FALSE}
 ons_weekly_deaths_region <- as.data.table(ons_weekly_deaths_region)
 
 ons_weekly_deaths_region_annual <- ons_weekly_deaths_region[, list(
@@ -198,11 +206,15 @@ ons_weekly_deaths_region_annual <- ons_weekly_deaths_region[, list(
 knitr::kable(head(ons_weekly_deaths_region_annual, 10))
 ```
 
+```{r,echo=FALSE}
+knitr::include_graphics(here('vignettes','mortality rate vignette images','pop_deaths_aggregate.png'),dpi=250)
+```
+
 ## Merge datasets
 
 We are now ready to merge our population data into our deaths data, which will allow us to compute a new variable: the death rate per 100,000 residents for a given region and year.
 
-```{r}
+```{r,eval=FALSE}
 ons_weekly_deaths_region_annual <- left_join(ons_weekly_deaths_region_annual,
                                              ons_midyear_pop_total,
                                              by=c("calendar_years" = "calendar_years",
@@ -214,11 +226,15 @@ ons_weekly_deaths_region_annual <- mutate(ons_weekly_deaths_region_annual,
 knitr::kable(head(ons_weekly_deaths_region_annual, 10))
 ```
 
+```{r,echo=FALSE}
+knitr::include_graphics(here('vignettes','mortality rate vignette images','merged_table.png'),dpi=250)
+```
+
 ## Present results in a chart
 
 Having used the `monstR` package to download our required ONS tables and processed the data, we are ready to display the mortality rate by year according to region.
 
-```{r show_figure, fig.height = 4, fig.width = 7, dpi=120}
+```{r, eval=FALSE}
 ons_weekly_deaths_region_annual$bold <- ifelse(ons_weekly_deaths_region_annual$geography=="England and Wales",1,0)
 
 ggplot(ons_weekly_deaths_region_annual,
@@ -237,4 +253,8 @@ ggplot(ons_weekly_deaths_region_annual,
   scale_size_manual(values = c(0.5,1.25),guide = "none") +
   scale_y_continuous(labels = function(x) format(x, big.mark = ",",
                                                  scientific = FALSE))
+```
+
+```{r,echo=FALSE}
+knitr::include_graphics(here('vignettes','mortality rate vignette images','mortality_by_region.png'),dpi=700)
 ```
