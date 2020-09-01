@@ -14,11 +14,15 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+install.packages("dplyr")
+install.packages("data.table")
+install.packages("ggplot2")
+install.packages("here")
+
 library(monstR)
 library(dplyr)
 library(data.table)
-library(plotly)
-library(scales)
 library(ggplot2)
 library(here)
 ```
