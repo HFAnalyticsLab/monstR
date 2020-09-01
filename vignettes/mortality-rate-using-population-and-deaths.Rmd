@@ -15,7 +15,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 library(monstR)
-library(ggplot2)
 library(dplyr)
 library(data.table)
 library(plotly)
