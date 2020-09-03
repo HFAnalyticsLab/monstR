@@ -108,6 +108,9 @@ other fns in this package for further processing" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/mortality-rate-using-population-and-deaths.html">Using the monstR package to estimate the mortality rate in England and Wales</a>
+    </li>
+    <li>
       <a href="../articles/pipeline.html">Quick start</a>
     </li>
   </ul>
@@ -138,7 +141,7 @@ other fns in this package for further processing" />
 other fns in this package for further processing</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ons_datasets_setup</span>(<span class='kw'>defaults</span>)</pre>
+    <pre class="usage"><span class='fu'>ons_datasets_setup</span>(<span class='no'>defaults</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,17 +155,14 @@ other fns in this package for further processing</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a list describing available datasets</p>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Neale Swinnerton <a href='mailto:neale@mastodonc.com'>neale@mastodonc.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='monstr_pipeline_defaults.html'>monstr_pipeline_defaults</a></span>() <span class='op'>%&gt;%</span> 
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='monstr_pipeline_defaults.html'>monstr_pipeline_defaults</a></span>() <span class='kw'>%&gt;%</span>
  <span class='fu'>ons_datasets_setup</span>() <span class='co'># rooted in current project</span>
 }
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='monstr_pipeline_defaults.html'>monstr_pipeline_defaults</a></span>(download_root=<span class='st'>"/path/to/download/root/"</span>) <span class='op'>%&gt;%</span> 
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='monstr_pipeline_defaults.html'>monstr_pipeline_defaults</a></span>(<span class='kw'>download_root</span><span class='kw'>=</span><span class='st'>"/path/to/download/root/"</span>) <span class='kw'>%&gt;%</span>
      <span class='fu'>ons_datasets_setup</span>()
 }</div></pre>
   </div>
@@ -180,7 +180,7 @@ other fns in this package for further processing</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
