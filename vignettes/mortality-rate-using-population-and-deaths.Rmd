@@ -178,7 +178,7 @@ ons_midyear_pop_total <- filter(ons_midyear_pop,age=="Total"&sex=="All") %>%
 knitr::kable(head(ons_midyear_pop_total, 10))
 ```
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.width = 5}
 knitr::include_graphics(here('vignettes','pop_table.PNG'),dpi=350)
 ```
 
@@ -192,7 +192,7 @@ ons_weekly_deaths_region <- fread(here("data","clean","ons","weekly-deaths-regio
 knitr::kable(head(ons_weekly_deaths_region, 10))
 ```
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.width = 5}
 knitr::include_graphics(here('vignettes','pop_deaths.PNG'),dpi=350)
 ```
 
@@ -209,7 +209,7 @@ ons_weekly_deaths_region_annual <- ons_weekly_deaths_region[, list(
 knitr::kable(head(ons_weekly_deaths_region_annual, 10))
 ```
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.width = 5}
 knitr::include_graphics(here('vignettes','pop_deaths_aggregate.PNG'),dpi=350)
 ```
 
@@ -229,7 +229,7 @@ ons_weekly_deaths_region_annual <- mutate(ons_weekly_deaths_region_annual,
 knitr::kable(head(ons_weekly_deaths_region_annual, 10))
 ```
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.width = 5}
 knitr::include_graphics(here('vignettes','merged_table.PNG'),dpi=350)
 ```
 
@@ -258,6 +258,6 @@ ggplot(ons_weekly_deaths_region_annual,
                                                  scientific = FALSE))
 ```
 
-```{r,echo=FALSE}
-knitr::include_graphics(here('vignettes','mortality_by_region.png'),dpi=900)
+```{r,echo=FALSE,fig.width = 5}
+knitr::include_graphics(here('vignettes','mortality_by_region.png'),dpi=700)
 ```
