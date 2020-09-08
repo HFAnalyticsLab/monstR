@@ -179,7 +179,7 @@ knitr::kable(head(ons_midyear_pop_total, 10))
 ```
 
 ```{r,echo=FALSE}
-knitr::include_graphics(here('vignettes','pop_table.PNG'),dpi=250)
+knitr::include_graphics(here('vignettes','pop_table.PNG'),dpi=350)
 ```
 
 ## Import and clean deaths dataset
@@ -193,7 +193,7 @@ knitr::kable(head(ons_weekly_deaths_region, 10))
 ```
 
 ```{r,echo=FALSE}
-knitr::include_graphics(here('vignettes','pop_deaths.PNG'),dpi=250)
+knitr::include_graphics(here('vignettes','pop_deaths.PNG'),dpi=350)
 ```
 
 This data is currently presented as a weekly time series, with one row per week. We will aggregate it into a yearly time series, thus matching the ONS population dataset.
@@ -210,7 +210,7 @@ knitr::kable(head(ons_weekly_deaths_region_annual, 10))
 ```
 
 ```{r,echo=FALSE}
-knitr::include_graphics(here('vignettes','pop_deaths_aggregate.PNG'),dpi=250)
+knitr::include_graphics(here('vignettes','pop_deaths_aggregate.PNG'),dpi=350)
 ```
 
 ## Merge datasets
@@ -230,7 +230,7 @@ knitr::kable(head(ons_weekly_deaths_region_annual, 10))
 ```
 
 ```{r,echo=FALSE}
-knitr::include_graphics(here('vignettes','merged_table.PNG'),dpi=250)
+knitr::include_graphics(here('vignettes','merged_table.PNG'),dpi=350)
 ```
 
 ## Present results in a chart
@@ -259,5 +259,5 @@ ggplot(ons_weekly_deaths_region_annual,
 ```
 
 ```{r,echo=FALSE}
-knitr::include_graphics(here('vignettes','mortality_by_region.png'),dpi=700)
+knitr::include_graphics(here('vignettes','mortality_by_region.png'),dpi=900)
 ```
