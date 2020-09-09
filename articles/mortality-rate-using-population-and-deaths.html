@@ -89,7 +89,7 @@
       <h1 data-toc-skip>Using the monstR package to estimate the mortality rate in England and Wales</h1>
                         <h4 class="author">Sebastien Peytrignet</h4>
             
-            <h4 class="date">2020-09-08</h4>
+            <h4 class="date">2020-09-09</h4>
       
       
       <div class="hidden name"><code>mortality-rate-using-population-and-deaths.Rmd</code></div>
@@ -230,7 +230,7 @@
 
 <span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">ons_midyear_pop_total</span>, <span class="fl">10</span>))
 </pre></div>
-<p><img src="pop_table.PNG"><!-- --></p>
+<p><img src="pop_table.PNG" width="50%"></p>
 </div>
 <div id="import-and-clean-deaths-dataset" class="section level2">
 <h2 class="hasAnchor">
@@ -242,7 +242,7 @@
 
 <span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">ons_weekly_deaths_region</span>, <span class="fl">10</span>))
 </pre></div>
-<p><img src="pop_deaths.PNG"><!-- --></p>
+<p><img src="pop_deaths.PNG" width="50%"></p>
 <p>This data is currently presented as a weekly time series, with one row per week. We will aggregate it into a yearly time series, thus matching the ONS population dataset.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit">
 <span class="kw">ons_weekly_deaths_region</span> <span class="op">&lt;-</span> <span class="fu">as.data.table</span>(<span class="kw">ons_weekly_deaths_region</span>)
@@ -254,7 +254,7 @@
 
 <span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">ons_weekly_deaths_region_annual</span>, <span class="fl">10</span>))
 </pre></div>
-<p><img src="pop_deaths_aggregate.PNG"><!-- --></p>
+<p><img src="pop_deaths_aggregate.PNG" width="50%"></p>
 </div>
 <div id="merge-datasets" class="section level2">
 <h2 class="hasAnchor">
@@ -271,7 +271,7 @@
 
 <span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">ons_weekly_deaths_region_annual</span>, <span class="fl">10</span>))
 </pre></div>
-<p><img src="merged_table.PNG"><!-- --></p>
+<p><img src="merged_table.PNG" width="50%"></p>
 </div>
 <div id="present-results-in-a-chart" class="section level2">
 <h2 class="hasAnchor">
@@ -297,7 +297,7 @@
   <span class="fu">scale_y_continuous</span>(labels = <span class="fu">function</span>(<span class="kw">x</span>) <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span>(<span class="kw">x</span>, big.mark = <span class="st">","</span>,
                                                  scientific = <span class="fl">FALSE</span>))
 </pre></div>
-<p><img src="mortality_by_region.png"><!-- --></p>
+<p><img src="mortality_by_region.png" width="50%"></p>
 </div>
   </div>
 
