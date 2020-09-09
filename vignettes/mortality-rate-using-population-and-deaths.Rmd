@@ -178,8 +178,8 @@ ons_midyear_pop_total <- filter(ons_midyear_pop,age=="Total"&sex=="All") %>%
 knitr::kable(head(ons_midyear_pop_total, 10))
 ```
 
-```{r,echo=FALSE,fig.width = 5}
-knitr::include_graphics(here('vignettes','pop_table.PNG'),dpi=350)
+```{r,echo=FALSE,out.width = "50%", fig.pos="h"}
+knitr::include_graphics(here('vignettes','pop_table.PNG'),dpi=500)
 ```
 
 ## Import and clean deaths dataset
@@ -192,8 +192,8 @@ ons_weekly_deaths_region <- fread(here("data","clean","ons","weekly-deaths-regio
 knitr::kable(head(ons_weekly_deaths_region, 10))
 ```
 
-```{r,echo=FALSE,fig.width = 5}
-knitr::include_graphics(here('vignettes','pop_deaths.PNG'),dpi=350)
+```{r,echo=FALSE,,out.width = "50%", fig.pos="h"}
+knitr::include_graphics(here('vignettes','pop_deaths.PNG'),dpi=500)
 ```
 
 This data is currently presented as a weekly time series, with one row per week. We will aggregate it into a yearly time series, thus matching the ONS population dataset.
@@ -209,8 +209,8 @@ ons_weekly_deaths_region_annual <- ons_weekly_deaths_region[, list(
 knitr::kable(head(ons_weekly_deaths_region_annual, 10))
 ```
 
-```{r,echo=FALSE,fig.width = 5}
-knitr::include_graphics(here('vignettes','pop_deaths_aggregate.PNG'),dpi=350)
+```{r,echo=FALSE,out.width = "50%", fig.pos="h"}
+knitr::include_graphics(here('vignettes','pop_deaths_aggregate.PNG'),dpi=500)
 ```
 
 ## Merge datasets
@@ -229,8 +229,8 @@ ons_weekly_deaths_region_annual <- mutate(ons_weekly_deaths_region_annual,
 knitr::kable(head(ons_weekly_deaths_region_annual, 10))
 ```
 
-```{r,echo=FALSE,fig.width = 5}
-knitr::include_graphics(here('vignettes','merged_table.PNG'),dpi=350)
+```{r,echo=FALSE,out.width = "50%", fig.pos="h"}
+knitr::include_graphics(here('vignettes','merged_table.PNG'),dpi=500)
 ```
 
 ## Present results in a chart
@@ -258,6 +258,6 @@ ggplot(ons_weekly_deaths_region_annual,
                                                  scientific = FALSE))
 ```
 
-```{r,echo=FALSE,fig.width = 5}
-knitr::include_graphics(here('vignettes','mortality_by_region.png'),dpi=700)
+```{r,echo=FALSE,out.width = "50%", fig.pos="h"}
+knitr::include_graphics(here('vignettes','mortality_by_region.png'),dpi=800)
 ```
