@@ -57,7 +57,7 @@ monstr_pipeline_defaults() %>%  # Uses the monstr 'standards' for location and f
 
 ### Online documentation
 
-You can find the help pages at <https://hfanalyticslab.github.io/monstR//>.
+You can find the help pages at <https://hfanalyticslab.github.io/monstR/>.
 
 ## Questions and bug reports
 
