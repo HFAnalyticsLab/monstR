@@ -7,7 +7,7 @@
 generate_download_filename(template, root, data, create_directory = TRUE)
 }
 \arguments{
-\item{template}{\link{whisker} template}
+\item{template}{same as whisker template}
 
 \item{root}{the root of the directory hierarchy}
 
