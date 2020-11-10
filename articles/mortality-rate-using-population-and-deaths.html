@@ -83,13 +83,14 @@
 
       
 
-      </header><script src="mortality-rate-using-population-and-deaths_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="mortality-rate-using-population-and-deaths_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="mortality-rate-using-population-and-deaths_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="mortality-rate-using-population-and-deaths_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using the monstR package to estimate the mortality rate in England and Wales</h1>
                         <h4 class="author">Sebastien Peytrignet</h4>
             
-            <h4 class="date">2020-09-09</h4>
+            <h4 class="date">2020-11-10</h4>
       
       
       <div class="hidden name"><code>mortality-rate-using-population-and-deaths.Rmd</code></div>
@@ -112,34 +113,31 @@
 <h2 class="hasAnchor">
 <a href="#find-identifiers-for-desired-ons-datasets" class="anchor"></a>Find identifiers for desired ONS datasets</h2>
 <p>The function <code><a href="../reference/ons_available_datasets.html">ons_available_datasets()</a></code> is useful to find out what datasets are available through the ONS API.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ons_available_datasets.html">ons_available_datasets</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ons_available_datasets.html">ons_available_datasets</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Each dataset is associated with an identifier, which we can retrieve by inspecting the output from <code><a href="../reference/ons_available_datasets.html">ons_available_datasets()</a></code>. First, we will extract the identifier for the desired population dataset (‘Mid-year population estimates by region, age and gender’).</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">population_id</span> <span class="op">&lt;-</span> <span class="kw">datasets</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="fu">str_detect</span>(<span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span>(<span class="kw">title</span>),<span class="st">'population estimates for uk'</span>)) <span class="op">%&gt;%</span> 
-  <span class="fu">pull</span>(<span class="kw">id</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">population_id</span> <span class="op">&lt;-</span> <span class="va">datasets</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">title</span><span class="op">)</span>,<span class="st">'population estimates for uk'</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pull</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
 
-<span class="kw">population_id</span>
+<span class="va">population_id</span>
 
-<span class="kw">datasets</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="kw">id</span> <span class="op">%in%</span> <span class="kw">population_id</span>) <span class="op">%&gt;%</span>
-  <span class="fu">select</span>(<span class="kw">title</span>)
-</pre></div>
+<span class="va">datasets</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">%in%</span> <span class="va">population_id</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">select</span><span class="op">(</span><span class="va">title</span><span class="op">)</span></code></pre></div>
 <p>Then, we will do the same for our desired dataset recording deaths by region.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">mortality_id</span> <span class="op">&lt;-</span> <span class="kw">datasets</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="fu">str_detect</span>(<span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span>(<span class="kw">title</span>),<span class="st">'deaths'</span>)) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="fu">str_detect</span>(<span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span>(<span class="kw">title</span>),<span class="st">'by region'</span>)) <span class="op">%&gt;%</span>
-  <span class="fu">pull</span>(<span class="kw">id</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mortality_id</span> <span class="op">&lt;-</span> <span class="va">datasets</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">title</span><span class="op">)</span>,<span class="st">'deaths'</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">title</span><span class="op">)</span>,<span class="st">'by region'</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">pull</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
 
-<span class="kw">mortality_id</span>
+<span class="va">mortality_id</span>
 
-<span class="kw">datasets</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="kw">id</span> <span class="op">%in%</span> <span class="kw">mortality_id</span>) <span class="op">%&gt;%</span>
-  <span class="fu">select</span>(<span class="kw">title</span>)
-</pre></div>
+<span class="va">datasets</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">%in%</span> <span class="va">mortality_id</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">select</span><span class="op">(</span><span class="va">title</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="browse-editions-and-versions-available-for-each-dataset" class="section level2">
 <h2 class="hasAnchor">
@@ -147,42 +145,40 @@
 <p>ONS datasets are usually associated with multiple editions and versions. Different editions may contain different variables or be presented in different formats, while versions usually refresh or update the content with new data points. Before downloading a dataset with <code>monstR</code>, it is recommended to know beforehand which edition and version you would like to donwload.</p>
 <p>The function <code>ons_available_editions</code> returns available editions, while <code>ons_available_versions</code> return available versions.</p>
 <p>We will check the editions and versions associated with the population dataset.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="co">### Editions available for the population dataset</span>
-<span class="kw">ids_and_editions_pop</span> <span class="op">&lt;-</span> <span class="fu">map</span>(<span class="kw">population_id</span>, <span class="kw">ons_available_editions</span>) <span class="op">%&gt;%</span> 
-  <span class="fu">set_names</span>(<span class="kw">population_id</span>) <span class="op">%&gt;%</span> 
-  <span class="fu">bind_rows</span>(.id=<span class="st">'id'</span>) <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">.</span>,id_edition=<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw">id</span>,<span class="kw">edition</span>,sep=<span class="st">"-"</span>))
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">### Editions available for the population dataset</span>
+<span class="va">ids_and_editions_pop</span> <span class="op">&lt;-</span> <span class="fu">map</span><span class="op">(</span><span class="va">population_id</span>, <span class="va">ons_available_editions</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">set_names</span><span class="op">(</span><span class="va">population_id</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">bind_rows</span><span class="op">(</span>.id<span class="op">=</span><span class="st">'id'</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">mutate</span><span class="op">(</span><span class="va">.</span>,id_edition<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">id</span>,<span class="va">edition</span>,sep<span class="op">=</span><span class="st">"-"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="kw">ids_and_editions_pop</span>
+<span class="va">ids_and_editions_pop</span>
 
 <span class="co">### Versions available for each edition</span>
-<span class="kw">ids_and_editions_and_versions_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span>(id=<span class="kw">ids_and_editions_pop</span><span class="op">$</span><span class="kw">id</span>,
-                                        edition=<span class="kw">ids_and_editions_pop</span><span class="op">$</span><span class="kw">edition</span>,
-                                        <span class="kw">ons_available_versions</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">ids_and_editions_and_versions_pop</span>) <span class="op">&lt;-</span> <span class="kw">ids_and_editions_pop</span><span class="op">$</span><span class="kw">id_edition</span>
+<span class="va">ids_and_editions_and_versions_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">ids_and_editions_pop</span><span class="op">$</span><span class="va">id</span>,
+                                        edition<span class="op">=</span><span class="va">ids_and_editions_pop</span><span class="op">$</span><span class="va">edition</span>,
+                                        <span class="va">ons_available_versions</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">ids_and_editions_and_versions_pop</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">ids_and_editions_pop</span><span class="op">$</span><span class="va">id_edition</span>
 
-<span class="kw">ids_and_editions_and_versions_pop</span>
-</pre></div>
+<span class="va">ids_and_editions_and_versions_pop</span></code></pre></div>
 <p>From the dataset with identifier <code>mid-year-pop</code> we would like to download edition <code>mid-2018-april-2019-geography</code> and version <code>1</code>.</p>
 <p>We will also explore editins and vesions for the deaths dataset.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="co">### Editions available for the deaths dataset</span>
-<span class="kw">ids_and_editions_deaths</span> <span class="op">&lt;-</span> <span class="fu">map</span>(<span class="kw">mortality_id</span>, <span class="kw">ons_available_editions</span>) <span class="op">%&gt;%</span> 
-  <span class="fu">set_names</span>(<span class="kw">mortality_id</span>) <span class="op">%&gt;%</span> 
-  <span class="fu">bind_rows</span>(.id=<span class="st">'id'</span>) <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">.</span>,id_edition=<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw">id</span>,<span class="kw">edition</span>,sep=<span class="st">"-"</span>))
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">### Editions available for the deaths dataset</span>
+<span class="va">ids_and_editions_deaths</span> <span class="op">&lt;-</span> <span class="fu">map</span><span class="op">(</span><span class="va">mortality_id</span>, <span class="va">ons_available_editions</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">set_names</span><span class="op">(</span><span class="va">mortality_id</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">bind_rows</span><span class="op">(</span>.id<span class="op">=</span><span class="st">'id'</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">mutate</span><span class="op">(</span><span class="va">.</span>,id_edition<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">id</span>,<span class="va">edition</span>,sep<span class="op">=</span><span class="st">"-"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="kw">ids_and_editions_deaths</span>
+<span class="va">ids_and_editions_deaths</span>
 
 <span class="co">### Versions available for each edition</span>
-<span class="kw">ids_and_editions_and_versions_deaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span>(id=<span class="kw">ids_and_editions_deaths</span><span class="op">$</span><span class="kw">id</span>,
-                                        edition=<span class="kw">ids_and_editions_deaths</span><span class="op">$</span><span class="kw">edition</span>,
-                                        <span class="kw">ons_available_versions</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">ids_and_editions_and_versions_deaths</span>) <span class="op">&lt;-</span> <span class="kw">ids_and_editions_deaths</span><span class="op">$</span><span class="kw">id_edition</span>
+<span class="va">ids_and_editions_and_versions_deaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">ids_and_editions_deaths</span><span class="op">$</span><span class="va">id</span>,
+                                        edition<span class="op">=</span><span class="va">ids_and_editions_deaths</span><span class="op">$</span><span class="va">edition</span>,
+                                        <span class="va">ons_available_versions</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">ids_and_editions_and_versions_deaths</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">ids_and_editions_deaths</span><span class="op">$</span><span class="va">id_edition</span>
 
-<span class="kw">ids_and_editions_and_versions_deaths</span>
-</pre></div>
+<span class="va">ids_and_editions_and_versions_deaths</span></code></pre></div>
 <p>From the dataset with identifier <code>weekly-deaths-local-authority</code> we would like to download edition <code>2010-19</code> and version <code>1</code>.</p>
 </div>
 <div id="download-both-ons-datasets" class="section level2">
@@ -190,113 +186,104 @@
 <a href="#download-both-ons-datasets" class="anchor"></a>Download both ONS datasets</h2>
 <p>After inspection in the previous step, we have decided which edition and version pair we would like to download for each dataset.</p>
 <p>The following command sets up the pipeline using the <code>monstR</code> default settings.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">set_up_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/monstr_pipeline_defaults.html">monstr_pipeline_defaults</a></span>() <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/ons_datasets_setup.html">ons_datasets_setup</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">set_up_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/monstr_pipeline_defaults.html">monstr_pipeline_defaults</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/ons_datasets_setup.html">ons_datasets_setup</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>We feed the edition and version to function <code>ons_dataset_by_id</code>, while <code>ons_download</code> downloads the data. Additional functions <code>monstr_read_file</code>, <code>monstr_clean</code> and <code>monstr_write_clean</code> read, clean and write the desired datasets.</p>
 <p>We can now download our population dataset.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">set_up_df</span> <span class="op">%&gt;%</span>
-<span class="fu"><a href="../reference/ons_dataset_by_id.html">ons_dataset_by_id</a></span>(id=<span class="kw">population_id</span>,edition=<span class="st">"mid-2019-april-2020-geography"</span>,version=<span class="fl">1</span>)  <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/ons_download.html">ons_download</a></span>(format=<span class="st">"csv"</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/monstr_read_file.html">monstr_read_file</a></span>() <span class="op">%&gt;%</span>  
-  <span class="fu"><a href="../reference/monstr_clean.html">monstr_clean</a></span>() <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/monstr_write_clean.html">monstr_write_clean</a></span>(format=<span class="st">"all"</span>)
-</pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">set_up_df</span> <span class="op">%&gt;%</span>
+<span class="fu"><a href="../reference/ons_dataset_by_id.html">ons_dataset_by_id</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">population_id</span>,edition<span class="op">=</span><span class="st">"mid-2019-april-2020-geography"</span>,version<span class="op">=</span><span class="fl">1</span><span class="op">)</span>  <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/ons_download.html">ons_download</a></span><span class="op">(</span>format<span class="op">=</span><span class="st">"csv"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/monstr_read_file.html">monstr_read_file</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>  
+  <span class="fu"><a href="../reference/monstr_clean.html">monstr_clean</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/monstr_write_clean.html">monstr_write_clean</a></span><span class="op">(</span>format<span class="op">=</span><span class="st">"all"</span><span class="op">)</span></code></pre></div>
 <p>And our deaths dataset.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="kw">set_up_df</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/ons_dataset_by_id.html">ons_dataset_by_id</a></span>(id=<span class="kw">mortality_id</span>,edition=<span class="st">"2010-19"</span>,version=<span class="fl">1</span>)  <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/ons_download.html">ons_download</a></span>(format=<span class="st">"csv"</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/monstr_read_file.html">monstr_read_file</a></span>() <span class="op">%&gt;%</span>  
-  <span class="fu"><a href="../reference/monstr_clean.html">monstr_clean</a></span>() <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/monstr_write_clean.html">monstr_write_clean</a></span>(format=<span class="st">"all"</span>)
-</pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">set_up_df</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/ons_dataset_by_id.html">ons_dataset_by_id</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">mortality_id</span>,edition<span class="op">=</span><span class="st">"2010-19"</span>,version<span class="op">=</span><span class="fl">1</span><span class="op">)</span>  <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/ons_download.html">ons_download</a></span><span class="op">(</span>format<span class="op">=</span><span class="st">"csv"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/monstr_read_file.html">monstr_read_file</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>  
+  <span class="fu"><a href="../reference/monstr_clean.html">monstr_clean</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/monstr_write_clean.html">monstr_write_clean</a></span><span class="op">(</span>format<span class="op">=</span><span class="st">"all"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="import-and-clean-population-dataset" class="section level2">
 <h2 class="hasAnchor">
 <a href="#import-and-clean-population-dataset" class="anchor"></a>Import and clean population dataset</h2>
 <p>The cleaned data can be found in your root project folder under <code>data/clean/ons/</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="kw">ons_midyear_pop</span> <span class="op">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"clean"</span>,<span class="st">"ons"</span>,<span class="st">"mid-year-pop-est"</span>,<span class="st">"mid-2019-april-2020-geography"</span>,<span class="st">"mid-year-pop-est-v1.csv"</span>), header=<span class="fl">TRUE</span>, sep=<span class="st">","</span>, check.names=<span class="fl">TRUE</span>) <span class="op">%&gt;%</span>
-  <span class="fu">rename</span>(<span class="kw">.</span>,population=<span class="kw">v4_0</span>)
-</pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ons_midyear_pop</span> <span class="op">&lt;-</span> <span class="fu">fread</span><span class="op">(</span><span class="fu">here</span><span class="op">(</span><span class="st">"data"</span>,<span class="st">"clean"</span>,<span class="st">"ons"</span>,<span class="st">"mid-year-pop-est"</span>,<span class="st">"mid-2019-april-2020-geography"</span>,<span class="st">"mid-year-pop-est-v1.csv"</span><span class="op">)</span>, header<span class="op">=</span><span class="cn">TRUE</span>, sep<span class="op">=</span><span class="st">","</span>, check.names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">rename</span><span class="op">(</span><span class="va">.</span>,population<span class="op">=</span><span class="va">v4_0</span><span class="op">)</span></code></pre></div>
 <p>For this analysis, we will keep the number of deaths for all ages and both genders in each year and region.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="kw">ons_midyear_pop_total</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="kw">ons_midyear_pop</span>,<span class="kw">age</span><span class="op">==</span><span class="st">"Total"</span><span class="op">&amp;</span><span class="kw">sex</span><span class="op">==</span><span class="st">"All"</span>) <span class="op">%&gt;%</span>
-  <span class="fu">select</span>(<span class="kw">.</span>,<span class="kw">population</span>,<span class="kw">calendar_years</span>,<span class="kw">admin_geography</span>) <span class="op">%&gt;%</span>
-  <span class="fu">arrange</span>(<span class="kw">.</span>,<span class="kw">admin_geography</span>,<span class="fu">desc</span>(<span class="kw">calendar_years</span>))
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ons_midyear_pop_total</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">ons_midyear_pop</span>,<span class="va">age</span><span class="op">==</span><span class="st">"Total"</span><span class="op">&amp;</span><span class="va">sex</span><span class="op">==</span><span class="st">"All"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">select</span><span class="op">(</span><span class="va">.</span>,<span class="va">population</span>,<span class="va">calendar_years</span>,<span class="va">admin_geography</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">arrange</span><span class="op">(</span><span class="va">.</span>,<span class="va">admin_geography</span>,<span class="fu">desc</span><span class="op">(</span><span class="va">calendar_years</span><span class="op">)</span><span class="op">)</span>
 
-<span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">ons_midyear_pop_total</span>, <span class="fl">10</span>))
-</pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ons_midyear_pop_total</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="pop_table.PNG" width="50%"></p>
 </div>
 <div id="import-and-clean-deaths-dataset" class="section level2">
 <h2 class="hasAnchor">
 <a href="#import-and-clean-deaths-dataset" class="anchor"></a>Import and clean deaths dataset</h2>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="kw">ons_weekly_deaths_region</span> <span class="op">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"clean"</span>,<span class="st">"ons"</span>,<span class="st">"weekly-deaths-region"</span>,<span class="st">"2010-19"</span>,<span class="st">"weekly-deaths-region-v1.csv"</span>), header=<span class="fl">TRUE</span>, sep=<span class="st">","</span>, check.names=<span class="fl">TRUE</span>) <span class="op">%&gt;%</span>
-  <span class="fu">rename</span>(<span class="kw">.</span>,nr_deaths=<span class="kw">v4_1</span>) <span class="op">%&gt;%</span>
-  <span class="fu">arrange</span>(<span class="kw">.</span>,<span class="kw">admin_geography</span>,<span class="fu">desc</span>(<span class="kw">calendar_years</span>))
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ons_weekly_deaths_region</span> <span class="op">&lt;-</span> <span class="fu">fread</span><span class="op">(</span><span class="fu">here</span><span class="op">(</span><span class="st">"data"</span>,<span class="st">"clean"</span>,<span class="st">"ons"</span>,<span class="st">"weekly-deaths-region"</span>,<span class="st">"2010-19"</span>,<span class="st">"weekly-deaths-region-v1.csv"</span><span class="op">)</span>, header<span class="op">=</span><span class="cn">TRUE</span>, sep<span class="op">=</span><span class="st">","</span>, check.names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">rename</span><span class="op">(</span><span class="va">.</span>,nr_deaths<span class="op">=</span><span class="va">v4_1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">arrange</span><span class="op">(</span><span class="va">.</span>,<span class="va">admin_geography</span>,<span class="fu">desc</span><span class="op">(</span><span class="va">calendar_years</span><span class="op">)</span><span class="op">)</span>
 
-<span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">ons_weekly_deaths_region</span>, <span class="fl">10</span>))
-</pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ons_weekly_deaths_region</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="pop_deaths.PNG" width="50%"></p>
 <p>This data is currently presented as a weekly time series, with one row per week. We will aggregate it into a yearly time series, thus matching the ONS population dataset.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="kw">ons_weekly_deaths_region</span> <span class="op">&lt;-</span> <span class="fu">as.data.table</span>(<span class="kw">ons_weekly_deaths_region</span>)
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ons_weekly_deaths_region</span> <span class="op">&lt;-</span> <span class="fu">as.data.table</span><span class="op">(</span><span class="va">ons_weekly_deaths_region</span><span class="op">)</span>
 
-<span class="kw">ons_weekly_deaths_region_annual</span> <span class="op">&lt;-</span> <span class="kw">ons_weekly_deaths_region</span>[, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-  geography  = <span class="fu">first</span>(<span class="kw">geography</span>),
-  nr_deaths=<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">nr_deaths</span>,na.rm=<span class="fl">TRUE</span>)),
-                         by = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">calendar_years</span>,<span class="kw">admin_geography</span>)]
+<span class="va">ons_weekly_deaths_region_annual</span> <span class="op">&lt;-</span> <span class="va">ons_weekly_deaths_region</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  geography  <span class="op">=</span> <span class="fu">first</span><span class="op">(</span><span class="va">geography</span><span class="op">)</span>,
+  nr_deaths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">nr_deaths</span>,na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
+                         by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">calendar_years</span>,<span class="va">admin_geography</span><span class="op">)</span><span class="op">]</span>
 
-<span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">ons_weekly_deaths_region_annual</span>, <span class="fl">10</span>))
-</pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ons_weekly_deaths_region_annual</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="pop_deaths_aggregate.PNG" width="50%"></p>
 </div>
 <div id="merge-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#merge-datasets" class="anchor"></a>Merge datasets</h2>
 <p>We are now ready to merge our population data into our deaths data, which will allow us to compute a new variable: the death rate per 100,000 residents for a given region and year.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="kw">ons_weekly_deaths_region_annual</span> <span class="op">&lt;-</span> <span class="fu">left_join</span>(<span class="kw">ons_weekly_deaths_region_annual</span>,
-                                             <span class="kw">ons_midyear_pop_total</span>,
-                                             by=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"calendar_years"</span> = <span class="st">"calendar_years"</span>,
-                                                  <span class="st">"admin_geography"</span> = <span class="st">"admin_geography"</span>))
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ons_weekly_deaths_region_annual</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">ons_weekly_deaths_region_annual</span>,
+                                             <span class="va">ons_midyear_pop_total</span>,
+                                             by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"calendar_years"</span> <span class="op">=</span> <span class="st">"calendar_years"</span>,
+                                                  <span class="st">"admin_geography"</span> <span class="op">=</span> <span class="st">"admin_geography"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="kw">ons_weekly_deaths_region_annual</span> <span class="op">&lt;-</span> <span class="fu">mutate</span>(<span class="kw">ons_weekly_deaths_region_annual</span>,
-                                          deaths_per_100K=<span class="kw">nr_deaths</span><span class="op">/</span><span class="kw">population</span><span class="op">*</span><span class="fl">100000</span>)
+<span class="va">ons_weekly_deaths_region_annual</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">ons_weekly_deaths_region_annual</span>,
+                                          deaths_per_100K<span class="op">=</span><span class="va">nr_deaths</span><span class="op">/</span><span class="va">population</span><span class="op">*</span><span class="fl">100000</span><span class="op">)</span>
 
-<span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">ons_weekly_deaths_region_annual</span>, <span class="fl">10</span>))
-</pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ons_weekly_deaths_region_annual</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="merged_table.PNG" width="50%"></p>
 </div>
 <div id="present-results-in-a-chart" class="section level2">
 <h2 class="hasAnchor">
 <a href="#present-results-in-a-chart" class="anchor"></a>Present results in a chart</h2>
 <p>Having used the <code>monstR</code> package to download our required ONS tables and processed the data, we are ready to display the mortality rate by year according to region.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="kw">ons_weekly_deaths_region_annual</span><span class="op">$</span><span class="kw">bold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="kw">ons_weekly_deaths_region_annual</span><span class="op">$</span><span class="kw">geography</span><span class="op">==</span><span class="st">"England and Wales"</span>,<span class="fl">1</span>,<span class="fl">0</span>)
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ons_weekly_deaths_region_annual</span><span class="op">$</span><span class="va">bold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">ons_weekly_deaths_region_annual</span><span class="op">$</span><span class="va">geography</span><span class="op">==</span><span class="st">"England and Wales"</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>
 
-<span class="fu">ggplot</span>(<span class="kw">ons_weekly_deaths_region_annual</span>,
-                    <span class="fu">aes</span>(x=<span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">calendar_years</span>), y=<span class="kw">deaths_per_100K</span>, group=<span class="kw">geography</span>)) <span class="op">+</span>
-  <span class="fu">geom_line</span>(<span class="fu">aes</span>(color=<span class="kw">geography</span>,size = <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">bold</span>)))<span class="op">+</span>
-  <span class="fu">geom_point</span>(<span class="fu">aes</span>(color=<span class="kw">geography</span>)) <span class="op">+</span>
-  <span class="fu">theme</span>(text = <span class="fu">element_text</span>(size = <span class="fl">10</span>),
-        panel.border = <span class="fu">element_blank</span>(),
-        panel.grid.major = <span class="fu">element_blank</span>(),
-        panel.grid.minor = <span class="fu">element_blank</span>(),
-        panel.background = <span class="fu">element_blank</span>(),
-        legend.key=<span class="fu">element_blank</span>()) <span class="op">+</span>
-  <span class="fu">ggtitle</span>(<span class="st">"Mortality rate by region in England and Wales"</span>) <span class="op">+</span>
-  <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="op">+</span> <span class="fu">ylab</span>(<span class="st">"Number of deaths per 100,000"</span>) <span class="op">+</span>
-  <span class="fu">scale_color_brewer</span>(palette=<span class="st">"Set3"</span>,name = <span class="st">"Region"</span>) <span class="op">+</span>
-  <span class="fu">scale_size_manual</span>(values = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.5</span>,<span class="fl">1.25</span>),guide = <span class="st">"none"</span>) <span class="op">+</span>
-  <span class="fu">scale_y_continuous</span>(labels = <span class="fu">function</span>(<span class="kw">x</span>) <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span>(<span class="kw">x</span>, big.mark = <span class="st">","</span>,
-                                                 scientific = <span class="fl">FALSE</span>))
-</pre></div>
+<span class="fu">ggplot</span><span class="op">(</span><span class="va">ons_weekly_deaths_region_annual</span>,
+                    <span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">calendar_years</span><span class="op">)</span>, y<span class="op">=</span><span class="va">deaths_per_100K</span>, group<span class="op">=</span><span class="va">geography</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>color<span class="op">=</span><span class="va">geography</span>,size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">bold</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>color<span class="op">=</span><span class="va">geography</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
+        panel.border <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+        panel.grid.major <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+        panel.grid.minor <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+        panel.background <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+        legend.key<span class="op">=</span><span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Mortality rate by region in England and Wales"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Year"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Number of deaths per 100,000"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_color_brewer</span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Set3"</span>,name <span class="op">=</span> <span class="st">"Region"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_size_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">1.25</span><span class="op">)</span>,guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_y_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">x</span>, big.mark <span class="op">=</span> <span class="st">","</span>,
+                                                 scientific <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="mortality_by_region.png" width="50%"></p>
 </div>
   </div>
@@ -316,7 +303,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

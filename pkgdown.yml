@@ -1,6 +1,8 @@
 pandoc: 2.7.3
-pkgdown: 1.6.0
+pkgdown: 1.6.1
 pkgdown_sha: ~
-articles: []
-last_built: 2020-09-09T13:45Z
+articles:
+  mortality-rate-using-population-and-deaths: mortality-rate-using-population-and-deaths.html
+  pipeline: pipeline.html
+last_built: 2020-11-10T18:57Z
 
