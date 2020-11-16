@@ -20,6 +20,7 @@ monstr_pipeline_defaults <- function(download_root="") {
         metadata$download_root = here::here() # TODO here supposedly for
                                             # interactive use?
     }
+    metadata$download_root = download_root
     metadata
 }
 
