@@ -84,7 +84,7 @@ The monstrR Open Data Pipeline is designed to work well with tidyverse and in pa
 
 ## Authors
 * **Neale Swinnerton** -  [Github](https://github.com/sw1nn)
-* **Emma vestesson** -  [Github](https://github.com/emmavestesson) [Twitter](https://twitter.com/Gummifot)
+* **Emma Vestesson** -  [Github](https://github.com/emmavestesson) [Twitter](https://twitter.com/Gummifot)
 
 ## License
 
