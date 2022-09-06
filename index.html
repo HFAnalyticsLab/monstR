@@ -30,6 +30,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -42,23 +44,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">monstR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -85,26 +81,25 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="monstr---making-ons-tables-readable-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#monstr---making-ons-tables-readable-" class="anchor"></a>monstR - making ONS tables readable <a><img src="reference/figures/monstR_sticker.png" align="right" height="139"></a>
+<div class="section level1">
+<div class="page-header"><h1 id="monstr---making-ons-tables-readable-">monstR - making ONS tables readable <a><img src="reference/figures/monstR_sticker.png" align="right" height="139"></a>
+<a class="anchor" aria-label="anchor" href="#monstr---making-ons-tables-readable-"></a>
 </h1></div>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-<p><img src="https://github.com/HFAnalyticsLab/Open_data_pipelines/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></p>
-<div id="project-status-in-progress" class="section level4">
-<h4 class="hasAnchor">
-<a href="#project-status-in-progress" class="anchor"></a>Project Status: in progress</h4>
+<div class="figure">
+<img src="https://github.com/HFAnalyticsLab/Open_data_pipelines/workflows/R-CMD-check/badge.svg" alt=""><p class="caption">R-CMD-check</p>
 </div>
-<div id="project-description" class="section level2">
-<h2 class="hasAnchor">
-<a href="#project-description" class="anchor"></a>Project Description</h2>
+<div class="section level4"><h4 id="project-status-in-progress">Project Status: in progress<a class="anchor" aria-label="anchor" href="#project-status-in-progress"></a>
+</h4></div>
+<div class="section level2">
+<h2 id="project-description">Project Description<a class="anchor" aria-label="anchor" href="#project-description"></a>
+</h2>
 <p>This package is a part of our open-source R pipeline to download and clean public data related to health and social care. The aim is to provide analysts, primarily at the Health Foundation, with clean and ready for analysis data.</p>
 </div>
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p>monstR - making ONS tables readable is a package that queries the <a href="https://developer.beta.ons.gov.uk/">Office for National Statistics (ONS) API</a> to download data. It can be used to retrieve publically available data and meta data from the ONS.</p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>monstR - making ONS tables readable is a package that queries the <a href="https://developer.beta.ons.gov.uk/" class="external-link">Office for National Statistics (ONS) API</a> to download data. It can be used to retrieve publically available data and meta data from the ONS.</p>
 <ul>
 <li>
 <code><a href="reference/ons_available_datasets.html">ons_available_datasets()</a></code> returns information about available datasets</li>
@@ -117,9 +112,9 @@
 </ul>
 <p>Please note that the ONS API that this package relies on is in beta and it might change.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>If you have cloned a local copy of the repo, you should be able to load it using devtools</p>
 <pre>
 <!-- use a pre to allow italics, urrgh -->
@@ -128,38 +123,37 @@ setwd("<i>{location of monstR repo}</i>")
 devtools::load_all()
 </pre>
 <p>or to install direct from Github</p>
-<pre><code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("HFAnalyticsLab/monstR", build_vignettes = TRUE )</a></code></pre>
+<pre><code><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"HFAnalyticsLab/monstR"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span> <span class="op">)</span></span></code></pre>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <p>This is an example of how to download weekly mortality data by region. Note that this will create folders and download data.</p>
-<pre><code>monstr_pipeline_defaults() %&gt;%  # Uses the monstr 'standards' for location and format
-  ons_datasets_setup() %&gt;% 
-    ons_dataset_by_id("weekly-deaths-region") %&gt;%
-    ons_download(format="csv") %&gt;%
-    monstr_read_file() %&gt;%  
-    monstr_clean() %&gt;%
-    monstr_write_clean(format="all")
-</code></pre>
+<pre><code><span><span class="fu"><a href="reference/monstr_pipeline_defaults.html">monstr_pipeline_defaults</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>  <span class="co"># Uses the monstr 'standards' for location and format</span></span>
+<span>  <span class="fu"><a href="reference/ons_datasets_setup.html">ons_datasets_setup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="reference/ons_dataset_by_id.html">ons_dataset_by_id</a></span><span class="op">(</span><span class="st">"weekly-deaths-region"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="reference/ons_download.html">ons_download</a></span><span class="op">(</span>format<span class="op">=</span><span class="st">"csv"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="reference/monstr_read_file.html">monstr_read_file</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>  </span>
+<span>    <span class="fu"><a href="reference/monstr_clean.html">monstr_clean</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="reference/monstr_write_clean.html">monstr_write_clean</a></span><span class="op">(</span>format<span class="op">=</span><span class="st">"all"</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="resources" class="section level2">
-<h2 class="hasAnchor">
-<a href="#resources" class="anchor"></a>Resources</h2>
-<div id="online-documentation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#online-documentation" class="anchor"></a>Online documentation</h3>
-<p>You can find the help pages at <a href="https://hfanalyticslab.github.io/monstR/" class="uri">https://hfanalyticslab.github.io/monstR/</a>.</p>
+<div class="section level2">
+<h2 id="resources">Resources<a class="anchor" aria-label="anchor" href="#resources"></a>
+</h2>
+<div class="section level3">
+<h3 id="online-documentation">Online documentation<a class="anchor" aria-label="anchor" href="#online-documentation"></a>
+</h3>
+<p>You can find the help pages at <a href="https://hfanalyticslab.github.io/monstR/" class="external-link uri">https://hfanalyticslab.github.io/monstR/</a>.</p>
 </div>
 </div>
-<div id="questions-and-bug-reports" class="section level2">
-<h2 class="hasAnchor">
-<a href="#questions-and-bug-reports" class="anchor"></a>Questions and bug reports</h2>
+<div class="section level2">
+<h2 id="questions-and-bug-reports">Questions and bug reports<a class="anchor" aria-label="anchor" href="#questions-and-bug-reports"></a>
+</h2>
 <p>This is a package under active development and we would love for you to contribute or flag any issues you might find.</p>
-<p>You can ask questions or flag a bug by <a href="https://github.com/HFAnalyticsLab/monstR/issues">filing an issue</a>. We are more likely to be able to help you if we can reproduce your issue. The <code>reprex</code> package is a good way of producing a minimal reproducible package and <a href="https://www.jessemaegan.com/post/so-you-ve-been-asked-to-make-a-reprex/">So you’ve been asked to make a reprex</a> will help you get started.</p>
-<div id="contributing-to-the-package-development" class="section level3">
-<h3 class="hasAnchor">
-<a href="#contributing-to-the-package-development" class="anchor"></a>Contributing to the package development</h3>
+<p>You can ask questions or flag a bug by <a href="https://github.com/HFAnalyticsLab/monstR/issues" class="external-link">filing an issue</a>. We are more likely to be able to help you if we can reproduce your issue. The <code>reprex</code> package is a good way of producing a minimal reproducible package and <a href="https://www.jessemaegan.com/post/so-you-ve-been-asked-to-make-a-reprex/" class="external-link">So you’ve been asked to make a reprex</a> will help you get started.</p>
+<div class="section level3">
+<h3 id="contributing-to-the-package-development">Contributing to the package development<a class="anchor" aria-label="anchor" href="#contributing-to-the-package-development"></a>
+</h3>
 <p>We aim to make the documentation as comprehensive as possible. Please contribute examples or suggest improvements to the documentation.</p>
 <p>If you have written a function that you think should be added to the package, or improved an existing function, please submit a pull request that includes:</p>
 <ul>
@@ -169,95 +163,104 @@ devtools::load_all()
 </ul>
 </div>
 </div>
-<div id="design-principles" class="section level2">
-<h2 class="hasAnchor">
-<a href="#design-principles" class="anchor"></a>Design Principles</h2>
-<p>The monstrR Open Data Pipeline is designed to work well with tidyverse and in particular within pipelines created by the <code><a href="reference/%&gt;%.html">%&gt;%</a></code> pipe operator. With this in mind, most functions take a data structure in the first argument and return a data structure which has been augmented in some way. Typically this is metadata about the actual data, although once the data has been cleaned it can be accessed using <code><a href="reference/monstr_data.html">monstr_data(metadata)</a></code> to get at a tidyverse tibble of the data.</p>
+<div class="section level2">
+<h2 id="design-principles">Design Principles<a class="anchor" aria-label="anchor" href="#design-principles"></a>
+</h2>
+<p>The monstrR Open Data Pipeline is designed to work well with tidyverse and in particular within pipelines created by the <code>%&gt;%</code> pipe operator. With this in mind, most functions take a data structure in the first argument and return a data structure which has been augmented in some way. Typically this is metadata about the actual data, although once the data has been cleaned it can be accessed using <code>monstr_data(metadata)</code> to get at a tidyverse tibble of the data.</p>
 </div>
-<div id="authors" class="section level2">
-<h2 class="hasAnchor">
-<a href="#authors" class="anchor"></a>Authors</h2>
+<div class="section level2">
+<h2 id="authors">Authors<a class="anchor" aria-label="anchor" href="#authors"></a>
+</h2>
 <ul>
 <li>
-<strong>Neale Swinnerton</strong> - <a href="https://github.com/sw1nn">Github</a>
+<strong>Neale Swinnerton</strong> - <a href="https://github.com/sw1nn" class="external-link">Github</a>
 </li>
 <li>
-<strong>Emma Vestesson</strong> - <a href="https://github.com/emmavestesson">Github</a> <a href="https://twitter.com/Gummifot">Twitter</a>
+<strong>Emma vestesson</strong> - <a href="https://github.com/emmavestesson" class="external-link">Github</a> <a href="https://twitter.com/Gummifot" class="external-link">Twitter</a>
 </li>
 </ul>
 </div>
-<div id="license" class="section level2">
-<h2 class="hasAnchor">
-<a href="#license" class="anchor"></a>License</h2>
-<p>This project is licensed under the <a href="https://github.com/HFAnalyticsLab/monstR/blob/master/LICENSE">MIT License</a>.</p>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
+<p>This project is licensed under the <a href="https://github.com/HFAnalyticsLab/monstR/blob/master/LICENSE" class="external-link">MIT License</a>.</p>
 </div>
-<div id="contributors-" class="section level2">
-<h2 class="hasAnchor">
-<a href="#contributors-" class="anchor"></a>Contributors ✨</h2>
-<p>Thanks goes to these wonderful people (<a href="https://allcontributors.org/docs/en/emoji-key">emoji key</a>):</p>
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table class="table"><tr>
+<div class="section level2">
+<h2 id="contributors-">Contributors ✨<a class="anchor" aria-label="anchor" href="#contributors-"></a>
+</h2>
+<p>Thanks goes to these wonderful people (<a href="https://allcontributors.org/docs/en/emoji-key" class="external-link">emoji key</a>):</p>
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section --><!-- prettier-ignore-start --><!-- markdownlint-disable --><table class="table"><tr>
 <td align="center">
-<a href="https://emmavestesson.netlify.com/"><img src="https://avatars2.githubusercontent.com/u/31949401?v=4" width="100px;" alt=""><br><sub><b>Emma Vestesson</b></sub></a><br><a href="#ideas-emmavestesson" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#content-emmavestesson" title="Content">🖋</a> <a href="https://github.com/HFAnalyticsLab/monstR/commits?author=emmavestesson" title="Documentation">📖</a>
+<a href="https://emmavestesson.netlify.com/" class="external-link"><img src="https://avatars2.githubusercontent.com/u/31949401?v=4" width="100px;" alt=""><br><sub><b>Emma Vestesson</b></sub></a><br><a href="#ideas-emmavestesson" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#content-emmavestesson" title="Content">🖋</a> <a href="https://github.com/HFAnalyticsLab/monstR/commits?author=emmavestesson" title="Documentation" class="external-link">📖</a>
 </td>
 <td align="center">
-<a href="https://www.strategyunitwm.nhs.uk/"><img src="https://avatars1.githubusercontent.com/u/12023696?v=4" width="100px;" alt=""><br><sub><b>Tom Jemmett</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3Atomjemmett" title="Bug reports">🐛</a>
+<a href="https://www.strategyunitwm.nhs.uk/" class="external-link"><img src="https://avatars1.githubusercontent.com/u/12023696?v=4" width="100px;" alt=""><br><sub><b>Tom Jemmett</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3Atomjemmett" title="Bug reports" class="external-link">🐛</a>
 </td>
 <td align="center">
-<a href="https://github.com/JohnHC86"><img src="https://avatars1.githubusercontent.com/u/12610020?v=4" width="100px;" alt=""><br><sub><b>JohnHC86</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3AJohnHC86" title="Bug reports">🐛</a>
+<a href="https://github.com/JohnHC86" class="external-link"><img src="https://avatars1.githubusercontent.com/u/12610020?v=4" width="100px;" alt=""><br><sub><b>JohnHC86</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3AJohnHC86" title="Bug reports" class="external-link">🐛</a>
 </td>
 <td align="center">
-<a href="http://sw1nn.com"><img src="https://avatars1.githubusercontent.com/u/373335?v=4" width="100px;" alt=""><br><sub><b>Neale Swinnerton</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/commits?author=sw1nn" title="Code">💻</a>
+<a href="http://sw1nn.com" class="external-link"><img src="https://avatars1.githubusercontent.com/u/373335?v=4" width="100px;" alt=""><br><sub><b>Neale Swinnerton</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/commits?author=sw1nn" title="Code" class="external-link">💻</a>
 </td>
 <td align="center">
-<a href="https://github.com/fiona-grimm"><img src="https://avatars1.githubusercontent.com/u/31844347?v=4" width="100px;" alt=""><br><sub><b>fiona-grimm</b></sub></a><br><a href="#ideas-fiona-grimm" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#design-fiona-grimm" title="Design">🎨</a>
+<a href="https://github.com/fiona-grimm" class="external-link"><img src="https://avatars1.githubusercontent.com/u/31844347?v=4" width="100px;" alt=""><br><sub><b>fiona-grimm</b></sub></a><br><a href="#ideas-fiona-grimm" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#design-fiona-grimm" title="Design">🎨</a>
 </td>
 <td align="center">
-<a href="https://github.com/SimonCRUK"><img src="https://avatars2.githubusercontent.com/u/58686505?v=4" width="100px;" alt=""><br><sub><b>SimonCRUK</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3ASimonCRUK" title="Bug reports">🐛</a>
+<a href="https://github.com/SimonCRUK" class="external-link"><img src="https://avatars2.githubusercontent.com/u/58686505?v=4" width="100px;" alt=""><br><sub><b>SimonCRUK</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3ASimonCRUK" title="Bug reports" class="external-link">🐛</a>
 </td>
 <td align="center">
-<a href="https://github.com/Lextuga007"><img src="https://avatars0.githubusercontent.com/u/39963221?v=4" width="100px;" alt=""><br><sub><b>Zoe Turner</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3ALextuga007" title="Bug reports">🐛</a>
+<a href="https://github.com/Lextuga007" class="external-link"><img src="https://avatars0.githubusercontent.com/u/39963221?v=4" width="100px;" alt=""><br><sub><b>Zoe Turner</b></sub></a><br><a href="https://github.com/HFAnalyticsLab/monstR/issues?q=author%3ALextuga007" title="Bug reports" class="external-link">🐛</a>
 </td>
 </tr></table>
-<!-- markdownlint-enable --><!-- prettier-ignore-end --><!-- ALL-CONTRIBUTORS-LIST:END --><p>This project follows the <a href="https://github.com/all-contributors/all-contributors">all-contributors</a> specification. Contributions of any kind welcome!</p>
+<!-- markdownlint-enable --><!-- prettier-ignore-end --><!-- ALL-CONTRIBUTORS-LIST:END --><p>This project follows the <a href="https://github.com/all-contributors/all-contributors" class="external-link">all-contributors</a> specification. Contributions of any kind welcome!</p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Neale Swinnerton <br><small class="roles"> Author </small>  </li>
-<li>Emma Vestesson <br><small class="roles"> Maintainer, contributor </small> <a href="https://orcid.org/0000-0002-7284-9172" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing monstR</a></li>
+</ul>
+</div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Neale Swinnerton <br><small class="roles"> Author </small>  </li>
+<li>Emma Vestesson <br><small class="roles"> Maintainer, contributor </small> <a href="https://orcid.org/0000-0002-7284-9172" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square" alt="All Contributors"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Neale Swinnerton, Emma Vestesson.</p>
+  <p></p>
+<p>Developed by Neale Swinnerton, Emma Vestesson.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -265,6 +268,8 @@ devtools::load_all()
 
   
 
+
+  
 
   </body>
 </html>
